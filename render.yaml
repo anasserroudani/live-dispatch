@@ -1,0 +1,12 @@
+# Render.com blueprint — lets Render set the whole thing up in one click.
+# See DEPLOY.md for the step-by-step guide.
+services:
+  - type: web
+    name: live-dispatch
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn wsgi:app --bind 0.0.0.0:$PORT --workers 1 --timeout 120
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.13.3"

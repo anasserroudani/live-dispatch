@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Live Dispatch">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0e8f7e"/>
+      <stop offset="1" stop-color="#0b6f62"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd27a"/>
+      <stop offset="1" stop-color="#e59a2b"/>
+    </linearGradient>
+  </defs>
+  <!-- rounded app-icon tile -->
+  <rect x="16" y="16" width="480" height="480" rx="112" fill="url(#sky)"/>
+  <!-- rising sun -->
+  <circle cx="256" cy="300" r="96" fill="url(#sun)"/>
+  <!-- sun rays -->
+  <g stroke="#ffd27a" stroke-width="18" stroke-linecap="round" opacity="0.95">
+    <line x1="256" y1="150" x2="256" y2="110"/>
+    <line x1="148" y1="192" x2="120" y2="164"/>
+    <line x1="364" y1="192" x2="392" y2="164"/>
+    <line x1="120" y1="300" x2="86"  y2="300"/>
+    <line x1="392" y1="300" x2="426" y2="300"/>
+  </g>
+  <!-- horizon line = the "dispatch" baseline -->
+  <rect x="96" y="360" width="320" height="20" rx="10" fill="#ffffff" opacity="0.95"/>
+  <rect x="150" y="398" width="212" height="16" rx="8" fill="#ffffff" opacity="0.55"/>
+  <!-- live dot -->
+  <circle cx="392" cy="150" r="26" fill="#ff5a5a" stroke="#ffffff" stroke-width="8"/>
+</svg>

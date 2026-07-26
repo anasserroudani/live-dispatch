@@ -1,0 +1,6 @@
+venv/
+__pycache__/
+*.pyc
+dispatch.db
+server.log
+share/

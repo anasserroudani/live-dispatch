@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Live Dispatch</title>
+<link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='icon.svg') }}">
+<link rel="apple-touch-icon" href="{{ url_for('static', filename='icon.svg') }}">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Dispatch">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101a20" media="(prefers-color-scheme: dark)">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script>
+  // apply saved theme before first paint to avoid a flash
+  (function(){ var t = localStorage.getItem('theme');
+    if (t) document.documentElement.setAttribute('data-theme', t); })();
+</script>
+</head>
+<body>
+
+<header class="masthead">
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle light or dark">
+    <span class="t-sun">☀</span><span class="t-moon">☾</span>
+  </button>
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
+      <circle cx="32" cy="38" r="15" fill="url(#g1)"/>
+      <g stroke="var(--amber)" stroke-width="3" stroke-linecap="round">
+        <line x1="32" y1="15" x2="32" y2="8"/>
+        <line x1="14" y1="22" x2="9" y2="17"/>
+        <line x1="50" y1="22" x2="55" y2="17"/>
+      </g>
+      <rect x="12" y="46" width="40" height="3.4" rx="1.7" fill="var(--brand)"/>
+      <rect x="19" y="53" width="26" height="3" rx="1.5" fill="var(--brand)" opacity="0.5"/>
+      <circle cx="50" cy="14" r="4" fill="#ff5a5a"/>
+      <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffd27a"/><stop offset="1" stop-color="var(--amber)"/>
+      </linearGradient></defs>
+    </svg>
+    <div class="brand-text">
+      <div class="kicker">{{ today }} · Road to political wisdom · by Anass</div>
+      <h1>Live Dispatch</h1>
+    </div>
+  </div>
+  <p class="tagline">The news, with its history attached — and a little room for hope.</p>
+  <div class="status">
+    <span class="dot"></span>
+    {% if static_build %}
+      news snapshot from {{ today }} · the Learn &amp; Connect sections are always current
+    {% else %}
+      updated {{ last_refresh or 'just now' }} · auto-refreshes every {{ refresh_minutes }} min
+      <form action="{{ url_for('refresh_now') }}" method="post" style="display:inline">
+        <button class="refresh-btn" type="submit">↻ refresh</button>
+      </form>
+    {% endif %}
+  </div>
+  {% if not static_build %}
+  <form class="search-bar" action="{{ url_for('search') }}" method="get">
+    <input type="search" name="q" placeholder="search all cached stories…" autocomplete="off">
+    <button type="submit" aria-label="Search">search</button>
+  </form>
+  {% endif %}
+</header>
+
+<nav id="tabnav">
+  {% for r in regions %}
+  <button data-tab="{{ r.id }}" {% if loop.first %}class="active"{% endif %}>{{ r.title }}</button>
+  {% endfor %}
+  <button data-tab="perspectives">Perspectives</button>
+  <button data-tab="learn">Learn</button>
+  <button data-tab="connect">Connect</button>
+</nav>
+
+<main>
+
+  {# ---- Region news panels ---- #}
+  {% for r in regions %}
+  <section id="{{ r.id }}" class="panel {% if loop.first %}active{% endif %} region-{{ r.id }}">
+    <div class="region">
+      <h2 class="section-head">{{ r.title }} <span class="tag">{{ r.tag }}</span></h2>
+      {% if r.articles %}
+        {% for a in r.articles %}
+        <article class="story{% if a.hopeful %} hopeful{% endif %}">
+          {% if a.hopeful %}<span class="glimmer" title="A de-escalation / hope story">◗ glimmer</span>{% endif %}
+          <h3><a href="{{ a.link }}" target="_blank" rel="noopener noreferrer">{{ a.title }}</a></h3>
+          {% if a.snippet %}<p>{{ a.snippet }}</p>{% endif %}
+          <span class="src">{{ a.source }}{% if a.note %} · {{ a.note }}{% endif %}{% if a.ago %} · {{ a.ago }}{% endif %}</span>
+        </article>
+        {% endfor %}
+      {% else %}
+        <p class="empty">No stories cached yet for this section — the next refresh will fill it in.</p>
+      {% endif %}
+    </div>
+  </section>
+  {% endfor %}
+
+  {# ---- Perspectives ---- #}
+  <section id="perspectives" class="panel">
+    {% if top_story %}
+    <div class="top-story">
+      <div class="top-story-label">Today's lead story across newsrooms · <strong>{{ top_story.label }}</strong></div>
+      {% for a in top_story.stories %}
+      <div class="ts-item">
+        <span class="ts-outlet">{{ a.source }}{% if a.note %} · {{ a.note }}{% endif %}</span>
+        <a href="{{ a.link }}" target="_blank" rel="noopener noreferrer">{{ a.title }}</a>
+        {% if a.ago %}<span class="ts-ago">{{ a.ago }}</span>{% endif %}
+      </div>
+      {% endfor %}
+      <div class="ts-hint">Same event, {{ top_story.stories|length }} outlets — notice what each leads with, and what each leaves out. Full context below.</div>
+    </div>
+    {% endif %}
+    <div class="prose perspectives-body">
+      {{ perspectives_html|safe }}
+    </div>
+  </section>
+
+  {# ---- Learn ---- #}
+  <section id="learn" class="panel">
+    <div class="learn-nav">
+      <button class="learn-btn active" data-sub="explainers">Explainers</button>
+      <button class="learn-btn" data-sub="timelines">Timelines</button>
+      <button class="learn-btn" data-sub="glossary">Glossary</button>
+      <button class="learn-btn" data-sub="recaps">How we got here</button>
+    </div>
+
+    <div id="explainers" class="subpanel active">
+      {% for d in explainers %}
+      <div class="card prose">{{ d.html|safe }}</div>
+      {% endfor %}
+    </div>
+
+    <div id="timelines" class="subpanel">
+      {% for d in timelines %}
+      <div class="card prose timeline">{{ d.html|safe }}</div>
+      {% endfor %}
+    </div>
+
+    <div id="glossary" class="subpanel">
+      <div class="card prose glossary">{{ glossary_html|safe }}</div>
+    </div>
+
+    <div id="recaps" class="subpanel">
+      <div class="card prose">{{ recaps_html|safe }}</div>
+    </div>
+  </section>
+
+  {# ---- Connect (the horizontal / connective layer) ---- #}
+  <section id="connect" class="panel">
+    <div class="conn-nav">
+      <button class="conn-btn active" data-conn="conn-map">The Map</button>
+      <button class="conn-btn" data-conn="conn-threads">The Threads</button>
+      <button class="conn-btn" data-conn="conn-actors">The Actors</button>
+      <button class="conn-btn" data-conn="conn-toolkit">Analyst's Toolkit</button>
+    </div>
+
+    <div id="conn-map" class="connpanel active">
+      <div class="card prose">{{ connections_html|safe }}</div>
+
+      <div class="board">
+        <div class="hub h-iran">
+          <div class="hub-name">Iran</div>
+          <div class="hub-role">funds &amp; arms the “Axis of Resistance”</div>
+          <div class="chips">
+            <span class="chip">Hezbollah · Lebanon</span>
+            <span class="chip">Hamas · Gaza</span>
+            <span class="chip">Houthis · Yemen</span>
+            <span class="chip">Iraqi militias</span>
+          </div>
+        </div>
+        <div class="hub h-russia">
+          <div class="hub-name">Russia</div>
+          <div class="hub-role">energy lever + deniable force abroad</div>
+          <div class="chips">
+            <span class="chip">Ukraine</span>
+            <span class="chip">Syria (ally lost ’24)</span>
+            <span class="chip">Wagner · the Sahel</span>
+            <span class="chip">gas → Europe</span>
+          </div>
+        </div>
+        <div class="hub h-us">
+          <div class="hub-name">United States</div>
+          <div class="hub-role">backs allies, guards sea lanes</div>
+          <div class="chips">
+            <span class="chip">Israel</span>
+            <span class="chip">Gulf states</span>
+            <span class="chip">Morocco · Sahara</span>
+            <span class="chip">Ukraine</span>
+          </div>
+        </div>
+        <div class="hub h-china">
+          <div class="hub-name">China</div>
+          <div class="hub-role">trade, minerals, infrastructure</div>
+          <div class="chips">
+            <span class="chip">Africa · Belt &amp; Road</span>
+            <span class="chip">Taiwan</span>
+            <span class="chip">chips &amp; minerals</span>
+            <span class="chip">tilts to Russia/Iran</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="board-note">
+        <strong>The threads run through all of them:</strong>
+        energy · minerals · proxy war · colonial legacy · displacement · great-power rivalry.
+        Pick any headline → name the <em>hub</em>, name the <em>thread</em>, find one <em>other</em> conflict that shares them.
+      </p>
+    </div>
+
+    <div id="conn-threads" class="connpanel">
+      {% for d in threads %}
+      <div class="card prose thread">{{ d.html|safe }}</div>
+      {% endfor %}
+    </div>
+
+    <div id="conn-actors" class="connpanel">
+      {% for d in actors %}
+      <div class="card prose actor">{{ d.html|safe }}</div>
+      {% endfor %}
+    </div>
+
+    <div id="conn-toolkit" class="connpanel">
+      <div class="card prose">{{ toolkit_html|safe }}</div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer-note">
+  Headlines, short snippets, source names and outbound links only — no full article text is fetched or stored.
+  Learn &amp; Perspectives content lives in editable text files under <code>content/</code>.
+</footer>
+
+<script>
+// --- main tab switching (remembers your last tab across auto-reloads) ---
+const tabs = document.querySelectorAll('#tabnav button');
+function showTab(id){
+  document.querySelectorAll('#tabnav button').forEach(b=>b.classList.toggle('active', b.dataset.tab===id));
+  document.querySelectorAll('main > .panel').forEach(p=>p.classList.toggle('active', p.id===id));
+  window.scrollTo({top:0, behavior:'instant'});
+}
+tabs.forEach(b=>b.addEventListener('click',()=>{ showTab(b.dataset.tab); localStorage.setItem('tab', b.dataset.tab); }));
+const saved = localStorage.getItem('tab');
+if (saved && document.getElementById(saved)) showTab(saved);
+
+// --- Learn sub-tabs ---
+document.querySelectorAll('.learn-btn').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.learn-btn').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.subpanel').forEach(p=>p.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.sub).classList.add('active');
+}));
+
+// --- Connect sub-tabs ---
+document.querySelectorAll('.conn-btn').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.conn-btn').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.connpanel').forEach(p=>p.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.conn).classList.add('active');
+}));
+
+// --- light / dark toggle ---
+const toggle = document.getElementById('themeToggle');
+toggle.addEventListener('click', ()=>{
+  const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark':'light';
+  const next = cur === 'dark' ? 'light':'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+});
+
+{% if not static_build %}
+// --- gentle auto page reload so new stories appear without you refreshing ---
+setTimeout(()=>location.reload(), 20*60*1000);
+{% endif %}
+</script>
+
+</body>
+</html>
