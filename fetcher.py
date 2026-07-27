@@ -63,7 +63,10 @@ def _fetch_one(feed):
 
     for entry in parsed.entries:
         title = _clean(entry.get("title", ""), limit=200)
-        if not title:
+        # Skip junk: empty, too short, or section/landing pages that some
+        # site: searches return (e.g. "- dvprogram (.gov)", "Region - World").
+        if not title or len(title) < 18 or title.lstrip().startswith("-") \
+                or title.count(" ") < 2 or "(.gov)" in title:
             continue
         summary = _clean(entry.get("summary", entry.get("description", "")))
         link = entry.get("link", "")

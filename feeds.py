@@ -21,6 +21,7 @@ EGYPT = "egypt"
 MOROCCO = "morocco"
 AFRICA = "africa"
 GLOBAL = "global"
+INTEL = "intel"
 SCIENCE = "science"
 BOOKS = "books"
 
@@ -35,6 +36,8 @@ REGIONS = [
      "tag": "politics & security"},
     {"id": GLOBAL, "title": "Great Powers & Global",
      "tag": "US · Europe · Russia · Ukraine · China"},
+    {"id": INTEL, "title": "Intelligence & Agencies",
+     "tag": "official releases · declassified archives · OSINT"},
     {"id": SCIENCE, "title": "Science & Knowledge",
      "tag": "AI · cyber · quantum · physics · maths · space · life"},
     {"id": BOOKS, "title": "Books",
@@ -104,6 +107,20 @@ FEEDS = [
      "default_region": AFRICA, "note": "via Google News"},
     {"name": "Egypt wire",        "url": _gnews("Egypt Sisi OR Cairo OR Egyptian economy when:3d"),
      "default_region": EGYPT, "note": "via Google News"},
+
+    # -- Intelligence & agencies (official public releases + declassified + OSINT) --
+    {"name": "Bellingcat (OSINT)", "url": "https://www.bellingcat.com/feed/",
+     "default_region": INTEL},
+    {"name": "FBI",               "url": "https://www.fbi.gov/feeds/national-press-releases/rss.xml",
+     "default_region": INTEL},
+    {"name": "CIA & spies",       "url": _gnews("CIA OR MI6 OR Mossad OR spy agency when:5d"),
+     "default_region": INTEL, "note": "via Google News"},
+    {"name": "Declassified archive", "url": _gnews("declassified documents OR National Security Archive when:20d"),
+     "default_region": INTEL, "note": "via Google News · archive drops"},
+    {"name": "Intelligence wire", "url": _gnews("intelligence agency OR espionage OR counterintelligence when:4d"),
+     "default_region": INTEL, "note": "via Google News"},
+    {"name": "Diplomacy wire",    "url": _gnews("US State Department OR sanctions statement when:3d"),
+     "default_region": INTEL, "note": "via Google News"},
 
     # -- Science & Knowledge (sub-sorted into topics on the page) --
     {"name": "ScienceDaily",      "url": "https://www.sciencedaily.com/rss/all.xml",
@@ -201,6 +218,13 @@ _WEST_KW = [
 _HOOK_KW = _MIDEAST_KW + _MOROCCO_KW + _AFRICA_KW + [
     "oil", "energy", "china", "chinese", "trade", "sanction", "tariff", "market",
 ]
+# Intelligence / agencies. Spaced tokens so "cia" doesn't match "special" etc.
+_INTEL_KW = [
+    " cia ", "c.i.a", " fbi ", " nsa ", "mi6", "mi5", "mossad", "gru ",
+    "espionage", "declassified", "intelligence agency", "spy agency",
+    "surveillance program", "covert", "interpol", "europol", "counterintelligence",
+    "national security agency", "central intelligence",
+]
 
 
 # Force-drop obvious non-news noise even if it comes from a regional outlet
@@ -250,6 +274,8 @@ def classify(title, summary, default_region):
         return MIDEAST
     if _has(text, _AFRICA_KW):
         return AFRICA
+    if _has(text, _INTEL_KW):
+        return INTEL
     if _has(text, _GREATPOWER_KW):
         return GLOBAL
     if _has(text, _WEST_KW) and _has(text, _HOOK_KW):

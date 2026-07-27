@@ -197,6 +197,33 @@
     </div>
 
     <div id="conn-map" class="connpanel active">
+
+      {# ---- Situation map: the globe of connected hotspots ---- #}
+      <div class="sitmap-wrap">
+        <div class="sitmap-head">
+          <span class="sitmap-title">◉ GLOBAL SITUATION MONITOR</span>
+          <span class="sitmap-live"><span class="lv-dot"></span>LIVE · click a hotspot to trace its links</span>
+        </div>
+        <div class="sitmap-scroll">
+          <svg id="sitmap" viewBox="0 0 1000 460" preserveAspectRatio="xMidYMid meet" aria-label="Global situation map">
+            <defs>
+              <filter id="smGlow" x="-60%" y="-60%" width="220%" height="220%">
+                <feGaussianBlur stdDeviation="2.2" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+              <filter id="smLand"><feGaussianBlur stdDeviation="12"/></filter>
+            </defs>
+          </svg>
+        </div>
+        <div class="sitmap-legend">
+          <span class="lg" data-g="iran"><i style="background:#ff5a5a"></i>Iran &amp; its Axis</span>
+          <span class="lg" data-g="russia"><i style="background:#b98bff"></i>Russia's reach</span>
+          <span class="lg" data-g="us"><i style="background:#3ad0ff"></i>US alliances</span>
+          <span class="lg" data-g="china"><i style="background:#ffbf47"></i>China</span>
+          <span class="lg" data-g="rivalry"><i style="background:#ff8a3d"></i>Rivalry</span>
+        </div>
+      </div>
+
       <div class="card prose">{{ connections_html|safe }}</div>
 
       <div class="board">
@@ -305,6 +332,75 @@ document.querySelectorAll('.conn-btn').forEach(b=>b.addEventListener('click',()=
   b.classList.add('active');
   document.getElementById(b.dataset.conn).classList.add('active');
 }));
+
+// --- Situation map: build the ops-room globe ---
+(function(){
+  const svg = document.getElementById('sitmap');
+  if(!svg) return;
+  const NS='http://www.w3.org/2000/svg', W=1000, H=460;
+  const GC={iran:'#ff5a5a',russia:'#b98bff',us:'#3ad0ff',china:'#ffbf47',rivalry:'#ff8a3d'};
+  const N={
+    us:{n:'WASHINGTON',x:291,y:120,hub:1,la:'r'}, uk:{n:'LONDON',x:531,y:74,la:'l'},
+    eu:{n:'BRUSSELS',x:548,y:90,la:'l'},         ru:{n:'MOSCOW',x:649,y:59,hub:1,la:'r'},
+    ua:{n:'KYIV',x:618,y:84,la:'l'},             ma:{n:'RABAT',x:503,y:141,la:'l'},
+    dz:{n:'ALGIERS',x:543,y:123,la:'l'},         eg:{n:'CAIRO',x:624,y:158,la:'l'},
+    il:{n:'TEL AVIV',x:645,y:147,la:'r'},        gz:{n:'GAZA',x:634,y:151,la:'l'},
+    lb:{n:'BEIRUT',x:648,y:135,la:'r'},          sy:{n:'DAMASCUS',x:655,y:141,la:'r'},
+    ir:{n:'TEHRAN',x:694,y:130,hub:1,la:'r'},    ye:{n:'SANAA',x:671,y:206,la:'r'},
+    sd:{n:'KHARTOUM',x:628,y:206,la:'l'},        ml:{n:'BAMAKO',x:503,y:216,la:'l'},
+    cd:{n:'KINSHASA',x:579,y:276,la:'l'},        cn:{n:'BEIJING',x:895,y:116,hub:1,la:'l'},
+    tw:{n:'TAIPEI',x:909,y:175,la:'r'}
+  };
+  const E=[
+    ['ir','gz','iran'],['ir','lb','iran'],['ir','ye','iran'],['ir','sy','iran'],
+    ['ru','ua','russia'],['ru','sy','russia'],['ru','ml','russia'],['ru','cn','russia'],
+    ['us','il','us'],['us','ma','us'],['us','ua','us'],['us','uk','us'],
+    ['cn','cd','china'],['cn','tw','china'],['cn','eg','china'],['dz','ma','rivalry']
+  ];
+  const el=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e;};
+
+  svg.appendChild(el('rect',{x:0,y:0,width:W,height:H,fill:'#060e15'}));
+  const land=el('g',{filter:'url(#smLand)'});
+  [[200,120,150,95],[410,340,65,110],[560,95,80,52],[600,250,118,138],[830,120,185,100],[945,320,62,44]]
+    .forEach(([cx,cy,rx,ry])=>land.appendChild(el('ellipse',{cx,cy,rx,ry,class:'land'})));
+  svg.appendChild(land);
+  const grat=el('g',{class:'graticule'});
+  for(let x=0;x<=W;x+=W/8) grat.appendChild(el('line',{x1:x,y1:0,x2:x,y2:H}));
+  for(let y=0;y<=H;y+=H/5) grat.appendChild(el('line',{x1:0,y1:y,x2:W,y2:y}));
+  svg.appendChild(grat);
+
+  const edgeEls=[]; const edgeG=el('g');
+  E.forEach(([a,b,g])=>{
+    const A=N[a],B=N[b], mx=(A.x+B.x)/2, d=Math.hypot(B.x-A.x,B.y-A.y);
+    const cy=Math.min(A.y,B.y)-d*0.28;
+    const p=el('path',{d:`M${A.x} ${A.y} Q ${mx} ${cy} ${B.x} ${B.y}`,class:'edge',stroke:GC[g]});
+    p.dataset.a=a; p.dataset.b=b; p.dataset.g=g; edgeG.appendChild(p); edgeEls.push(p);
+  });
+  svg.appendChild(edgeG);
+
+  const nodeEls={}; const nodeG=el('g');
+  for(const id in N){
+    const nd=N[id], r=nd.hub?5:3.2, g=el('g',{class:'node'+(nd.hub?' hub':'')}); g.dataset.id=id;
+    g.appendChild(el('circle',{cx:nd.x,cy:nd.y,r:r+3,fill:nd.hub?'#3ad0ff':'#9fe8ff',opacity:.16,filter:'url(#smGlow)'}));
+    g.appendChild(el('circle',{cx:nd.x,cy:nd.y,r:r,fill:nd.hub?'#eaf6fb':'#7fdcff','class':'core',filter:'url(#smGlow)'}));
+    const lx=nd.la==='r'?nd.x+8:nd.x-8;
+    const lab=el('text',{x:lx,y:nd.y+3,class:'nlabel'+(nd.hub?' hub':''),'text-anchor':nd.la==='r'?'start':'end'});
+    lab.textContent=nd.n; g.appendChild(lab);
+    nodeG.appendChild(g); nodeEls[id]=g;
+  }
+  svg.appendChild(nodeG);
+
+  let active=null;
+  const reset=()=>{active=null; edgeEls.forEach(e=>e.classList.remove('dim','hot')); Object.values(nodeEls).forEach(n=>n.classList.remove('dim'));};
+  const focus=id=>{active=id; const on=new Set([id]);
+    edgeEls.forEach(e=>{const h=e.dataset.a===id||e.dataset.b===id; e.classList.toggle('hot',h); e.classList.toggle('dim',!h); if(h){on.add(e.dataset.a);on.add(e.dataset.b);}});
+    Object.keys(nodeEls).forEach(k=>nodeEls[k].classList.toggle('dim',!on.has(k)));};
+  Object.keys(nodeEls).forEach(id=>nodeEls[id].addEventListener('click',ev=>{ev.stopPropagation(); active===id?reset():focus(id);}));
+  svg.addEventListener('click',reset);
+  document.querySelectorAll('.sitmap-legend .lg').forEach(l=>l.addEventListener('click',()=>{
+    reset(); edgeEls.forEach(e=>{const h=e.dataset.g===l.dataset.g; e.classList.toggle('hot',h); e.classList.toggle('dim',!h);});
+  }));
+})();
 
 // --- light / dark toggle ---
 const toggle = document.getElementById('themeToggle');

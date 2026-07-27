@@ -302,6 +302,35 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
 .connpanel{ display:none; }
 .connpanel.active{ display:block; }
 
+/* ---------- Situation map (the ops-room globe) ---------- */
+.sitmap-wrap{
+  background:#060e15; border:1px solid #17323f; border-radius:var(--radius);
+  padding:14px 14px 12px; margin-bottom:18px; overflow:hidden;
+  box-shadow:0 0 0 1px rgba(58,208,255,.05), 0 14px 40px rgba(0,0,0,.35);
+}
+.sitmap-head{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px; flex-wrap:wrap; }
+.sitmap-title{ font-family:var(--mono); font-size:12px; letter-spacing:2px; color:#5fd6ff; }
+.sitmap-live{ font-family:var(--mono); font-size:10px; letter-spacing:1px; color:#6f93a3; display:flex; align-items:center; gap:6px; }
+.lv-dot{ width:7px; height:7px; border-radius:50%; background:#3ad0ff; box-shadow:0 0 8px #3ad0ff; animation:blink 1.6s infinite; }
+@keyframes blink{ 0%,100%{opacity:1} 50%{opacity:.25} }
+.sitmap-scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+#sitmap{ width:100%; min-width:560px; height:auto; display:block; }
+.sitmap-legend{ display:flex; flex-wrap:wrap; gap:14px; margin-top:10px; padding-top:10px; border-top:1px solid #14303c; }
+.sitmap-legend .lg{ font-family:var(--mono); font-size:10.5px; color:#8fb0bd; display:flex; align-items:center; gap:6px; cursor:pointer; }
+.sitmap-legend .lg i{ width:14px; height:3px; border-radius:2px; display:inline-block; }
+.sitmap-legend .lg:hover{ color:#cfe9f2; }
+/* SVG element states (set from JS) */
+#sitmap .edge{ fill:none; stroke-width:1.4; opacity:.55; }
+#sitmap .edge.dim{ opacity:.06; }
+#sitmap .edge.hot{ opacity:1; stroke-width:2.4; }
+#sitmap .node{ cursor:pointer; }
+#sitmap .node .core{ transition:.15s; }
+#sitmap .node.dim{ opacity:.28; }
+#sitmap .nlabel{ font-family:var(--mono); font-size:8.5px; fill:#8fc4d6; pointer-events:none; }
+#sitmap .nlabel.hub{ fill:#eaf6fb; font-size:9.5px; }
+#sitmap .graticule{ stroke:#123644; stroke-width:.6; fill:none; }
+#sitmap .land{ fill:#0e2733; opacity:.55; }
+
 /* the "board" — great-power hubs */
 .board{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin:4px 0 18px; }
 .hub{
