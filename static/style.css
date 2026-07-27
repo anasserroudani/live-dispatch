@@ -202,6 +202,31 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
 }
 .empty{ color:var(--ink-faint); font-style:italic; }
 
+/* ---------- Briefing (the digest) ---------- */
+.briefing-intro{ color:var(--ink-soft); font-size:14.5px; margin:-6px 0 20px; }
+.brief-block{ margin-bottom:22px; }
+.brief-head{
+  font-family:var(--sans); font-size:12px; font-weight:700; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--brand-2); background:none; border:none;
+  padding:0 0 8px; cursor:pointer; display:block; width:100%; text-align:left;
+  border-bottom:1px solid var(--line); margin-bottom:10px;
+}
+:root[data-theme="dark"] .brief-head{ color:var(--brand); }
+.brief-head:hover{ color:var(--brand); }
+.brief-item{ padding:8px 0 8px 12px; border-left:2px solid var(--line); margin-bottom:8px; }
+.brief-item a{ font-family:var(--serif); font-size:17px; text-decoration:none; }
+.brief-item a:hover{ color:var(--brand-2); text-decoration:underline; }
+.brief-item p{ color:var(--ink-soft); font-size:13.5px; line-height:1.55; margin:4px 0 5px; }
+.brief-item .src{ font-family:var(--mono); font-size:10px; color:var(--ink-faint); }
+
+/* ---------- Science topic "places" ---------- */
+.sci-topic{ margin-bottom:30px; }
+.sci-head{
+  font-family:var(--sans); font-size:12.5px; font-weight:700; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--amber); margin:0 0 14px;
+  padding-bottom:8px; border-bottom:2px solid color-mix(in srgb,var(--amber) 30%, var(--line));
+}
+
 /* ---------- Science section: warm, distinct ---------- */
 .region-science{
   background:var(--science-bg); border-radius:var(--radius);

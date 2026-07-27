@@ -21,18 +21,32 @@ MOROCCO = "morocco"
 AFRICA = "africa"
 GLOBAL = "global"
 SCIENCE = "science"
+BOOKS = "books"
 
 REGIONS = [
     {"id": MIDEAST, "title": "Iran War & Middle East",
-     "tag": "incl. Gaza / Israel / Lebanon"},
+     "tag": "incl. Gaza / Israel / Lebanon / Egypt"},
     {"id": MOROCCO, "title": "Morocco",
      "tag": "incl. Western Sahara"},
     {"id": AFRICA, "title": "Africa",
      "tag": "politics & security"},
     {"id": GLOBAL, "title": "Great Powers & Global",
      "tag": "US · Europe · Russia · Ukraine · China"},
-    {"id": SCIENCE, "title": "Science & Tech",
-     "tag": "AI · quantum · physics · space"},
+    {"id": SCIENCE, "title": "Science & Knowledge",
+     "tag": "AI · cyber · quantum · physics · maths · space · life"},
+    {"id": BOOKS, "title": "Books",
+     "tag": "reading, ideas & literature"},
+]
+
+# Science & Knowledge is shown as sub-sections ("places"), each filled by
+# keyword-matching the science articles. Order = display order within the tab.
+SCIENCE_TOPICS = [
+    {"id": "ai", "title": "Artificial Intelligence"},
+    {"id": "cyber", "title": "Cybersecurity & Tech"},
+    {"id": "quantum", "title": "Quantum & Physics"},
+    {"id": "maths", "title": "Mathematics"},
+    {"id": "astronomy", "title": "Astronomy & Space"},
+    {"id": "life", "title": "Life Sciences"},
 ]
 
 
@@ -85,10 +99,36 @@ FEEDS = [
      "default_region": GLOBAL, "note": "via Google News"},
     {"name": "DR Congo wire",     "url": _gnews("DR Congo M23 conflict when:4d"),
      "default_region": AFRICA, "note": "via Google News"},
+    {"name": "Egypt wire",        "url": _gnews("Egypt Sisi OR Cairo OR Suez when:3d"),
+     "default_region": MIDEAST, "note": "via Google News"},
 
-    # -- Science & tech --
+    # -- Science & Knowledge (sub-sorted into topics on the page) --
     {"name": "ScienceDaily",      "url": "https://www.sciencedaily.com/rss/all.xml",
      "default_region": SCIENCE},
+    {"name": "ScienceDaily Health", "url": "https://www.sciencedaily.com/rss/top/health.xml",
+     "default_region": SCIENCE},
+    {"name": "Quanta Magazine",   "url": "https://api.quantamagazine.org/feed/",
+     "default_region": SCIENCE},
+    {"name": "The Hacker News",   "url": "https://feeds.feedburner.com/TheHackersNews",
+     "default_region": SCIENCE},
+    {"name": "AI wire",           "url": _gnews("artificial intelligence when:2d"),
+     "default_region": SCIENCE, "note": "via Google News"},
+    {"name": "Cybersecurity wire", "url": _gnews("cybersecurity OR data breach OR ransomware when:3d"),
+     "default_region": SCIENCE, "note": "via Google News"},
+    {"name": "Quantum wire",      "url": _gnews("quantum computing OR quantum physics when:5d"),
+     "default_region": SCIENCE, "note": "via Google News"},
+    {"name": "Maths wire",        "url": _gnews("mathematics OR mathematician OR theorem proof when:10d"),
+     "default_region": SCIENCE, "note": "via Google News"},
+    {"name": "Astronomy wire",    "url": _gnews("astronomy OR telescope OR NASA OR space mission when:3d"),
+     "default_region": SCIENCE, "note": "via Google News"},
+
+    # -- Books --
+    {"name": "Guardian Books",    "url": "https://www.theguardian.com/books/rss",
+     "default_region": BOOKS},
+    {"name": "NYT Books",         "url": "https://rss.nytimes.com/services/xml/rss/nyt/Books.xml",
+     "default_region": BOOKS},
+    {"name": "LitHub",            "url": "https://lithub.com/feed/",
+     "default_region": BOOKS},
 ]
 
 
@@ -99,6 +139,16 @@ _SCIENCE_KW = [
     "physics", "particle", "telescope", "galaxy", "nasa", "rocket", "spacecraft",
     "satellite", "astronom", "space station", "tectonic", "fusion", "semiconductor",
     "neural network", "genome", "climate model", "supercomput", "black hole",
+    # tech / cyber
+    "cybersecur", "cyberattack", "ransomware", "data breach", "malware",
+    "hacker", "hacking", "vulnerability", "encryption", "software", "chip",
+    "openai", "chatbot", "large language model", "llm", "robot", "algorithm",
+    # maths
+    "mathematic", "theorem", "conjecture", "prime number", "geometry",
+    # life sciences
+    "biology", "medicine", "vaccine", "cancer", "dna", "gene ", "genetic",
+    "neuroscience", "microbe", "protein", "species", "evolution", "brain",
+    "cell ", "stem cell", "antibiotic", "disease",
 ]
 _MOROCCO_KW = [
     "morocco", "moroccan", "rabat", "casablanca", "marrakech", "tangier",
@@ -114,6 +164,7 @@ _MIDEAST_KW = [
     "jordan", "red sea", "gulf state",
     "syria", "syrian", "damascus", "assad", "aleppo", "kurdish", "kurds",
     "bab el-mandeb", "sanaa",
+    "egypt", "egyptian", "cairo", "sisi", "suez", "nile",
 ]
 _AFRICA_KW = [
     "africa", "african", "sudan", "sudanese", "rsf", "khartoum", "mali", "malian",
@@ -162,6 +213,11 @@ def classify(title, summary, default_region):
     # Junk filter first: drop sports/entertainment regardless of source.
     if _has(text, _DENY_KW):
         return None
+
+    # Books outlets only ever cover books -> keep them in the Books section even
+    # if an article happens to mention "quantum physics" (a science book, say).
+    if default_region == BOOKS:
+        return BOOKS
 
     # A story with a clear geopolitics signal is never "science", even if it
     # happens to mention satellites, drones or AI (e.g. "satellite images show
@@ -213,3 +269,55 @@ def is_hopeful(title, summary):
     """True if a headline reads as a genuine de-escalation / hope story."""
     text = f" {title} {summary} ".lower()
     return _has(text, _HOPE_KW) and not _has(text, _HOPE_NEG)
+
+
+# ---- Science sub-topics (the "places" inside Science & Knowledge) -----------
+# Checked in this order; first match wins. Anything unmatched -> "cyber" (tech).
+_SCI_CYBER_KW = [
+    "cybersecur", "cyberattack", "cyber attack", "ransomware", "data breach",
+    "malware", "phishing", "hacker", "hacking", "vulnerability", "exploit",
+    "encryption", "breach", "spyware", "ddos", "zero-day",
+]
+_SCI_AI_KW = [
+    "artificial intelligence", " ai ", "a.i.", "machine learning", "openai",
+    "chatgpt", "chatbot", "large language model", "llm", "deep learning",
+    "neural network", "generative", "anthropic", "deepmind", "gpt",
+]
+_SCI_QUANTUM_KW = [
+    "quantum", "qubit", "physics", "particle", "higgs", "relativity",
+    "superconduct", "entangle", "photon", "fusion", "collider", "boson",
+]
+_SCI_MATHS_KW = [
+    "mathematic", "theorem", "conjecture", "prime number", "geometry",
+    "algebra", "topology", "number theory", "equation", "proof ", "mathematician",
+]
+_SCI_ASTRO_KW = [
+    "astronom", "telescope", "galaxy", "nasa", "rocket", "spacecraft",
+    "satellite", "planet", "star ", "cosmic", "asteroid", "comet", "mars",
+    "moon", "black hole", "cosmolog", "space station", "orbit", "exoplanet",
+    "supernova", "nebula",
+]
+_SCI_LIFE_KW = [
+    "biology", "medicine", "medical", "health", "vaccine", "cancer", "dna",
+    "gene", "genetic", "genome", "neuroscience", "brain", "microbe", "protein",
+    "species", "evolution", "cell", "stem cell", "antibiotic", "disease",
+    "virus", "bacteria", "clinical",
+]
+
+
+def sci_topic(title, summary):
+    """Bucket a science article into one of the SCIENCE_TOPICS ids."""
+    text = f" {title} {summary} ".lower()
+    if _has(text, _SCI_CYBER_KW):
+        return "cyber"
+    if _has(text, _SCI_AI_KW):
+        return "ai"
+    if _has(text, _SCI_QUANTUM_KW):
+        return "quantum"
+    if _has(text, _SCI_MATHS_KW):
+        return "maths"
+    if _has(text, _SCI_ASTRO_KW):
+        return "astronomy"
+    if _has(text, _SCI_LIFE_KW):
+        return "life"
+    return "cyber"  # default bucket: general tech

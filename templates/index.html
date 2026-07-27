@@ -65,8 +65,9 @@
 </header>
 
 <nav id="tabnav">
+  <button data-tab="briefing" class="active">Briefing</button>
   {% for r in regions %}
-  <button data-tab="{{ r.id }}" {% if loop.first %}class="active"{% endif %}>{{ r.title }}</button>
+  <button data-tab="{{ r.id }}">{{ r.title }}</button>
   {% endfor %}
   <button data-tab="perspectives">Perspectives</button>
   <button data-tab="learn">Learn</button>
@@ -75,24 +76,64 @@
 
 <main>
 
+  {# ---- Briefing: a scannable digest of the day ---- #}
+  <section id="briefing" class="panel active">
+    <h2 class="section-head">Today's briefing <span class="tag">the top few from every section</span></h2>
+    <p class="briefing-intro">A quick scan of what's happening across every desk. Tap any headline for the full article, or open a section for more.</p>
+    {% for b in briefing %}
+    <div class="brief-block">
+      <button class="brief-head" data-jump="{{ b.id }}">{{ b.title }} →</button>
+      {% for a in b.stories %}
+      <div class="brief-item">
+        <a href="{{ a.link }}" target="_blank" rel="noopener noreferrer">{{ a.title }}</a>
+        {% if a.snippet %}<p>{{ a.snippet }}</p>{% endif %}
+        <span class="src">{{ a.source }}{% if a.ago %} · {{ a.ago }}{% endif %}</span>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </section>
+
   {# ---- Region news panels ---- #}
   {% for r in regions %}
-  <section id="{{ r.id }}" class="panel {% if loop.first %}active{% endif %} region-{{ r.id }}">
-    <div class="region">
+  <section id="{{ r.id }}" class="panel region-{{ r.id }}">
+    {% if r.id == 'science' and science_topics %}
+      {# Science & Knowledge: rendered as topic "places" #}
       <h2 class="section-head">{{ r.title }} <span class="tag">{{ r.tag }}</span></h2>
-      {% if r.articles %}
-        {% for a in r.articles %}
-        <article class="story{% if a.hopeful %} hopeful{% endif %}">
-          {% if a.hopeful %}<span class="glimmer" title="A de-escalation / hope story">◗ glimmer</span>{% endif %}
-          <h3><a href="{{ a.link }}" target="_blank" rel="noopener noreferrer">{{ a.title }}</a></h3>
-          {% if a.snippet %}<p>{{ a.snippet }}</p>{% endif %}
-          <span class="src">{{ a.source }}{% if a.note %} · {{ a.note }}{% endif %}{% if a.ago %} · {{ a.ago }}{% endif %}</span>
-        </article>
-        {% endfor %}
-      {% else %}
-        <p class="empty">No stories cached yet for this section — the next refresh will fill it in.</p>
-      {% endif %}
-    </div>
+      {% for t in science_topics %}
+      <div class="region sci-topic">
+        <h3 class="sci-head" id="sci-{{ t.id }}">{{ t.title }}</h3>
+        {% if t.articles %}
+          {% for a in t.articles %}
+          <article class="story{% if a.hopeful %} hopeful{% endif %}">
+            {% if a.hopeful %}<span class="glimmer">◗ glimmer</span>{% endif %}
+            <h3><a href="{{ a.link }}" target="_blank" rel="noopener noreferrer">{{ a.title }}</a></h3>
+            {% if a.snippet %}<p>{{ a.snippet }}</p>{% endif %}
+            <span class="src">{{ a.source }}{% if a.note %} · {{ a.note }}{% endif %}{% if a.ago %} · {{ a.ago }}{% endif %}</span>
+          </article>
+          {% endfor %}
+        {% else %}
+          <p class="empty">Nothing here yet — the next refresh may fill it in.</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+    {% else %}
+      <div class="region">
+        <h2 class="section-head">{{ r.title }} <span class="tag">{{ r.tag }}</span></h2>
+        {% if r.articles %}
+          {% for a in r.articles %}
+          <article class="story{% if a.hopeful %} hopeful{% endif %}">
+            {% if a.hopeful %}<span class="glimmer" title="A de-escalation / hope story">◗ glimmer</span>{% endif %}
+            <h3><a href="{{ a.link }}" target="_blank" rel="noopener noreferrer">{{ a.title }}</a></h3>
+            {% if a.snippet %}<p>{{ a.snippet }}</p>{% endif %}
+            <span class="src">{{ a.source }}{% if a.note %} · {{ a.note }}{% endif %}{% if a.ago %} · {{ a.ago }}{% endif %}</span>
+          </article>
+          {% endfor %}
+        {% else %}
+          <p class="empty">No stories cached yet for this section — the next refresh will fill it in.</p>
+        {% endif %}
+      </div>
+    {% endif %}
   </section>
   {% endfor %}
 
@@ -243,6 +284,11 @@ function showTab(id){
 tabs.forEach(b=>b.addEventListener('click',()=>{ showTab(b.dataset.tab); localStorage.setItem('tab', b.dataset.tab); }));
 const saved = localStorage.getItem('tab');
 if (saved && document.getElementById(saved)) showTab(saved);
+
+// --- Briefing "jump to section" buttons ---
+document.querySelectorAll('.brief-head').forEach(b=>b.addEventListener('click',()=>{
+  showTab(b.dataset.jump); localStorage.setItem('tab', b.dataset.jump);
+}));
 
 // --- Learn sub-tabs ---
 document.querySelectorAll('.learn-btn').forEach(b=>b.addEventListener('click',()=>{

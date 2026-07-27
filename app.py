@@ -23,7 +23,9 @@ import store
 import fetcher
 
 REFRESH_MINUTES = 45
-ARTICLES_PER_REGION = 25
+ARTICLES_PER_REGION = 40      # "as much news as possible"
+SCIENCE_LIMIT = 160           # bigger, because it's split across ~6 topics
+BRIEFING_PER_SECTION = 3      # top stories per section in the digest
 # Port 5000 is hijacked by macOS AirPlay Receiver, so we default to 5050.
 # Override with the PORT env var (e.g. PORT=5051 python app.py) if needed.
 PORT = int(os.environ.get("PORT", 5050))
@@ -137,15 +139,33 @@ def build_index_context(static_build=False):
     the static-site exporter (build_static.py). static_build=True hides the
     server-only controls (search, refresh) for a self-contained snapshot."""
     regions = []
+    science_topics = None
     for r in feeds_mod.REGIONS:
-        articles = store.get_by_region(r["id"], limit=ARTICLES_PER_REGION)
+        limit = SCIENCE_LIMIT if r["id"] == feeds_mod.SCIENCE else ARTICLES_PER_REGION
+        articles = store.get_by_region(r["id"], limit=limit)
         for a in articles:
             a["ago"] = _humanize(a.get("published"))
             a["hopeful"] = feeds_mod.is_hopeful(a["title"], a.get("snippet", ""))
+        if r["id"] == feeds_mod.SCIENCE:
+            # split Science into its topic "places"
+            buckets = {t["id"]: [] for t in feeds_mod.SCIENCE_TOPICS}
+            for a in articles:
+                buckets[feeds_mod.sci_topic(a["title"], a.get("snippet", ""))].append(a)
+            science_topics = [{**t, "articles": buckets[t["id"]]}
+                              for t in feeds_mod.SCIENCE_TOPICS]
         regions.append({**r, "articles": articles})
+
+    # Briefing: a scannable digest of the top few stories per section.
+    briefing = []
+    for r in regions:
+        top = r["articles"][:BRIEFING_PER_SECTION]
+        if top:
+            briefing.append({"title": r["title"], "id": r["id"], "stories": top})
 
     return dict(
         regions=regions,
+        science_topics=science_topics,
+        briefing=briefing,
         top_story=compute_top_story(),
         explainers=load_docs("explainers"),
         timelines=load_docs("timelines"),
