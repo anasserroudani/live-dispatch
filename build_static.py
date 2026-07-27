@@ -25,7 +25,9 @@ import fetcher
 
 HERE = os.path.dirname(__file__)
 SHARE_DIR = os.path.join(HERE, "share")
-OUT_FILE = os.path.join(SHARE_DIR, "live-dispatch.html")
+# Named index.html so web hosts (Netlify Drop, GitHub Pages) serve it at the
+# clean root URL automatically. It's also the file you send to a friend.
+OUT_FILE = os.path.join(SHARE_DIR, "index.html")
 
 
 def _inline_css(html):

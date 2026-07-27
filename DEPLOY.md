@@ -2,7 +2,13 @@
 
 This makes a proper website your friend can visit any time and always see
 **fresh** news — not a frozen snapshot. It runs on **Render**, which has a free
-plan. Everything here is free.
+plan.
+
+> ⚠️ **Card warning:** Render (and Railway, Fly.io, etc.) now ask for a **credit
+> card** to verify your account *even for the free plan*. They shouldn't charge
+> it on the free tier, but the card must be valid/accepted. If you don't want to
+> add a card, **use the free Netlify Drop snapshot instead** (see the "Sending
+> it to a friend" section of `README.md`) — that needs no card and no server.
 
 You'll do this **once**, and it takes about 20 minutes. No coding — but you do
 need to create two free accounts (I can't create accounts for you).

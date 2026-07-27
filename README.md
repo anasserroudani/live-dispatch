@@ -109,15 +109,23 @@ all the Learn/Connect content, and a snapshot of the current news:
 cd ~/Desktop/live-dispatch && source venv/bin/activate && python build_static.py
 ```
 
-It creates **`share/live-dispatch.html`**. That one file is self-contained (the
-styling and logo are baked in), so:
+It creates **`share/index.html`**. That one file is self-contained (the styling
+and logo are baked in), so:
 
-- **To send it:** AirDrop / WhatsApp / email that file. Your friend just
-  double-clicks it — no Python, no Terminal, no server. Article links still open
-  in their browser.
-- **For a public link (optional):** go to **app.netlify.com/drop** and drag the
-  `share` folder onto the page — you get an instant web address you can share.
-  (It only contains public news snippets and links, nothing private.)
+- **To send it as a file:** AirDrop / WhatsApp / email `share/index.html`. Your
+  friend just double-clicks it — no Python, no Terminal, no server. Article links
+  still open in their browser.
+- **For a free public link (no card, no account):** go to
+  **app.netlify.com/drop** and drag the whole **`share` folder** onto the page.
+  In ~10 seconds you get a web address like `https://sunny-cat-123.netlify.app`
+  to send. To keep it permanently, click "Sign up to claim your site" — the free
+  Netlify account does **not** ask for a card. (The page only contains public
+  news snippets and links, nothing private.)
+
+> **Note:** truly *live* hosting (always-fresh news at a URL) now requires a
+> credit card on every major host (Render, Railway, Fly…), even on their free
+> tiers. The Netlify Drop snapshot above avoids that entirely. See `DEPLOY.md`
+> for the live-hosting route if you ever want it.
 
 The **news is a snapshot** from the moment you build it; the Learn, Connect,
 Timelines and Perspectives sections are evergreen. Re-run the command any time

@@ -1,0 +1,2048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Live Dispatch</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IkxpdmUgRGlzcGF0Y2giPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJza3kiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMGU4ZjdlIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBiNmY2MiIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ic3VuIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2ZmZDI3YSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNlNTlhMmIiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDwhLS0gcm91bmRlZCBhcHAtaWNvbiB0aWxlIC0tPgogIDxyZWN0IHg9IjE2IiB5PSIxNiIgd2lkdGg9IjQ4MCIgaGVpZ2h0PSI0ODAiIHJ4PSIxMTIiIGZpbGw9InVybCgjc2t5KSIvPgogIDwhLS0gcmlzaW5nIHN1biAtLT4KICA8Y2lyY2xlIGN4PSIyNTYiIGN5PSIzMDAiIHI9Ijk2IiBmaWxsPSJ1cmwoI3N1bikiLz4KICA8IS0tIHN1biByYXlzIC0tPgogIDxnIHN0cm9rZT0iI2ZmZDI3YSIgc3Ryb2tlLXdpZHRoPSIxOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBvcGFjaXR5PSIwLjk1Ij4KICAgIDxsaW5lIHgxPSIyNTYiIHkxPSIxNTAiIHgyPSIyNTYiIHkyPSIxMTAiLz4KICAgIDxsaW5lIHgxPSIxNDgiIHkxPSIxOTIiIHgyPSIxMjAiIHkyPSIxNjQiLz4KICAgIDxsaW5lIHgxPSIzNjQiIHkxPSIxOTIiIHgyPSIzOTIiIHkyPSIxNjQiLz4KICAgIDxsaW5lIHgxPSIxMjAiIHkxPSIzMDAiIHgyPSI4NiIgIHkyPSIzMDAiLz4KICAgIDxsaW5lIHgxPSIzOTIiIHkxPSIzMDAiIHgyPSI0MjYiIHkyPSIzMDAiLz4KICA8L2c+CiAgPCEtLSBob3Jpem9uIGxpbmUgPSB0aGUgImRpc3BhdGNoIiBiYXNlbGluZSAtLT4KICA8cmVjdCB4PSI5NiIgeT0iMzYwIiB3aWR0aD0iMzIwIiBoZWlnaHQ9IjIwIiByeD0iMTAiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuOTUiLz4KICA8cmVjdCB4PSIxNTAiIHk9IjM5OCIgd2lkdGg9IjIxMiIgaGVpZ2h0PSIxNiIgcng9IjgiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuNTUiLz4KICA8IS0tIGxpdmUgZG90IC0tPgogIDxjaXJjbGUgY3g9IjM5MiIgY3k9IjE1MCIgcj0iMjYiIGZpbGw9IiNmZjVhNWEiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSI4Ii8+Cjwvc3ZnPgo=">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IkxpdmUgRGlzcGF0Y2giPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJza3kiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMGU4ZjdlIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBiNmY2MiIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ic3VuIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2ZmZDI3YSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNlNTlhMmIiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDwhLS0gcm91bmRlZCBhcHAtaWNvbiB0aWxlIC0tPgogIDxyZWN0IHg9IjE2IiB5PSIxNiIgd2lkdGg9IjQ4MCIgaGVpZ2h0PSI0ODAiIHJ4PSIxMTIiIGZpbGw9InVybCgjc2t5KSIvPgogIDwhLS0gcmlzaW5nIHN1biAtLT4KICA8Y2lyY2xlIGN4PSIyNTYiIGN5PSIzMDAiIHI9Ijk2IiBmaWxsPSJ1cmwoI3N1bikiLz4KICA8IS0tIHN1biByYXlzIC0tPgogIDxnIHN0cm9rZT0iI2ZmZDI3YSIgc3Ryb2tlLXdpZHRoPSIxOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBvcGFjaXR5PSIwLjk1Ij4KICAgIDxsaW5lIHgxPSIyNTYiIHkxPSIxNTAiIHgyPSIyNTYiIHkyPSIxMTAiLz4KICAgIDxsaW5lIHgxPSIxNDgiIHkxPSIxOTIiIHgyPSIxMjAiIHkyPSIxNjQiLz4KICAgIDxsaW5lIHgxPSIzNjQiIHkxPSIxOTIiIHgyPSIzOTIiIHkyPSIxNjQiLz4KICAgIDxsaW5lIHgxPSIxMjAiIHkxPSIzMDAiIHgyPSI4NiIgIHkyPSIzMDAiLz4KICAgIDxsaW5lIHgxPSIzOTIiIHkxPSIzMDAiIHgyPSI0MjYiIHkyPSIzMDAiLz4KICA8L2c+CiAgPCEtLSBob3Jpem9uIGxpbmUgPSB0aGUgImRpc3BhdGNoIiBiYXNlbGluZSAtLT4KICA8cmVjdCB4PSI5NiIgeT0iMzYwIiB3aWR0aD0iMzIwIiBoZWlnaHQ9IjIwIiByeD0iMTAiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuOTUiLz4KICA8cmVjdCB4PSIxNTAiIHk9IjM5OCIgd2lkdGg9IjIxMiIgaGVpZ2h0PSIxNiIgcng9IjgiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuNTUiLz4KICA8IS0tIGxpdmUgZG90IC0tPgogIDxjaXJjbGUgY3g9IjM5MiIgY3k9IjE1MCIgcj0iMjYiIGZpbGw9IiNmZjVhNWEiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSI4Ii8+Cjwvc3ZnPgo=">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Dispatch">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101a20" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   Live Dispatch — optimistic broadsheet theme
+   Light by default; dark via [data-theme="dark"]. Mac + iPhone tuned.
+   ============================================================ */
+
+:root{
+  /* Light (default) — warm paper, hopeful teal, sunrise amber */
+  --bg:        #f4f1ea;
+  --bg-grad-a: #f7f3ea;
+  --bg-grad-b: #eef2ee;
+  --card:      #ffffff;
+  --card-soft: #fbf9f4;
+  --ink:       #1c2b33;
+  --ink-soft:  #5d6b72;
+  --ink-faint: #8b979d;
+  --line:      #e6ded0;
+  --brand:     #0e8f7e;   /* teal-green = hope */
+  --brand-2:   #0b6f62;
+  --amber:     #c67d1a;   /* sunrise / science */
+  --amber-soft:#fbf1dc;
+  --rose:      #c2653d;   /* perspectives */
+  --rose-soft: #f7e6dd;
+  --hope:      #17924f;   /* glimmer */
+  --hope-soft: #e4f4e9;
+  --science-bg:#eef5f8;
+  --shadow:    0 1px 2px rgba(28,43,51,.05), 0 10px 30px rgba(28,43,51,.06);
+  --shadow-sm: 0 1px 2px rgba(28,43,51,.06);
+  --radius:    16px;
+  --serif: ui-serif, "New York", Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --sans:  -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
+  --mono:  ui-monospace, "SF Mono", "SFMono-Regular", "Menlo", monospace;
+}
+
+:root[data-theme="dark"]{
+  --bg:        #0f1a20;
+  --bg-grad-a: #10202a;
+  --bg-grad-b: #0d181d;
+  --card:      #16242c;
+  --card-soft: #13212a;
+  --ink:       #e9eff1;
+  --ink-soft:  #9fb0b7;
+  --ink-faint: #6f828a;
+  --line:      #26363f;
+  --brand:     #35c4ad;
+  --brand-2:   #4fd3bd;
+  --amber:     #e2ab48;
+  --amber-soft:#22303a;
+  --rose:      #e28a5f;
+  --rose-soft: #2a2620;
+  --hope:      #4fd08a;
+  --hope-soft: #16281f;
+  --science-bg:#0e2733;
+  --shadow:    0 1px 2px rgba(0,0,0,.3), 0 12px 34px rgba(0,0,0,.35);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.35);
+}
+
+*{ box-sizing:border-box; }
+html{ -webkit-text-size-adjust:100%; }
+body{
+  margin:0;
+  font-family:var(--sans);
+  color:var(--ink);
+  background-color:var(--bg);
+  background-image:linear-gradient(180deg, var(--bg-grad-a), var(--bg-grad-b) 340px, var(--bg) 340px);
+  background-repeat:no-repeat;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  line-height:1.5;
+}
+a{ color:inherit; }
+
+/* ---------- Masthead ---------- */
+.masthead{
+  position:relative;
+  text-align:center;
+  padding:calc(28px + env(safe-area-inset-top)) 20px 20px;
+  max-width:1000px; margin:0 auto;
+}
+.brand{ display:inline-flex; align-items:center; gap:14px; }
+.brand-mark{ width:52px; height:52px; flex:none; filter:drop-shadow(0 4px 10px rgba(14,143,126,.25)); }
+.brand-text{ text-align:left; }
+.kicker{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:2px;
+  text-transform:uppercase; color:var(--brand-2);
+}
+:root[data-theme="dark"] .kicker{ color:var(--brand); }
+.masthead h1{
+  font-family:var(--serif); font-weight:600; letter-spacing:-.5px;
+  font-size:38px; margin:2px 0 0; line-height:1;
+}
+.tagline{
+  font-family:var(--serif); font-style:italic; color:var(--ink-soft);
+  font-size:15px; margin:12px 0 4px;
+}
+.status{
+  font-family:var(--mono); font-size:11px; color:var(--ink-faint);
+  margin-top:8px; display:flex; align-items:center; justify-content:center;
+  gap:8px; flex-wrap:wrap;
+}
+.dot{
+  width:7px; height:7px; border-radius:50%; background:var(--brand);
+  box-shadow:0 0 0 0 rgba(14,143,126,.5); animation:pulse 2.4s infinite;
+}
+@keyframes pulse{
+  0%{ box-shadow:0 0 0 0 rgba(14,143,126,.45); }
+  70%{ box-shadow:0 0 0 7px rgba(14,143,126,0); }
+  100%{ box-shadow:0 0 0 0 rgba(14,143,126,0); }
+}
+.refresh-btn{
+  font-family:var(--mono); font-size:11px; color:var(--ink-soft);
+  background:var(--card); border:1px solid var(--line); border-radius:999px;
+  padding:4px 12px; cursor:pointer; transition:.15s;
+}
+.refresh-btn:hover{ color:var(--brand); border-color:var(--brand); }
+
+.theme-toggle{
+  position:absolute; top:calc(20px + env(safe-area-inset-top)); right:16px;
+  width:38px; height:38px; border-radius:50%; cursor:pointer;
+  background:var(--card); border:1px solid var(--line); box-shadow:var(--shadow-sm);
+  font-size:16px; line-height:1; color:var(--ink-soft); transition:.15s;
+}
+.theme-toggle:hover{ color:var(--amber); border-color:var(--amber); }
+.theme-toggle .t-moon{ display:none; }
+:root[data-theme="dark"] .theme-toggle .t-sun{ display:none; }
+:root[data-theme="dark"] .theme-toggle .t-moon{ display:inline; }
+
+/* ---------- Search ---------- */
+.search-bar{ margin-top:16px; display:flex; justify-content:center; }
+.search-bar input{
+  font-family:var(--sans); font-size:14px; color:var(--ink);
+  background:var(--card); border:1px solid var(--line);
+  border-radius:999px 0 0 999px; padding:9px 16px; width:min(340px,66vw);
+  outline:none; box-shadow:var(--shadow-sm); transition:.15s;
+}
+.search-bar input::placeholder{ color:var(--ink-faint); }
+.search-bar input:focus{ border-color:var(--brand); }
+.search-bar button{
+  font-family:var(--mono); font-size:12px; letter-spacing:.5px; text-transform:uppercase;
+  color:#fff; background:var(--brand); border:1px solid var(--brand);
+  border-radius:0 999px 999px 0; padding:9px 16px; cursor:pointer; transition:.15s;
+}
+.search-bar button:hover{ background:var(--brand-2); }
+.back-link{ color:var(--brand); text-decoration:none; font-family:var(--mono); font-size:12px; }
+.back-link:hover{ text-decoration:underline; }
+
+/* ---------- Nav ---------- */
+nav{
+  position:sticky; top:0; z-index:20;
+  display:flex; gap:6px; padding:10px 16px;
+  justify-content:center; flex-wrap:wrap;
+  background:color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter:saturate(180%) blur(12px);
+  -webkit-backdrop-filter:saturate(180%) blur(12px);
+  border-bottom:1px solid var(--line);
+}
+nav button{
+  font-family:var(--sans); font-size:13px; font-weight:550;
+  color:var(--ink-soft); background:transparent; border:1px solid transparent;
+  padding:8px 14px; border-radius:999px; cursor:pointer; white-space:nowrap;
+  transition:.15s; -webkit-tap-highlight-color:transparent;
+}
+nav button:hover{ color:var(--ink); background:var(--card-soft); }
+nav button.active{ color:#fff; background:var(--brand); border-color:var(--brand); box-shadow:var(--shadow-sm); }
+
+/* ---------- Main / panels ---------- */
+main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-area-inset-bottom)); }
+.panel{ display:none; animation:fade .25s ease; }
+.panel.active{ display:block; }
+@keyframes fade{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:none; } }
+
+.section-head{
+  font-family:var(--sans); font-size:13px; font-weight:700; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--brand-2);
+  display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+  padding-bottom:10px; margin:0 0 18px; border-bottom:2px solid var(--line);
+}
+:root[data-theme="dark"] .section-head{ color:var(--brand); }
+.section-head .tag{ font-size:11px; font-weight:500; color:var(--ink-faint); letter-spacing:.03em; text-transform:none; text-align:right; }
+
+/* ---------- Story cards ---------- */
+.story{
+  position:relative;
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:18px 20px; margin-bottom:14px; box-shadow:var(--shadow-sm);
+  transition:transform .15s, box-shadow .15s, border-color .15s;
+}
+.story:hover{ transform:translateY(-2px); box-shadow:var(--shadow); border-color:color-mix(in srgb,var(--brand) 30%, var(--line)); }
+.story h3{ font-family:var(--serif); font-weight:600; font-size:20px; line-height:1.28; margin:0 0 7px; letter-spacing:-.2px; }
+.story h3 a{ text-decoration:none; }
+.story h3 a:hover{ color:var(--brand-2); }
+.story p{ color:var(--ink-soft); font-size:14.5px; line-height:1.6; margin:0 0 10px; }
+.story .src{ font-family:var(--mono); font-size:10.5px; letter-spacing:.03em; color:var(--ink-faint); }
+
+/* glimmer (hope) marker */
+.story.hopeful{ border-left:3px solid var(--hope); }
+.glimmer{
+  display:inline-block; float:right; margin-left:10px;
+  font-family:var(--mono); font-size:10px; letter-spacing:.05em;
+  color:var(--hope); background:var(--hope-soft);
+  border:1px solid color-mix(in srgb,var(--hope) 35%, transparent);
+  padding:2px 8px; border-radius:999px;
+}
+.empty{ color:var(--ink-faint); font-style:italic; }
+
+/* ---------- Science section: warm, distinct ---------- */
+.region-science{
+  background:var(--science-bg); border-radius:var(--radius);
+  margin:0 -12px; padding:22px 20px 8px;
+}
+.region-science .section-head{ color:var(--amber); border-color:color-mix(in srgb,var(--amber) 35%, var(--line)); }
+.region-science .story{ background:var(--card); }
+.region-science .story:hover{ border-color:color-mix(in srgb,var(--amber) 40%, var(--line)); }
+.region-science .story h3 a:hover{ color:var(--amber); }
+
+/* ---------- Perspectives ---------- */
+.top-story{
+  background:var(--card); border:1px solid var(--line);
+  border-top:3px solid var(--rose); border-radius:var(--radius);
+  padding:20px 22px; margin-bottom:26px; box-shadow:var(--shadow-sm);
+}
+.top-story-label{
+  font-family:var(--sans); font-size:12px; font-weight:700; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--rose); margin-bottom:14px;
+  padding-bottom:10px; border-bottom:1px solid var(--line);
+}
+.top-story-label strong{ color:var(--ink); }
+.ts-item{ margin-bottom:13px; padding-left:12px; border-left:2px solid color-mix(in srgb,var(--rose) 50%, transparent); }
+.ts-outlet{ display:block; font-family:var(--mono); font-size:10px; letter-spacing:.03em; color:var(--rose); margin-bottom:2px; }
+.ts-item a{ font-family:var(--serif); font-size:16.5px; text-decoration:none; }
+.ts-item a:hover{ color:var(--rose); text-decoration:underline; }
+.ts-ago{ font-family:var(--mono); font-size:10px; color:var(--ink-faint); margin-left:6px; }
+.ts-hint{ font-size:12.5px; color:var(--ink-soft); margin-top:14px; padding-top:12px; border-top:1px dashed var(--line); line-height:1.55; }
+
+/* ---------- Learn / cards / prose ---------- */
+.learn-nav{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+.learn-btn{
+  font-family:var(--sans); font-size:12px; font-weight:600; letter-spacing:.02em;
+  color:var(--ink-soft); background:var(--card); border:1px solid var(--line);
+  padding:8px 15px; border-radius:999px; cursor:pointer; transition:.15s;
+}
+.learn-btn:hover{ color:var(--ink); }
+.learn-btn.active{ color:#fff; background:var(--brand); border-color:var(--brand); }
+.subpanel{ display:none; }
+.subpanel.active{ display:block; }
+
+.card{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:24px 26px; margin-bottom:16px; box-shadow:var(--shadow-sm);
+}
+.prose{ color:var(--ink-soft); }
+.prose h1{ font-family:var(--serif); font-weight:600; font-size:23px; color:var(--ink); margin:0 0 14px; letter-spacing:-.3px; }
+.prose h2{ font-family:var(--serif); font-weight:600; font-size:18px; color:var(--ink); margin:22px 0 8px; }
+.prose h3{ font-family:var(--sans); font-weight:700; font-size:14px; letter-spacing:.04em; text-transform:uppercase; color:var(--brand-2); margin:18px 0 6px; }
+:root[data-theme="dark"] .prose h3{ color:var(--brand); }
+.prose p{ font-size:15px; line-height:1.72; margin:0 0 12px; }
+.prose ul,.prose ol{ font-size:15px; line-height:1.72; padding-left:22px; }
+.prose li{ margin-bottom:5px; }
+.prose strong{ color:var(--ink); }
+.prose a{ color:var(--brand); text-decoration:underline; text-underline-offset:2px; }
+.prose em{ font-style:italic; }
+.perspectives-body h2{ color:var(--rose); }
+
+/* Timeline styling: bold year markers as a rail */
+.timeline p{ position:relative; padding-left:2px; }
+.timeline strong:first-child{ color:var(--amber); font-family:var(--mono); font-size:13px; }
+.glossary h2{ border-bottom:1px solid var(--line); padding-bottom:6px; }
+
+/* ---------- Connect (horizontal layer) ---------- */
+.conn-nav{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+.conn-btn{
+  font-family:var(--sans); font-size:12px; font-weight:600;
+  color:var(--ink-soft); background:var(--card); border:1px solid var(--line);
+  padding:8px 15px; border-radius:999px; cursor:pointer; transition:.15s;
+}
+.conn-btn:hover{ color:var(--ink); }
+.conn-btn.active{ color:#fff; background:var(--brand); border-color:var(--brand); }
+.connpanel{ display:none; }
+.connpanel.active{ display:block; }
+
+/* the "board" — great-power hubs */
+.board{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin:4px 0 18px; }
+.hub{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  border-top:3px solid var(--brand); padding:16px 18px; box-shadow:var(--shadow-sm);
+}
+.hub.h-iran{ border-top-color:var(--rose); }
+.hub.h-russia{ border-top-color:#8b6fc7; }
+.hub.h-us{ border-top-color:var(--brand); }
+.hub.h-china{ border-top-color:var(--amber); }
+.hub-name{ font-family:var(--serif); font-weight:600; font-size:20px; }
+.hub-role{ font-size:12.5px; color:var(--ink-soft); margin:2px 0 12px; }
+.chips{ display:flex; flex-wrap:wrap; gap:6px; }
+.chip{
+  font-family:var(--mono); font-size:11px; color:var(--ink);
+  background:var(--card-soft); border:1px solid var(--line);
+  padding:4px 9px; border-radius:999px;
+}
+.board-note{
+  background:var(--hope-soft); border:1px solid color-mix(in srgb,var(--brand) 25%, var(--line));
+  border-radius:var(--radius); padding:16px 18px; font-size:14px;
+  color:var(--ink-soft); line-height:1.6;
+}
+.board-note strong{ color:var(--ink); }
+.board-note em{ color:var(--brand); font-style:normal; font-weight:600; }
+.thread h1{ color:var(--amber); }
+.actor h1{ color:var(--rose); }
+.xlink{
+  font-family:var(--mono); font-size:12px; color:var(--brand);
+  background:var(--card-soft); border:1px solid var(--line);
+  padding:1px 7px; border-radius:999px; white-space:nowrap;
+}
+
+/* ---------- Footer ---------- */
+.footer-note{
+  max-width:1000px; margin:0 auto;
+  padding:22px 20px calc(50px + env(safe-area-inset-bottom));
+  font-family:var(--mono); font-size:11px; color:var(--ink-faint);
+  line-height:1.7; border-top:1px solid var(--line);
+}
+.footer-note code{ color:var(--brand); }
+
+/* ---------- Responsive: iPhone ---------- */
+@media (max-width:600px){
+  .brand{ flex-direction:column; gap:8px; }
+  .brand-text{ text-align:center; }
+  .masthead h1{ font-size:30px; }
+  .brand-mark{ width:46px; height:46px; }
+  .kicker{ font-size:10px; letter-spacing:1.5px; }
+  .tagline{ font-size:13.5px; margin:10px auto 4px; max-width:34ch; }
+  .status{ font-size:10.5px; }
+  nav{ justify-content:flex-start; flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; padding:8px 12px; gap:5px; }
+  nav::-webkit-scrollbar{ display:none; }
+  main{ padding:22px 14px calc(60px + env(safe-area-inset-bottom)); }
+  .story{ padding:16px 16px; }
+  .story h3{ font-size:18px; }
+  .card{ padding:20px 18px; }
+  .section-head{ flex-direction:column; align-items:flex-start; gap:3px; }
+  .section-head .tag{ text-align:left; }
+  .region-science{ margin:0 -6px; }
+  .theme-toggle{ top:calc(14px + env(safe-area-inset-top)); }
+  .board{ grid-template-columns:1fr; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion:reduce){
+  *{ animation:none !important; transition:none !important; }
+}
+
+</style>
+<script>
+  // apply saved theme before first paint to avoid a flash
+  (function(){ var t = localStorage.getItem('theme');
+    if (t) document.documentElement.setAttribute('data-theme', t); })();
+</script>
+</head>
+<body>
+
+<header class="masthead">
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle light or dark">
+    <span class="t-sun">☀</span><span class="t-moon">☾</span>
+  </button>
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
+      <circle cx="32" cy="38" r="15" fill="url(#g1)"/>
+      <g stroke="var(--amber)" stroke-width="3" stroke-linecap="round">
+        <line x1="32" y1="15" x2="32" y2="8"/>
+        <line x1="14" y1="22" x2="9" y2="17"/>
+        <line x1="50" y1="22" x2="55" y2="17"/>
+      </g>
+      <rect x="12" y="46" width="40" height="3.4" rx="1.7" fill="var(--brand)"/>
+      <rect x="19" y="53" width="26" height="3" rx="1.5" fill="var(--brand)" opacity="0.5"/>
+      <circle cx="50" cy="14" r="4" fill="#ff5a5a"/>
+      <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffd27a"/><stop offset="1" stop-color="var(--amber)"/>
+      </linearGradient></defs>
+    </svg>
+    <div class="brand-text">
+      <div class="kicker">JULY 27, 2026 · Road to political wisdom · by Anass</div>
+      <h1>Live Dispatch</h1>
+    </div>
+  </div>
+  <p class="tagline">The news, with its history attached — and a little room for hope.</p>
+  <div class="status">
+    <span class="dot"></span>
+    
+      news snapshot from JULY 27, 2026 · the Learn &amp; Connect sections are always current
+    
+  </div>
+  
+</header>
+
+<nav id="tabnav">
+  
+  <button data-tab="mideast" class="active">Iran War &amp; Middle East</button>
+  
+  <button data-tab="morocco" >Morocco</button>
+  
+  <button data-tab="africa" >Africa</button>
+  
+  <button data-tab="global" >Great Powers &amp; Global</button>
+  
+  <button data-tab="science" >Science &amp; Tech</button>
+  
+  <button data-tab="perspectives">Perspectives</button>
+  <button data-tab="learn">Learn</button>
+  <button data-tab="connect">Connect</button>
+</nav>
+
+<main>
+
+  
+  
+  <section id="mideast" class="panel active region-mideast">
+    <div class="region">
+      <h2 class="section-head">Iran War &amp; Middle East <span class="tag">incl. Gaza / Israel / Lebanon</span></h2>
+      
+        
+        <article class="story">
+          
+          <h3><a href="https://www.haaretz.com/opinion/2026-07-27/ty-article-opinion/.premium/minimizing-harm-to-civilians-the-genocide-continues/0000019f-9fc1-df92-a7ff-bfc3b6480000" target="_blank" rel="noopener noreferrer">Minimizing harm to civilians? The genocide continues</a></h3>
+          <p>The scale of death and destruction in Gaza is clear to all, yet the discourse among Israeli Jews, genocide has been swallowed up into a black hole as if it never happened</p>
+          <span class="src">Haaretz · 15h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.haaretz.com/opinion/2026-07-27/ty-article-opinion/.premium/the-state-is-teaching-citizens-to-bypass-the-law/0000019f-9fbf-df92-a7ff-bfbfee2a0000" target="_blank" rel="noopener noreferrer">The state is teaching citizens to bypass the law</a></h3>
+          
+          <span class="src">Haaretz · 15h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.haaretz.com/opinion/2026-07-27/ty-article-opinion/.premium/the-father-of-the-processes-doctrine-is-ignorant-of-the-processes/0000019f-9fc1-df92-a7ff-bfc34ba80000" target="_blank" rel="noopener noreferrer">The father of the &#39;processes&#39; doctrine is ignorant of the processes</a></h3>
+          
+          <span class="src">Haaretz · 15h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.haaretz.com/opinion/editorial/2026-07-27/ty-article-opinion/they-cant-say-that-they-werent-warned/0000019f-a00e-dcf3-a9df-a71e51bf0000" target="_blank" rel="noopener noreferrer">They can&#39;t say that they weren&#39;t warned</a></h3>
+          
+          <span class="src">Haaretz · 15h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.timesofisrael.com/irans-fm-claims-ukraine-struck-iranian-vessel-at-israels-behest-vows-retaliation/" target="_blank" rel="noopener noreferrer">Iran’s FM claims Ukraine struck Iranian vessel ‘at Israel’s behest,’ vows retaliation</a></h3>
+          <p>Araghchi says &#39;freeloader&#39; Zelensky violated UN Charter with deadly attack in Caspian, which Ukrainian president said targeted Iran-linked military cargo The post Iran’s FM claims Ukraine struck Iranian vessel ‘at Israel’s behest,’ vows retaliation appeared first on The Times of…</p>
+          <span class="src">Times of Israel · 15h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMizgFBVV95cUxQT2hvLTRwU3J1WVZCTlA0WFVNRmhXdDVkTWhwQkdDTFZzbEVpYmRBUUppcjJudFY2M3JpQ3lzT0I0SkM4VFlmSk8xb0RuX192WjQ2dE9nbjJkUFFMTHFyZDh2c1ktdDJpSmtmdXJPYW5wNXRuM1hsQ0RqYkE4X3d1aDZ1SkpUM3ltc0h2NFNZbmpvZFhYa0ZJTlEyR0JkdDZvYWRUYXBRZE41YkVEdjV4VEZVb0hSSUxOQlFwT1U4X1FfNjJrbmhaSVkyT0w0Zw?oc=5" target="_blank" rel="noopener noreferrer">Iran says it will halt strikes as long as US bombing pause holds - Reuters</a></h3>
+          <p>Iran says it will halt strikes as long as US bombing pause holds Reuters</p>
+          <span class="src">Reuters · via Google News · 15h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.haaretz.com/israel-news/2026-07-27/ty-article/.premium/israel-beats-the-drums-of-war-with-iran-but-trump-is-not-picking-up-the-tune/0000019f-9fed-db22-a5df-ffff6e790000" target="_blank" rel="noopener noreferrer">Israel beats the drums of war with Iran, but Trump is not picking up the tune</a></h3>
+          <p>The Iran developments offer three possibilities: the situation remains fluid, Trump&#39;s statements should not be taken at face value, and Israeli readings of U.S. intentions require skepticism. If the Gulf does not escalate, the West Bank will</p>
+          <span class="src">Haaretz · 16h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.aljazeera.com/news/2026/7/26/israeli-government-nods-to-international-stabilisation-force-in-gaza?traffic_source=rss" target="_blank" rel="noopener noreferrer">Israeli government nods to international stabilisation force in Gaza</a></h3>
+          <p>The ISF, to be staffed by &#39;friendly countries&#39;, will operate in areas outside of Israel&#39;s military control.</p>
+          <span class="src">Al Jazeera · 16h ago</span>
+        </article>
+        
+        <article class="story hopeful">
+          <span class="glimmer" title="A de-escalation / hope story">◗ glimmer</span>
+          <h3><a href="https://www.aljazeera.com/video/newsfeed/2026/7/26/palestinians-hope-international-peace-force-can-rebuild-gaza?traffic_source=rss" target="_blank" rel="noopener noreferrer">Palestinians hope international peace force can rebuild Gaza</a></h3>
+          <p>Palestinians in Gaza cautiously welcome Israel’s approval for an international stabilisation force to enter the strip.</p>
+          <span class="src">Al Jazeera · 16h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.aljazeera.com/news/2026/7/26/us-and-iran-hit-pause-on-strikes-for-second-day?traffic_source=rss" target="_blank" rel="noopener noreferrer">US and Iran hit pause on strikes for second day</a></h3>
+          <p>The relative calm comes amid reports of renewed efforts to restore diplomatic talks.</p>
+          <span class="src">Al Jazeera · 16h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.haaretz.com/middle-east-news/iran/2026-07-26/ty-article/iran-says-it-will-halt-attacks-as-long-as-u-s-maintains-pause-in-fighting/0000019f-9fd5-d114-a59f-dfddc2190000" target="_blank" rel="noopener noreferrer">Iran to halt attacks as long as U.S. maintains latest pause, Iranian source says</a></h3>
+          <p>The Pentagon suspended bombing operations after nearly two weeks of escalating strikes. Meanwhile, Saudi television channel Al Hadath reported that the United States and Iran had responded to mediators&#39; proposals aimed at restarting talks between the two countries</p>
+          <span class="src">Haaretz · 17h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.aljazeera.com/video/newsfeed/2026/7/26/houthis-claim-saudi-drone-downed-over-northwestern-yemen?traffic_source=rss" target="_blank" rel="noopener noreferrer">Houthis claim Saudi drone downed over northwestern Yemen</a></h3>
+          <p>Iran-backed Houthi forces claim they shot down a Saudi reconnaissance drone over northwestern Yemen.</p>
+          <span class="src">Al Jazeera · 17h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.timesofisrael.com/settlements-minister-strock-wins-2nd-spot-after-smotrich-in-religious-zionism-primary/" target="_blank" rel="noopener noreferrer">Settlements Minister Strock wins 2nd spot after Smotrich in Religious Zionism primary</a></h3>
+          <p>Voting limited to far-right party’s central committee rather than full membership; hostage father Tzvika Mor set to be given 3rd spot on Knesset slate, one of two reserved for Smotrich&#39;s picks The post Settlements Minister Strock wins 2nd spot after Smotrich in Religious Zionism…</p>
+          <span class="src">Times of Israel · 17h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.haaretz.com/israel-news/elections/2026-07-26/ty-article/.premium/minister-who-urged-risking-hostages-to-win-war-tops-religious-zionism-primary/0000019f-9fa6-df92-a7ff-bfa626eb0000" target="_blank" rel="noopener noreferrer">Minister who urged risking hostages to win Gaza war, judicial coup architect top Religious Zionism primary</a></h3>
+          <p>The top three consist of Settlements Minister Strock, who has described the government&#39;s tenure as an &#39;era of miracles,&#39; Rothman, banned from Australia over saying Gaza&#39;s children are enemies, and Succot, who tried twice to break into Arab schools</p>
+          <span class="src">Haaretz · 18h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.aljazeera.com/news/2026/7/26/what-lies-ahead-for-iran-as-scope-of-us-war-grows-beyond-hormuz?traffic_source=rss" target="_blank" rel="noopener noreferrer">What lies ahead for Iran’s economy as scope of US war grows beyond Hormuz?</a></h3>
+          <p>Mediation efforts continue but uncertainty remains as risks of further disruptions in international waterways grow.</p>
+          <span class="src">Al Jazeera · 18h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.aljazeera.com/video/newsfeed/2026/7/26/al-sharaa-outlines-syrias-approach-to-security-with-israel-and-lebanon?traffic_source=rss" target="_blank" rel="noopener noreferrer">Al-Sharaa outlines Syria’s approach to security with Israel and Lebanon</a></h3>
+          <p>Syrian President Ahmed al-Sharaa said Damascus is working towards a security agreement with Israel.</p>
+          <span class="src">Al Jazeera · 18h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.timesofisrael.com/senior-iranian-source-says-tehran-will-halt-attacks-as-long-as-us-holds-its-fire/" target="_blank" rel="noopener noreferrer">Senior Iranian source says Tehran will halt attacks as long as US holds its fire</a></h3>
+          <p>Lull in US strikes said to follow CENTCOM chief&#39;s advice that hitting Hormuz targets now having limited effect; Netanyahu: War will end only when regime falls or is forced to give up nuclear program The post Senior Iranian source says Tehran will halt attacks as long as US holds…</p>
+          <span class="src">Times of Israel · 18h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.aljazeera.com/news/2026/7/26/netanyahu-vows-to-go-to-new-york-city-despite-icc-arrest-warrant-mamdani?traffic_source=rss" target="_blank" rel="noopener noreferrer">Netanyahu vows to go to New York City despite ICC arrest warrant, Mamdani</a></h3>
+          <p>Israeli prime minister slams New York Mayor Zohran Mamdani, accusing him of &#39;fomenting hate&#39; with criticism of Israel.</p>
+          <span class="src">Al Jazeera · 18h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.aljazeera.com/video/newsfeed/2026/7/26/israeli-settlers-burn-two-mosques-in-occupied-west-bank?traffic_source=rss" target="_blank" rel="noopener noreferrer">Israeli settlers burn two mosques in occupied West Bank</a></h3>
+          <p>Israeli settlers set fire to two mosques in separate attacks across the occupied West Bank, causing significant damage.</p>
+          <span class="src">Al Jazeera · 18h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.haaretz.com/opinion/2026-07-26/ty-article-opinion/.premium/for-israel-the-u-s-saudi-nuclear-deal-is-a-major-strategic-failure/0000019f-9f89-dcf3-a9df-9f9b8afa0000" target="_blank" rel="noopener noreferrer">For Israel, the U.S.-Saudi nuclear deal is a major strategic failure</a></h3>
+          <p>The agreement between Washington and Riyadh could create a regional nuclear arms race, while forgoing the only advantage Israel wanted to gain from it: Saudi normalization</p>
+          <span class="src">Haaretz · 19h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.timesofisrael.com/an-unwelcome-guest-some-9-11-victims-families-want-mamdani-barred-from-tribute/" target="_blank" rel="noopener noreferrer">‘An unwelcome guest’: Some 9/11 victims’ families want Mamdani barred from tribute</a></h3>
+          <p>Petition signed by relatives of around 300 victims of the 2001 attack on NYC points to left-wing mayor&#39;s ties to those who have voiced support for terror groups, minimized 9/11 The post ‘An unwelcome guest’: Some 9/11 victims’ families want Mamdani barred from tribute appeared…</p>
+          <span class="src">Times of Israel · 19h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.haaretz.com/israel-news/israel-politics/2026-07-26/ty-article/.premium/defense-minister-katz-visits-jailed-settler-suspected-in-violent-west-bank-raid/0000019f-9e70-dcf3-a9df-9f726b200000" target="_blank" rel="noopener noreferrer">Israeli Defense Minister Katz visits jailed settler suspected in violent raid on Palestinian community</a></h3>
+          <p>Katz visits hunger-striking settler Tal Yinon Dardik – suspected of taking part in a March attack on a Palestinian village that allegedly involved sexual abuse and looting – as ministers and MKs call for his release, citing his deteriorating health</p>
+          <span class="src">Haaretz · 19h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.haaretz.com/israel-news/israel-security/2026-07-26/ty-article/.premium/netanyahu-idf-ready-to-expand-operations-against-terror-nests-in-west-bank/0000019f-9ed9-df42-a1df-fff95dab0000" target="_blank" rel="noopener noreferrer">Netanyahu: IDF ready to expand operations against &#39;terror nests&#39; in West Bank</a></h3>
+          <p>Defense Minister Israel Katz said that Israel&#39;s policy against Palestinian terrorism in the West Bank remains &#39;clear, determined and offensive,&#39; claiming IDF operations have reduced what he called &#39;terror attacks&#39; by more than 80 percent</p>
+          <span class="src">Haaretz · 19h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.haaretz.com/middle-east-news/syria/2026-07-26/ty-article/.premium/syrian-president-syria-seeking-security-deal-with-israel-to-pave-way-for-peace/0000019f-9e8f-dcf3-a9df-9f9f55d40000" target="_blank" rel="noopener noreferrer">Syrian president al-Sharaa: Syria seeking security agreement with Israel to pave way for peace</a></h3>
+          <p>In an interview with Al Jazeera, al-Sharaa also said that Syria is trying to assist the Lebanese government, but will not intervene militarily in the country&#39;s efforts to dismantle Hezbollah&#39;s military power</p>
+          <span class="src">Haaretz · 20h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMixAFBVV95cUxOR0dDdnVkOGdDUi10WVpzQ1FKWjNjcmRWaEl3ZFdZdXQ2cnNmY3JIbDNyN2ZiZ1ctd1YtOG1iOEZubEM4RzZ1djNiT3M1djhBRnROYTNKUVgwSGlUa1VFbUJ0ekJIWkhTVmRhZFJNbEVGTHhvc0daZXNmUzNEMWpZNlBmUy1QeEF3Y1o4SlBzcnRnd0ZXZnc5REROeGFGRzFrM2RKQXhVY3hmc3Y3RDl2bUdZazNXRF9iZkJURF9rcTVXQjMw?oc=5" target="_blank" rel="noopener noreferrer">Iran foreign minister says Ukraine&#39;s attack on Iranian vessel &#39;cannot go unanswered&#39; - Reuters</a></h3>
+          <p>Iran foreign minister says Ukraine&#39;s attack on Iranian vessel &#39;cannot go unanswered&#39; Reuters</p>
+          <span class="src">Reuters · via Google News · 20h ago</span>
+        </article>
+        
+      
+    </div>
+  </section>
+  
+  <section id="morocco" class="panel  region-morocco">
+    <div class="region">
+      <h2 class="section-head">Morocco <span class="tag">incl. Western Sahara</span></h2>
+      
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142623-wydad-close-to-appointing-paulo-sergio-as-new-coach.html" target="_blank" rel="noopener noreferrer">Wydad close to appointing Paulo Sérgio as new coach</a></h3>
+          <p>Wydad Casablanca are close to appointing Portuguese coach Paulo Sérgio on a one-year contract ahead of the new season, Portuguese outlet Maisfutebol reported. The 58-year-old is in advanced negotiations with the Moroccan club but the agreement had not been officially announced…</p>
+          <span class="src">Hespress · 14h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142656-monster-wildfires-force-350000-from-homes-in-france-spain.html" target="_blank" rel="noopener noreferrer">&#39;Monster&#39; wildfires force 350,000 from homes in France, Spain</a></h3>
+          <p>Forests burned and villages emptied as more than 325,000 people fled blazes tearing through France and Spain on Sunday, with firefighters struggling to contain flames stretching kilometres. The infernos, raging for days in France’s southwest and central Spain near Madrid, rank…</p>
+          <span class="src">Hespress · 15h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142650-northern-morocco-on-high-wildfire-alert-amid-mediterranean-blazes.html" target="_blank" rel="noopener noreferrer">Northern Morocco on high wildfire alert amid Mediterranean blazes</a></h3>
+          <p>Authorities in northern Morocco have raised wildfire readiness after crews contained a forest fire near Tetouan that threatened nearly 2,000 hectares, a regional forestry official said. The blaze broke out on Saturday in the Kitan forest, in the Zaitoun commune under Azla near…</p>
+          <span class="src">Hespress · 18h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142644-chief-suspect-in-berlin-pride-attack-shot-dead-police.html" target="_blank" rel="noopener noreferrer">Chief suspect in Berlin Pride attack shot dead: police</a></h3>
+          <p>The chief suspect in a deadly attack near Berlin’s Pride parade has been shot dead, police said on Sunday evening. Officers located the suspect, previously named as 21-year-old Abdul Ballout, at around 6:00 pm (1600 GMT), Berlin police said in a statement on X. He “ran towards…</p>
+          <span class="src">Hespress · 20h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142641-casablanca-dental-students-threaten-training-boycott-as-overcrowding-shortages-fuel-unrest.html" target="_blank" rel="noopener noreferrer">Casablanca dental students threaten training boycott as overcrowding, shortages fuel unrest</a></h3>
+          <p>Dental students in Casablanca say they are ready to boycott hospital training when the next academic year starts, warning that years of overcrowding and shortages are making it impossible to get the clinical experience they need. The threat comes after general assemblies held…</p>
+          <span class="src">Hespress · 20h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.aljazeera.com/video/newsfeed/2026/7/26/heatwave-drives-major-wildfires-across-north-africa?traffic_source=rss" target="_blank" rel="noopener noreferrer">Heatwave drives major wildfires across North Africa</a></h3>
+          <p>Extreme heat is fuelling wildfires across North Africa, with major fires burning in Tunisia, Algeria and Morocco.</p>
+          <span class="src">Al Jazeera · 21h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142632-spain-battles-new-wildfire-near-valencia-as-15000-residents-evacuated.html" target="_blank" rel="noopener noreferrer">Spain Battles New Wildfire Near Valencia as 15,000 Residents Evacuated</a></h3>
+          <p>Spanish firefighters continued battling a new wildfire near the coastal city of Valencia on Sunday after at least 15,000 people were evacuated as flames spread rapidly through the area. Authorities in the eastern Spanish region acknowledged they were struggling to contain the…</p>
+          <span class="src">Hespress · 21h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142637-trump-announces-tiznit-dakhla-highway-will-be-named-in-his-honor-thanks-king-mohammed-vi.html" target="_blank" rel="noopener noreferrer">Trump announces Tiznit–Dakhla highway will be named in his honor, thanks King Mohammed VI</a></h3>
+          <p>US President Donald Trump announced on Sunday that Morocco’s Tiznit-Dakhla expressway would be named after him, thanking King Mohammed VI and calling the decision a “great honour.” Trump made the announcement on his Truth Social platform, saying he hoped to travel the full…</p>
+          <span class="src">Hespress · 22h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142616-five-moroccan-creators-shortlisted-for-arab-world-design-awards.html" target="_blank" rel="noopener noreferrer">Five Moroccan creators shortlisted for Arab World design awards</a></h3>
+          <p>Five Moroccan designers and architects have been named among the finalists for the Arab World Institute’s 2026 Design Award, with projects spanning furniture, textiles, architecture and urban heritage. Othmane Bengebara is shortlisted in the emerging talent category for…</p>
+          <span class="src">Hespress · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142613-moroccans-with-schengen-or-us-visas-can-now-enter-peru-visa-free.html" target="_blank" rel="noopener noreferrer">Moroccans with Schengen or US visas can now enter Peru visa-free</a></h3>
+          <p>Peru has waived tourist visa requirements for Moroccan citizens holding valid Schengen or United States visas, easing travel conditions for a limited category of Moroccan passport holders. The measure was formalised under Supreme Decree 033-2026-RE, published on July 25 in…</p>
+          <span class="src">Hespress · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142626-cas-orders-congolese-club-to-pay-moroccan-coach-ouaddou-e612227-for-wrongful-dismissal.html" target="_blank" rel="noopener noreferrer">CAS orders Congolese club to pay Moroccan coach Ouaddou €612,227 for wrongful dismissal</a></h3>
+          <p>Moroccan coach Abdeslam Ouaddou has won more than €612,000 in compensation from Congolese club AS Vita Club after the Court of Arbitration for Sport ruled that his contract had been terminated without just cause. The tribunal found Ouaddou’s appeal admissible and concluded that…</p>
+          <span class="src">Hespress · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142629-blood-found-in-fakirs-lungs-after-bologna-police-restraint.html" target="_blank" rel="noopener noreferrer">Blood found in Fakir’s lungs after Bologna police restraint</a></h3>
+          <p>Preliminary autopsy findings on Moroccan businessman Abderrahim Fakir found blood in his lungs and signs of compression following his restraint by police in Bologna, Italian media reported. The six-hour examination was conducted on Friday by specialists appointed by Bologna…</p>
+          <span class="src">Hespress · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142609-pentagon-adds-morocco-to-multinational-fighter-helmet-support-contract.html" target="_blank" rel="noopener noreferrer">Pentagon adds Morocco to multinational fighter helmet support contract</a></h3>
+          <p>The US Defense Logistics Agency has included Morocco among 13 foreign military customers covered by a contract worth up to $332.6 million for spare parts and repair support for fighter-pilot helmet targeting systems. The contract was awarded to Rockwell Collins ESA Vision…</p>
+          <span class="src">Hespress · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142607-morocco-issues-orange-heat-alert-as-temperatures-near-47c.html" target="_blank" rel="noopener noreferrer">Morocco issues orange heat alert as temperatures near 47°C</a></h3>
+          <p>Morocco’s weather service issued an orange-level heat alert on Sunday, warning that temperatures could reach 47°C in several provinces between July 26 and 28. The General Directorate of Meteorology said highs of 44°C to 47°C were expected in Zagora, Tata and Assa-Zag from Sunday…</p>
+          <span class="src">Hespress · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142599-from-surf-to-sisterhood-how-women-are-redefining-safe-solo-travel-in-morocco.html" target="_blank" rel="noopener noreferrer">From surf to sisterhood: How women are redefining safe solo travel in Morocco</a></h3>
+          <p>Morocco has become an increasingly popular destination for solo travelers, with more women choosing to explore the country independently. While concerns about safety often shape first impressions, many travelers leave with a different perspective, describing Morocco as a place…</p>
+          <span class="src">Hespress · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142597-one-killed-15-wounded-as-car-believed-to-hit-crowd-near-berlin-pride-parade.html" target="_blank" rel="noopener noreferrer">One killed, 15 wounded as car believed to hit crowd near Berlin Pride Parade</a></h3>
+          <p>At least one person was killed and around 15 wounded after a car is believed to have hit the crowd on the outskirts of the Berlin Gay Pride parade, police said Saturday. “We believe that a vehicle entered the Tiergarten park and hit several people and injured them,” police…</p>
+          <span class="src">Hespress · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142594-threat-of-fire-in-southwest-france-remains-very-serious-top-official.html" target="_blank" rel="noopener noreferrer">Threat of fire in southwest France remains &#39;very serious&#39;: top official</a></h3>
+          <p>The threat posed by a wildfire raging in the southwestern French department of Gironde “remains very serious,” the top regional official, Sophie Brocas, said Saturday. “The threat remains very serious. We are still facing a grave situation,” she said, adding however that the…</p>
+          <span class="src">Hespress · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142592-study-fear-misinformation-drive-anti-migrant-discourse-on-moroccan-social-media.html" target="_blank" rel="noopener noreferrer">Study: Fear, misinformation drive anti-migrant discourse on Moroccan social media</a></h3>
+          <p>Anti-migrant hate speech in Morocco is becoming increasingly organized around relatively homogeneous online communities that produce, spread and amplify narratives based on fear, misinformation and the portrayal of migrants as a threat to society, according to the latest…</p>
+          <span class="src">Hespress · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142588-moroccan-customs-crack-down-on-alleged-smuggling-of-new-clothing-disguised-as-second-hand-imports.html" target="_blank" rel="noopener noreferrer">Moroccan customs crack down on alleged smuggling of new clothing disguised as second-hand imports</a></h3>
+          <p>Morocco’s Customs and Indirect Tax Administration has intensified inspections at border crossings and along major transport routes following intelligence indicating that organized networks are smuggling new clothing into the country by concealing it within shipments of…</p>
+          <span class="src">Hespress · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142586-renault-shifts-new-dacia-production-from-romania-to-morocco-as-costs-reshape-strategy.html" target="_blank" rel="noopener noreferrer">Renault shifts new Dacia production from Romania to Morocco as costs reshape strategy</a></h3>
+          <p>Morocco’s competitive business environment is increasingly attracting global automakers, with a combination of lower production costs and tax incentives prompting French automotive group Renault to shift production of some new Dacia models from Romania to Morocco, according to…</p>
+          <span class="src">Hespress · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142583-who-must-file-and-pay-taxes-in-morocco-before-the-end-of-july.html" target="_blank" rel="noopener noreferrer">Who must file and pay taxes in Morocco before the end of July?</a></h3>
+          <p>Morocco’s General Directorate of Taxes (DGI) has set July 31 as the deadline for several categories of taxpayers to submit tax declarations and make the required payments, reminding businesses and self-employed workers to complete their obligations through the country’s…</p>
+          <span class="src">Hespress · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142576-akhannouch-rni-wins-through-performance-not-last-minute-recruits.html" target="_blank" rel="noopener noreferrer">Akhannouch: RNI wins through performance, not last-minute recruits</a></h3>
+          <p>Prime Minister Aziz Akhannouch defended his government’s record and outlined his party’s vision for the next legislative term on Saturday, telling supporters that Moroccans would reward performance over political rhetoric in the upcoming parliamentary elections. Speaking at a…</p>
+          <span class="src">Hespress · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142572-as-europe-bans-destroying-unsold-clothes-morocco-prepares-for-the-ripple-effects.html" target="_blank" rel="noopener noreferrer">As Europe bans destroying unsold clothes, Morocco prepares for the ripple effects</a></h3>
+          <p>Europe’s fashion industry can no longer quietly burn or dump piles of unsold clothes. As of July 19, large fashion companies across the European Union are banned from destroying unsold clothing, footwear and accessories, marking one of the bloc’s biggest moves yet to curb waste.…</p>
+          <span class="src">Hespress · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142559-newly-recruited-moroccan-nurses-left-unpaid-for-more-than-six-months-union-says.html" target="_blank" rel="noopener noreferrer">Newly recruited Moroccan nurses left unpaid for more than six months, union says</a></h3>
+          <p>The Independent Union of Nurses and Health Technicians has raised concerns over salary delays of more than six months affecting newly recruited healthcare workers across several Moroccan cities. The issue affects around 280 newly recruited healthcare workers at Ibn Sina…</p>
+          <span class="src">Hespress · 2d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142567-more-than-250000-have-fled-wildfires-in-france-and-spain-authorities.html" target="_blank" rel="noopener noreferrer">More than 250,000 have fled wildfires in France and Spain: authorities</a></h3>
+          <p>Out-of-control wildfires raging in France and Spain have forced the evacuation of more than 250,000 people in total, authorities in both countries said on Saturday. The French government said that 197,000 people were evacuated because of wildfires near Bordeaux, in southwest…</p>
+          <span class="src">Hespress · 2d ago</span>
+        </article>
+        
+      
+    </div>
+  </section>
+  
+  <section id="africa" class="panel  region-africa">
+    <div class="region">
+      <h2 class="section-head">Africa <span class="tag">politics &amp; security</span></h2>
+      
+        
+        <article class="story">
+          
+          <h3><a href="https://www.nytimes.com/2026/07/26/world/south-africa-identity-crisis-wildfires.html" target="_blank" rel="noopener noreferrer">A South African Identity Crisis</a></h3>
+          <p>Anti-immigrant activism reveals the contradictions of a country that projects itself as a bastion of human rights.</p>
+          <span class="src">NYT World · 16h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="http://www.africanews.com/2026/07/26/ugandan-diplomat-olara-otunnu-joins-race-to-lead-the-united-nations/" target="_blank" rel="noopener noreferrer">Ugandan diplomat Olara Otunnu joins race to lead the United Nations</a></h3>
+          <p>The former UN under-secretary-general, who served as a special representative for children and armed conflict, was nominated by Kampala on Friday.</p>
+          <span class="src">Africanews · 22h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="http://www.africanews.com/2026/07/26/climate-experts-say-super-el-nino-will-negatively-impact-african-economies/" target="_blank" rel="noopener noreferrer">Climate experts say super El Niño will negatively impact African economies</a></h3>
+          <p>The African Development bank says is will likely inflict a combined $10 billion to $20 billion hit on affected countries.</p>
+          <span class="src">Africanews · 23h ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="http://www.africanews.com/2026/07/26/dr-congo-says-the-number-of-confirmed-ebola-cases-has-surpassed-3000/" target="_blank" rel="noopener noreferrer">DR Congo says the number of confirmed Ebola cases has surpassed 3,000</a></h3>
+          <p>The announcement came as around 100 health workers went on strike at an Ebola treatment centre in Bunia, the epicentre of the outbreak.</p>
+          <span class="src">Africanews · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="http://www.africanews.com/2026/07/26/senegals-president-launches-his-own-political-party-cementing-rift-with-former-pm/" target="_blank" rel="noopener noreferrer">Senegal&#39;s President launches his own political party cementing rift with former PM</a></h3>
+          <p>The move cements his rift with his ally-turned-rival Ousmane Sonko who heads the country’s ruling Pastef party.</p>
+          <span class="src">Africanews · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.aljazeera.com/news/2026/7/26/why-the-uk-cancelled-a-military-exercise-in-kenya-and-what-it-means?traffic_source=rss" target="_blank" rel="noopener noreferrer">Why the UK cancelled a military exercise in Kenya – and what it means</a></h3>
+          <p>A dispute over military cooperation and accountability strains a decades-old UK-Kenya partnership.</p>
+          <span class="src">Al Jazeera · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.theafricareport.com/425635/mali-the-wall-of-officers-keeping-assimi-goita-in-power-and-at-war/" target="_blank" rel="noopener noreferrer">Mali: The wall of officers keeping Assimi Goïta in power and at war</a></h3>
+          <p>Since the death of Sadio Camara, the junta leader has taken back the defence portfolio. He leans on a tight circle of officers, both to defend Mali against jihadists and to hold together an army that has become the main pillar of his rule.</p>
+          <span class="src">The Africa Report · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="http://www.africanews.com/2026/07/26/nigerian-youngsters-learning-boxing-on-the-streets-of-lagos/" target="_blank" rel="noopener noreferrer">Nigerian youngsters learning boxing on the streets of Lagos</a></h3>
+          <p>Former boxer Yusuf Eleyele says he is not only teaching them the sport, but also discipline and resilience.</p>
+          <span class="src">Africanews · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="http://www.africanews.com/2026/07/26/thousands-rally-in-tunisian-capital-calling-for-end-of-presidents-rule/" target="_blank" rel="noopener noreferrer">Thousands rally in Tunisian capital calling for end of president&#39;s rule</a></h3>
+          <p>The protest marked five years since President Kais Saied Saied suspended parliament and later dissolved it in order to rule by decree.</p>
+          <span class="src">Africanews · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142602-super-el-nino-could-cost-africa-up-to-20-billion-afdb-says.html" target="_blank" rel="noopener noreferrer">‘Super’ El Niño could cost Africa up to $20 billion, AfDB says</a></h3>
+          <p>A potentially extreme El Niño could cost affected African countries between $10 billion and $20 billion and trigger mass migration from areas hit by drought, flooding and food shortages, the African Development Bank’s top climate official told Reuters. Anthony Nyong, the bank’s…</p>
+          <span class="src">Hespress · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMizgFBVV95cUxORTVKMDhrM083OEFuZWQ1am92SHdCUXpQVmVkWkFBVTdXWUlGNzNGcDlsSlVLNWdTc0lZT2J5MHV1NHFjUHhzVG83MmRkQ3VsYjhpbFNXbkNYNkJLSnQ2RlFQbmRoa3lQUWJJOWt0TXZ0b3k3c1R6YXpGVlRTM2xSV0FoZmxMMXdhM1N1WU5kbmJWZnNLRTM4RW1xQ3N0WFlxcWRTVHRxY2drWC1FU3ZGdkJFMDhYd25aamhZNUJTYjRDTHg1TUhFdVBQeTdlQQ?oc=5" target="_blank" rel="noopener noreferrer">Africa facing $10-$20 billion economic hit from &#39;super&#39; El Niño, AfDB climate chief warns - Reuters</a></h3>
+          <p>Africa facing $10-$20 billion economic hit from &#39;super&#39; El Niño, AfDB climate chief warns Reuters</p>
+          <span class="src">Reuters · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="http://www.africanews.com/2026/07/26/tunisian-town-of-sidi-bou-said-added-to-unesco-world-heritage-list/" target="_blank" rel="noopener noreferrer">Tunisian town of Sidi Bou Said added to UNESCO World Heritage list</a></h3>
+          <p>Perched on a cliff overlooking the Mediterranean Sea and the ancient ruins of Carthage, the picturesque village is a major tourist stop.</p>
+          <span class="src">Africanews · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.nytimes.com/2026/07/26/world/africa/ebola-uganda-congo-border.html" target="_blank" rel="noopener noreferrer">20 Years After Its Own Outbreak, an Ugandan Town Beats Back Ebola</a></h3>
+          <p>The Bundibugyo Ebola virus takes its name from this small town, where it was first discovered in 2007. Now, the species has returned to eastern Congo, halting life on a busy border.</p>
+          <span class="src">NYT World · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.aljazeera.com/news/2026/7/25/ebola-deaths-in-drc-surge-past-1300-as-virus-spreading-like-a-wildfire?traffic_source=rss" target="_blank" rel="noopener noreferrer">Ebola deaths in DRC surge past 1,300 as virus ‘spreading like a wildfire’</a></h3>
+          <p>The outbreak is spreading at the fastest rate ever recorded and threatens to become the worst in history.</p>
+          <span class="src">Al Jazeera · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://en.hespress.com/142579-cameroon-leaders-absence-sparks-debate-over-government-inaction.html" target="_blank" rel="noopener noreferrer">Cameroon leader&#39;s absence sparks debate over government inaction</a></h3>
+          <p>The lengthy absence of Cameroon’s long-serving President Paul Biya, who has been in Switzerland since early June, has reignited debate about government inaction, in a country where many crave change. As of Saturday, it will be 48 days since Biya, 93, who has been in power for…</p>
+          <span class="src">Hespress · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.aljazeera.com/sports/2026/7/25/india-win-second-t20-clash-in-zimbabwe-to-take-series-as-kishan-tilak-varma-shine?traffic_source=rss" target="_blank" rel="noopener noreferrer">India win second T20 in Zimbabwe to take series as Kishan and Varma shine</a></h3>
+          <p>Ishan Kishan and Tilak Varma sets up 90-run win over Zimbabwe as India takes 2-0 lead in T20 series.</p>
+          <span class="src">Al Jazeera · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="http://www.africanews.com/2026/07/25/supergroup-humback-whale-sightings-on-the-increase-in-south-africa/" target="_blank" rel="noopener noreferrer">Supergroup humback whale sightings on the increase in South Africa</a></h3>
+          <p>Together with dolphins, they are one of at least 37 species of marine mammals that can be found in South African waters.</p>
+          <span class="src">Africanews · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="http://www.africanews.com/2026/07/25/ugandan-wildlife-authority-relocates-12-endangered-nubian-giraffes/" target="_blank" rel="noopener noreferrer">Ugandan wildlife authority relocates 12 endangered Nubian giraffes</a></h3>
+          <p>They are being given a new home to escape oil drilling in the country’s largest park.</p>
+          <span class="src">Africanews · 2d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="http://www.africanews.com/2026/07/25/six-ancient-medinas-in-comoros-join-unescos-world-heritage-list/" target="_blank" rel="noopener noreferrer">Six ancient medinas in Comoros join UNESCO&#39;s World Heritage list</a></h3>
+          <p>Some of the ancient cities of palaces, mosques, public squares, and narrow streets date back to the 12th century and are still inhabited.</p>
+          <span class="src">Africanews · 2d ago</span>
+        </article>
+        
+        <article class="story hopeful">
+          <span class="glimmer" title="A de-escalation / hope story">◗ glimmer</span>
+          <h3><a href="http://www.africanews.com/2026/07/25/lawyers-call-for-former-president-to-be-freed-three-years-after-coup/" target="_blank" rel="noopener noreferrer">Lawyers call for former president to be freed three years after coup</a></h3>
+          <p>Elected President Mohamed Bazoum and his wife have been detained in the presidential palace in Niamey since the July 2023 coup.</p>
+          <span class="src">Africanews · 2d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMioAFBVV95cUxPWnhGR2w4RFpUaEt2VU9FcWpiY29PaVRGMEpqU3RmQzR5WkpBdGFYbE5zOXhOOFBrSHAxZzZCMV80OHpNVElrMFR4WGdtcGZkM1pPalR2ZVRkTWduVFVQZlhfSE95WE83Unc2UDJrczZLUjFueHhnSURDX2xMRWg3N1o4UE9abGVST1NJMl8yVXVxRXp6MkFJRlFZMWFwODNh?oc=5" target="_blank" rel="noopener noreferrer">Ebola Thrives in DR Congo’s Chaos. The World May Soon Pay the Price - Newsweek</a></h3>
+          <p>Ebola Thrives in DR Congo’s Chaos. The World May Soon Pay the Price Newsweek</p>
+          <span class="src">DR Congo wire · via Google News · 2d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="http://www.africanews.com/2026/07/25/tunisia-records-900-fires-in-72-hour-window-during-intense-heatwave/" target="_blank" rel="noopener noreferrer">Tunisia records 900 fires in 72-hour window during intense heatwave</a></h3>
+          <p>Officials say most of the blazes have been extinguished but two major ones are still raging.</p>
+          <span class="src">Africanews · 2d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.theafricareport.com/425540/cote-divoire-and-ghana-lead-africas-cocoa-strategy-through-cigci/" target="_blank" rel="noopener noreferrer">Côte d’Ivoire and Ghana lead Africa’s cocoa strategy through CIGCI</a></h3>
+          <p>Côte d’Ivoire and Ghana want Africa’s cocoa producers to speak with one voice. Their latest push through CIGCI aims to strengthen bargaining power and capture more value from the global cocoa trade.</p>
+          <span class="src">The Africa Report · 2d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.theafricareport.com/426088/africas-minerals-are-not-the-problem-weak-governance-is/" target="_blank" rel="noopener noreferrer">Africa’s minerals are not the problem. Weak governance is</a></h3>
+          <p>The global green transition relies heavily on Sub-Saharan Africa’s $16tn mineral bounty. Without urgent institutional reform, local communities will continue to pay the price for global decarbonisation.</p>
+          <span class="src">The Africa Report · 2d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="http://www.africanews.com/2026/07/25/dr-congo-more-people-seeking-treatment-for-ebola-as-trust-grows/" target="_blank" rel="noopener noreferrer">DR Congo: More people seeking treatment for Ebola as trust grows</a></h3>
+          <p>Most of the 1,000 deaths from Ebola since mid-May have occurred in communities, not in treatment centres.</p>
+          <span class="src">Africanews · 2d ago</span>
+        </article>
+        
+      
+    </div>
+  </section>
+  
+  <section id="global" class="panel  region-global">
+    <div class="region">
+      <h2 class="section-head">Great Powers &amp; Global <span class="tag">US · Europe · Russia · Ukraine · China</span></h2>
+      
+        
+        <article class="story">
+          
+          <h3><a href="https://www.aljazeera.com/news/2026/7/26/cuban-president-accuses-us-of-genocide-seeking-takeover?traffic_source=rss" target="_blank" rel="noopener noreferrer">Cuban president accuses US of genocide, seeking takeover</a></h3>
+          <p>Island has weathered a US oil embargo since January and is enduring one of its worst economic crises.</p>
+          <span class="src">Al Jazeera · 18h ago</span>
+        </article>
+        
+        <article class="story hopeful">
+          <span class="glimmer" title="A de-escalation / hope story">◗ glimmer</span>
+          <h3><a href="https://www.timesofisrael.com/fire-causes-millions-in-damage-to-chabad-center-in-ukrainian-town-where-founder-buried/" target="_blank" rel="noopener noreferrer">Fire destroys Chabad center in Ukrainian town where founding rabbi buried</a></h3>
+          <p>Blaze consumes synagogue, kitchen, reception hall, cause unknown; no injuries reported; local investigators looking at all possibilities including electrical fault; local rabbi vows to rebuild The post Fire destroys Chabad center in Ukrainian town where founding rabbi buried…</p>
+          <span class="src">Times of Israel · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMiWkFVX3lxTE9hazZYV0RydHFjNjRWMGo1UWZGQ29GZ3Z0UUx4Z21xbG9OYnJQYmdBOGpLZ3oydm5FWG5MTUs5dzZkU2JqZ2ZQelQ4YXNGOFBjTlFxbDRqQ0NfQQ?oc=5" target="_blank" rel="noopener noreferrer">Russia preparing to receive another 30,000 N. Korean troops for Ukraine war: Zelenskyy - Yonhap News Agency</a></h3>
+          <p>Russia preparing to receive another 30,000 N. Korean troops for Ukraine war: Zelenskyy Yonhap News Agency</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMiwAFBVV95cUxQdS1laU9STHdpY01PMm93dm9OeXN1MnRRdm1nQVh5LTVBTDI0VUpFLVh4d1IxbnotOFU0djhIdGFVdnFyenlMQURwNnAyZkREWW16Yk9OcG1jUkhNUlo2cmphSUN4WmtJS0FGanFlOGV5R0FDMmp2cGRPTFc2b2JCN2ZxcWFwalp2Qm8zZFJiTEVZSTBPbTZUZnItRnBaZ0FISm9DSkNvM3k1cVR4LW4wUTM1NmJiTWZPaC1Zbm9IZHQ?oc=5" target="_blank" rel="noopener noreferrer">Kazakh leader to Putin: The Ukraine war should end - Le Monde.fr</a></h3>
+          <p>Kazakh leader to Putin: The Ukraine war should end Le Monde.fr</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMigwFBVV95cUxQRmNfZzZ0RXNJX192SUVsNjhVMnhzOGFxMktidlZWb1pEbHVhX253YnQxMjJISFlSZkNObjR2UllfTFhwTDYtczdrUXJueHNqMzd0dkFVTzNHRXhYcmZGNmtuS2F3UUx4Y1NkYU5DbHlvNU1Ja3BleTJXVnk0YU01Tk9kcw?oc=5" target="_blank" rel="noopener noreferrer">Russia Wants 30,000 More North Korean Troops for Ukraine War, Zelensky Says - Newsweek</a></h3>
+          <p>Russia Wants 30,000 More North Korean Troops for Ukraine War, Zelensky Says Newsweek</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMirwFBVV95cUxOa2lCczhhMjNGaXlzclRHOElsS3NYRllXR3A2R0RwLThLSWVwdGYwVkRueTVnRUtRcDBlY3h2V3RFRDVIdDBKTDI0ZHdxV1ljLUhUcWttZlRBUmg1Mnk0aWltYlYxaElrV2VEckNjbE5JNHRodjQtOS1zaTJlZ0F6T1hnY2F5QXA1U1JUdUx4bGFMb2N1WDBldURoRFpnMU5hUzNJX0RFTlRpV1VUVC1z?oc=5" target="_blank" rel="noopener noreferrer">Kazakhstan urges Putin to freeze Ukraine war in a rare public nudge - The Seattle Times</a></h3>
+          <p>Kazakhstan urges Putin to freeze Ukraine war in a rare public nudge The Seattle Times</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMi7AFBVV95cUxPdU5ZZUtxT3dNMWs1NWcxak8zcUc5N1h0RjdwSVc0aTdkZXZIeHdEZTdOdHluZWNTaG5xX3NVN2FKcWNmQjdYckhrT0dzTWszaHNlZmdRYnViVURKS2I2WEpqbDlleW9tQ2paRFJNdEtHVzRrNnZ4Y1VhZk1IRXVlaWxmSVBmRktBdjk5REtpNW1qcW9jVWlTZFZaaS1sTVZXaGdYbUtnT3JRN0k4c2xLeGxyRFV5bUtJb29vazRqUmNsMUxHN0RfdWx2ZlNyMDZzb2VKc3lPM3g0b29QNzBCNlQ2ZUE5UFptOGhLQQ?oc=5" target="_blank" rel="noopener noreferrer">Ukraine strikes set fire to &#39;Russia&#39;s Amazon,&#39; marking the 7th attack on chain suspected of supplying Moscow&#39;s military - New York Post</a></h3>
+          <p>Ukraine strikes set fire to &#39;Russia&#39;s Amazon,&#39; marking the 7th attack on chain suspected of supplying Moscow&#39;s military New York Post</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMiwgFBVV95cUxQX0V0dWF1STdYbGNnYkY3Z240TW5UUTh6VG9uRW9UUG14M1k4NlA2NTN4cTVueXM4MzBwdVNsVVZyZXhhVXExOFEwcHMzV0lNVzNoeTBWZkQzRllpY1RqbkNuWC1MT3JldzMtRWRtOE5Ub0tlTUdzYWVCVVA0WVdPeFl2cmVyaFpmeC03TEpRdkpaTzZmWl9HcU5ybTdoX0ZjYlRieGhYUG91UUQ3SmQtYi1uQkM5VTJNSjNYbG9wRno4UdIBxwFBVV95cUxNbTZjTi1fRmRoM1ktby1tdzRCNnNQTUxERUZWaTd5Z2J5NGxzV2xhWmF2RGxZNHhqRlYzNDdUUTJobnVRb3llemd4a0gwN0lZdEJYOXlINVF2cnNYN1FKcy1aNU95RFoxTm4xM09yNW1IbDEyeFpvTDhJRkNtYkl5LUNBc0RJUUNhWXpqV2J0M1ZidjRtN1RtaFJMcHBvUFAzN25sSXJFdkJnSzh5TXhjREt6WThVdTBLZ2NvUVowTXVnb1BvdkJz?oc=5" target="_blank" rel="noopener noreferrer">Russia says Kazakh proposal to &#39;freeze&#39; Ukraine war impossible due to Kyiv&#39;s position - A News</a></h3>
+          <p>Russia says Kazakh proposal to &#39;freeze&#39; Ukraine war impossible due to Kyiv&#39;s position A News</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMiVEFVX3lxTE1DQmhTcS1UaDU1UTdOMFpFVnhSaTZLVE9CMDZ1ODQyaWtLc2w4VDB0ejcwQmhiaktCOXp5cC12UFFUVXZTbXZ4X0g4V1VGOUtiRXdBcA?oc=5" target="_blank" rel="noopener noreferrer">Ukraine steps up drone strikes deep inside Russia as war takes new turn - AzerNews</a></h3>
+          <p>Ukraine steps up drone strikes deep inside Russia as war takes new turn AzerNews</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxQZU01RUwzOS1jZVZnZ3ZlN18yV2dlWG1OY0MydWNWNG1ub0V4OVRpQTEtSUdtSU95ZXp0WE9YSHhpMW1XMWtOVGxPSGEyRGNQeExkTWNfYTNjQ2syY0VJbDZLVElQemV1Si0tYjNhM3duM2Zad051ZTAzVUtjMWVlZDZDTXNKdTkxd0xkaVYwdXdiS0dOX1VKT3lucTQ1SzBYa05XNHBld0lIdDdPdUZQLW52VEExWDdDb3dF?oc=5" target="_blank" rel="noopener noreferrer">Ukraine strikes Siberia refinery as Kazakh leader tells Putin war should end - CNA</a></h3>
+          <p>Ukraine strikes Siberia refinery as Kazakh leader tells Putin war should end CNA</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMiWEFVX3lxTE83ZWpNNUctNGdnMjRlMkE5N0oxdGFFV18zSURwZTF2RFdMMUVqdjltUk5iaGF4SnV3Ulpwc0dmeHVFSEUtZkJSTS0zell2Vk5FODRmZUp5cUQ?oc=5" target="_blank" rel="noopener noreferrer">Tokayev urges Putin to freeze Ukraine war on &#39;Istanbul Formula 2.0&#39;; Kremlin says &#39;impossible&#39; - TRT World</a></h3>
+          <p>Tokayev urges Putin to freeze Ukraine war on &#39;Istanbul Formula 2.0&#39;; Kremlin says &#39;impossible&#39; TRT World</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMiwwFBVV95cUxPNFFuQ2NfNjJ2TEdKcmRsLUxPUjliMVRDUWNMRnA0dW5LYm0tVDkyT1M4VDU1R1FzM3hBSHpra09EODB6TUFKYUJ2ZmdqVVRsRl9jbU1YRWFqR3htSXQ1NlcxZThsSlBRR0M3LVBGSVQ1NHJ4dGlmdlM0Y2Q4clpKY3ByeDgtWXRrTElqMHJXZi1QWHQxLXgwRVRLUG9UM1M1eDdkVlM1bllQZGNMNnZvTnAyVHVPVi1xTHExT3BmbEpqVzA?oc=5" target="_blank" rel="noopener noreferrer">Zelenskyy claims Russia seeks to bring 30,000 North Korean troops for war - Anadolu Ajansı</a></h3>
+          <p>Zelenskyy claims Russia seeks to bring 30,000 North Korean troops for war Anadolu Ajansı</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMizwFBVV95cUxNa0ZSX3oyNUhHR3VKNXkxN3NfaHBCVDN1ZUx4bktyMkFPSGwzU291LVM2LW0yNmJ1MVllMTU0VFFwdlUybGFiNTRBblZmSnIyN1pCYVpyek9yLU5SVGtZNHF6OEZqZGZBRUpnMnBkUHoxZzVHSXdqaVBPN2FGOW5sVmtOVzBzc3A0OGRPMTBSR0tyUE1SQklEUFlZLUllUjVCMzE3bjhtaTFoRmUxRS1Mbl9sUDZjbkFNNkRqUmFXZURPN1Y4ODJ3S1ZmeWlvbVE?oc=5" target="_blank" rel="noopener noreferrer">Russia says Kazakh proposal to &#39;freeze&#39; Ukraine war impossible due to Kyiv&#39;s position - Anadolu Ajansı</a></h3>
+          <p>Russia says Kazakh proposal to &#39;freeze&#39; Ukraine war impossible due to Kyiv&#39;s position Anadolu Ajansı</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxPYU5KZmp4ZDdlWHJvODBONkNxcUhMaHQ5M2hQOUF4ZUFCcFNFNEJjSTVaN2IydXY4enAwaVllS3NVOWZQSjI3dldZdnhOdWVoSEdPSkNPRzdST1VvbFo0cmk3RGdsWFU5VjhWQW1Db2lTMnkwcjluVEZLUlpLSXA4cUdkWkpDUmgwMHRLXzA3d1B0MHFpbHhvaVcza1VfTFRoMVNLOWdOOXNOWjFVR1NSXzRoUUFLVDVTT0JR?oc=5" target="_blank" rel="noopener noreferrer">Kremlin says freezing Ukraine war &#39;not possible,&#39; rejects Kazakh peace proposal - Türkiye Today</a></h3>
+          <p>Kremlin says freezing Ukraine war &#39;not possible,&#39; rejects Kazakh peace proposal Türkiye Today</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMi0AFBVV95cUxQYVE3WVotb1k5eTA4eHhrSEtCWkVJM2xUU3lob3R5OGpPUFZnV0NRUTByU1cwTHJCUi0wYTdVSmVHU1V6TzMydk1EVjBZSVp4aldTLWdaVURyYUM1YmN1U0YtcU9RcDZ5Tm1Jc1hPdGNfZ3dUX19vNXhoV2JWekZaS01WRjBMbUotWHFwLTBTVXVyQXhSbjdBaTAwamJiMkFtZ3E1SV9tc0RZckNIZ3JjS2taS1JfclhQSG5WWUtwS3R1bEFLdE5LY3g4WWdjZjlk?oc=5" target="_blank" rel="noopener noreferrer">Ukraine&#39;s Zelenskiy: Russia wants to bring in 30,000 North Korean troops to conflict - Reuters</a></h3>
+          <p>Ukraine&#39;s Zelenskiy: Russia wants to bring in 30,000 North Korean troops to conflict Reuters</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMiZEFVX3lxTE1aMS1LbVBCSFM5WFZWNE44WVVEYXFsaDFyVl9ianZmYlJoclNrODdiNmV3cFJXWUNIVTAzRE9ZM3pwZktpVlViWWp3WWxGeVJiMkhpbl9DNnB1ZGc5MXhoMmxBVHnSAXBBVV95cUxPeTUyRDZadGFsd1Z3QXExWVBNQzZZYVo3SHBZdXpkdFo5aFJnb1VoWXZTYkx5ZHRmVkJONmtYSGJVY1VYS0ZnVC16N2luY291SDFXdnlfRmJ1eGhYcU1mQUYtdUp1WmNzVWVhR2t5ZUty?oc=5" target="_blank" rel="noopener noreferrer">Kremlin responds to Kazakh president’s suggestion: &#34;Freezing war in Ukraine is impossible&#34; - Українська правда</a></h3>
+          <p>Kremlin responds to Kazakh president’s suggestion: &#34;Freezing war in Ukraine is impossible&#34; Українська правда</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMihAFBVV95cUxORkE0bE5KM25qVEhsbE92dG4wNTBaaU5HNm9aYWZfdld2cFo2ampsVVhfTWtJckhId212UkNSZHdTbUNyTGdVdDNyY0FCc0ZIdzdJVG5ib1pTc1BtZU5LRnE1LWFCRnFIN3Q3cFBpbjBlZHNmWjI3TDUxc3FmUjZEY01pNF8?oc=5" target="_blank" rel="noopener noreferrer">Kazakhstan’s president urges Putin to ‘freeze’ the war in Ukraine - Financial Times</a></h3>
+          <p>Kazakhstan’s president urges Putin to ‘freeze’ the war in Ukraine Financial Times</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMizwFBVV95cUxPVmxvVzB3bl8zSlo4Si1Ta2t3WnJNNU5pOG9pSXo5VkR2Y0tIVENQY2ZmYVM5V05YSklRSlM0UzVkWGtzZ01YZUNCTUliaU90eHlFSzlQWVpoajI1cnVlTmhlT2U3OVVMZUkwV2FJVDZUMldRMF9BY1pYNkJ5b0VBVkw3T3VZVnVIcENyZS10OXk2bTMyenBzaWpYa05hYy00UDJmY2NaUG03LVJsbnVzM01ZdEo1SWdMUzEwQ29UV25hTm8xMkJhZUQ4V3ZlV0nSAdQBQVVfeXFMTmtjb0lsM0dxRlRZdmxrSTBPRTZydTQ5MzFma0tSWFdaOWJUUHI5Rk44QXhtaTBMa1dwNE1HNG9VMDd5RzBBU2VKSnVjMGZITEk3MEFjZERCSk1ud2VGWEVKVHFZRHk0S3JfcWduZ195SFBTUUlqVDB6aGNJS1UwS3ZEdnF1NVhnRWxZUF84RjBrNHNlQjRNVFhwU1NOTlZuaTlwTlRQUHRhVUFOQlZkOXBvYlhjVjU0b2Q0dzdpT0o2QXphNERvUk1adUpWakFUaE5xWVQ?oc=5" target="_blank" rel="noopener noreferrer">Ukraine-Russia war intensifies as deadly strikes kill 16, Kyiv hits Siberian oil refinery - Firstpost</a></h3>
+          <p>Ukraine-Russia war intensifies as deadly strikes kill 16, Kyiv hits Siberian oil refinery Firstpost</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMilwFBVV95cUxNa2J5RnROZ19fRDJ5QUlxcTlIbFJsRm42eU9kRHpoSHhWRU1SN1Jyc1R6emVHNFVBcmJqNC1yZFYzb2pNbG9LUDdERVdaM2NtNDB6NFFzX1BKdG5xMV80N3NLUEtOMFZ3N2N6eDdMM1ZTNG1CY0t1VWl0a3VYQVllWlVrM3pCd3ZVRVlNbFBjVDQzVnduemJn?oc=5" target="_blank" rel="noopener noreferrer">Kazakhstan&#39;s Tokayev urges freeze in Russia&#39;s war against Ukraine - The Kyiv Independent</a></h3>
+          <p>Kazakhstan&#39;s Tokayev urges freeze in Russia&#39;s war against Ukraine The Kyiv Independent</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMivgFBVV95cUxPa2tsN01UMi1hZmk2U1piS3ZfM251b1V6a1hYY01GcmlIYVBFcGFsenc0SlZINFNaeFFiZlJHY2tYV2tEWnZCM0hDV1hxTFI2Z00tNEk3aVFid2RvZkJqTUpjUnlDODRTcU1OMUNmTUVOUFhPdUpQZUJYYXJHckhOVGs1VkpYamRTZkoxNTBBOVhQQUhPdFNiMXlmSm1lcVFLSlBJYU1JMFM0VE95UGRsdXlMX3JNRnIwQnlrWTFn?oc=5" target="_blank" rel="noopener noreferrer">Speaking alongside Putin, Kazakh president calls for freeze of Ukraine war - Reuters</a></h3>
+          <p>Speaking alongside Putin, Kazakh president calls for freeze of Ukraine war Reuters</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMiU0FVX3lxTFBlQmVVcEdwZ05SSEhoU3ViVjVUS3JqSk1Ya0lYZ1Ntdlh0UEx4dkZsdjg2bEUtaVRxRFlqUmMweElKZy1GNWNZRlFaXzNITHhpNlVj?oc=5" target="_blank" rel="noopener noreferrer">Russia, Ukraine intensify strikes as casualties mount and infrastructure is hit - سانا</a></h3>
+          <p>Russia, Ukraine intensify strikes as casualties mount and infrastructure is hit سانا</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMitwFBVV95cUxQTmlhZ3dhV0NVRFNyRkhUS3pWYzdWRkVJaUw3ZXBGSkZmMlZDNFR1TGNzM0FDQlU3SnM3VjVLNFpDMmFOcmJYS0h1VGNOZm5PMWs4a0tCaWRrTWNzUnhVQUQ5R3p4cXJVY2tHVk9fUjEtdFV5UTdOd2V3dmRGd1VuOEVOOFZ5dkRhbnVacEM4RnVfOUJMZTZCdXhodk82WWZyeVduSldUQWhjVWJKZlUzTk5qSDNIWWc?oc=5" target="_blank" rel="noopener noreferrer">Tokayev proposed freezing Russia&#39;s war against Ukraine and returning to &#34;Istanbul 2.0&#34; - LIGA.net</a></h3>
+          <p>Tokayev proposed freezing Russia&#39;s war against Ukraine and returning to &#34;Istanbul 2.0&#34; LIGA.net</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMirgFBVV95cUxNSFFDQmVGa2gwTldhTkl4cm5oMDF1WXhkMEpiZnFFbzBneWlubnRTVks1aV9MaURZNDJMczZTa0J5RGZGSERDNTl2YS04em5yWWVnWmlRdm54aWdwdVljaXhXODgxYXM4U2RhejNXSTUyeVFiQUJiTU5UWjN3TkkyMjhiMFJOejdva3hxVDV1R2NDSmVzRHcwQ1FTMnV1cEE3ZTNrYzBjMk5wUUpVeEHSAaoBQVVfeXFMTVBCdjVhLVBiS0xETHgwRVdRZmRVWTBfMGliRS1BaTBnWmZvb0JJOG5VekVZN21BbGJPNTctTkZlNDhKdW55TFQ4SmNWN0FFQXprYi11Tnl4cGNBWm5SYUY2M1lNOTVXbTE1NUVEcFM1Wm5pZ0dlUlRtcEFzVnJmd2FjZzFpMkJLUzR4bEVwVEpRdXVQVERybll5TTJ5WV9jaE1iRk8zQ3NRYmc?oc=5" target="_blank" rel="noopener noreferrer">Tokayev presses Putin to halt war, warns fighting helps Russia’s adversaries - The New Voice of Ukraine</a></h3>
+          <p>Tokayev presses Putin to halt war, warns fighting helps Russia’s adversaries The New Voice of Ukraine</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMijgFBVV95cUxNWDhCRllqa3FDQUhwbkZFWkdJNF9ZVXlVUENlWV9wem5sMEJLN3JwemFoQlVyZ1hoQWsxdHVGdTdRS3pnb3hINW9FMmw3alkyOHJ4Rzg4REVXY1drSW5KZEdjb01vSTFKTU8wS09nWUpoS2MxV1IzVTI0Q1J5ZGM0TWN5NVJ5NE1hcGNvU3hB?oc=5" target="_blank" rel="noopener noreferrer">‘Barbaric’ Russian guided bomb destroys Latvian honorary consulate in eastern Ukraine - TVP World</a></h3>
+          <p>‘Barbaric’ Russian guided bomb destroys Latvian honorary consulate in eastern Ukraine TVP World</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMiV0FVX3lxTE9Zdkk0TjNvcGVhR09MbzJzaWM3SHRFZzhibDNFYnZQRE41T1hGQTJ1U2tYNHdKYmZPd2VkZWZuSXNMS0dzNTEwTWM4M0ZTRGRReFpiemVCTQ?oc=5" target="_blank" rel="noopener noreferrer">Kazakh leader tells Putin Ukraine war should end - Bangladesh Sangbad Sangstha (BSS)</a></h3>
+          <p>Kazakh leader tells Putin Ukraine war should end Bangladesh Sangbad Sangstha (BSS)</p>
+          <span class="src">Ukraine wire · via Google News · 1d ago</span>
+        </article>
+        
+      
+    </div>
+  </section>
+  
+  <section id="science" class="panel  region-science">
+    <div class="region">
+      <h2 class="section-head">Science &amp; Tech <span class="tag">AI · quantum · physics · space</span></h2>
+      
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260726015243.htm" target="_blank" rel="noopener noreferrer">The best way to save giant sequoias may be more fire</a></h3>
+          <p>Giant sequoias are built to withstand ordinary fires, but recent extreme wildfires killed thousands of trees that had survived for centuries or even millennia. A new analysis of about 26,400 sequoias found that trees in areas treated with prescribed burns were nearly four times…</p>
+          <span class="src">ScienceDaily · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260726015237.htm" target="_blank" rel="noopener noreferrer">Your AI calorie-tracking app may be off by 345 calories</a></h3>
+          <p>Popular AI-powered food apps may make calorie counting easier, but they may also leave out a surprisingly large part of the meal. Four apps underestimated calories and fat by about one-third when tested against carefully prepared meals. High-fat ketogenic dishes appeared to…</p>
+          <span class="src">ScienceDaily · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260726015250.htm" target="_blank" rel="noopener noreferrer">CRISPR makes prostate cancer vulnerable to immunotherapy</a></h3>
+          <p>Scientists used CRISPR to make prostate cancer cells easier for the immune system to detect and destroy. The experimental treatment dramatically improved the effects of immunotherapy in mice and may offer hope for other hard-to-treat tumors.</p>
+          <span class="src">ScienceDaily · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.aljazeera.com/news/2026/7/26/what-is-the-ai-kill-switch-act-proposed-in-the-us-and-how-will-it-work?traffic_source=rss" target="_blank" rel="noopener noreferrer">What is the AI Kill Switch Act proposed in the US and how will it work?</a></h3>
+          <p>US lawmakers introduce a bill aimed at giving the government power to order companies to shut down &#39;rogue&#39; AI systems.</p>
+          <span class="src">Al Jazeera · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260726015259.htm" target="_blank" rel="noopener noreferrer">Why losing the wrong fat can trigger diabetes</a></h3>
+          <p>Scientists discovered that damaged fat cells can become inflamed, lose their ability to store lipids, and eventually vanish, disrupting the body’s metabolism. The findings show that diabetes can result not only from excess fat, but also from losing the healthy fat tissue the…</p>
+          <span class="src">ScienceDaily · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260726015257.htm" target="_blank" rel="noopener noreferrer">A hidden Alzheimer’s tipping point may decide who gets dementia</a></h3>
+          <p>Scientists have identified a possible tipping point that helps determine whether Alzheimer’s-related brain changes lead to dementia. The key may lie in how the brain’s immune cells respond to plaques and tau, offering a promising new target for treatments designed to extend…</p>
+          <span class="src">ScienceDaily · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260726015254.htm" target="_blank" rel="noopener noreferrer">Inside the Backrooms: The internet’s creepiest place is becoming a tourist attraction</a></h3>
+          <p>The Backrooms began as a single eerie image of empty yellow rooms, but internet users transformed it into a vast fictional world that feels disturbingly real. Through videos, games, maps, survival guides and social media stories, audiences do more than watch the horror unfold.…</p>
+          <span class="src">ScienceDaily · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260726015236.htm" target="_blank" rel="noopener noreferrer">Hidden genetic diversity helped inbred brown tree snakes conquer guam</a></h3>
+          <p>A notorious snake invasion that devastated Guam’s native birds may have succeeded because the reptiles carried hidden genetic advantages. Using advanced long-read DNA sequencing, researchers uncovered more than 19,000 large genetic differences in brown tree snakes, many…</p>
+          <span class="src">ScienceDaily · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260725105554.htm" target="_blank" rel="noopener noreferrer">Scientists trace the shocking origin of human eyes to an ancient “cyclops”</a></h3>
+          <p>Researchers say a tiny one-eyed ancestor that lived nearly 600 million years ago may have shaped the evolution of every vertebrate eye, including our own. They also found that its ancient median eye lives on today as the pineal gland, which helps synchronize our sleep with…</p>
+          <span class="src">ScienceDaily · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260724061436.htm" target="_blank" rel="noopener noreferrer">A single dose reversed autism-like symptoms in adult mice within hours</a></h3>
+          <p>Even mild inflammation during pregnancy led mouse offspring to develop persistent brain overactivity, sensory sensitivity, repetitive behaviors, and increased seizure risk. Remarkably, one dose of rapamycin improved nearly all of these problems within about two hours. The…</p>
+          <span class="src">ScienceDaily · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260723084045.htm" target="_blank" rel="noopener noreferrer">Superagers keep youthful memories but their DNA does not explain why</a></h3>
+          <p>Scientists expected SuperAgers might simply inherit fewer Alzheimer’s-related risks, but their genes looked much like those of typical older adults. Their extraordinary memories may instead come from still-unknown protective forces involving the brain, body, lifestyle, and…</p>
+          <span class="src">ScienceDaily · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260724061437.htm" target="_blank" rel="noopener noreferrer">Scientists put the “recycling is a distraction” claim to the test</a></h3>
+          <p>Recycling, greener diets, and other personal climate choices do not seem to distract people from supporting major environmental reforms. A four-year study of nearly 2,800 Australians found that these habits neither increased nor reduced later political engagement.</p>
+          <span class="src">ScienceDaily · 1d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260724061444.htm" target="_blank" rel="noopener noreferrer">The Universe can outrun light without breaking Einstein’s rules</a></h3>
+          <p>Cosmic expansion allows distant galaxies to move away faster than light, while still letting us see ancient light they emitted when they were much closer. Eventually, accelerating expansion will push nearly every galaxy beyond our Local Group out of sight, making the Universe…</p>
+          <span class="src">ScienceDaily · 2d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260719035955.htm" target="_blank" rel="noopener noreferrer">Coffee may help shield the liver from fat, scarring, and cancer</a></h3>
+          <p>A major long-term study linked coffee consumption with lower risks of cirrhosis, liver cancer, and death from liver disease. Coffee drinkers also showed healthier liver scans and blood protein patterns, with less fat, inflammation, and scarring. Benefits appeared even at one or…</p>
+          <span class="src">ScienceDaily · 2d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260724061439.htm" target="_blank" rel="noopener noreferrer">Oral GLP-1 drugs may quiet the brain’s food craving circuit</a></h3>
+          <p>Newer oral drugs related to semaglutide medications such as Ozempic reduced pleasure-driven eating in mice by quieting a deep brain reward circuit. The finding could open new avenues for understanding food cravings and potentially treating substance use disorder.</p>
+          <span class="src">ScienceDaily · 2d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.bbc.co.uk/news/articles/cd9w22n9e4go?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener noreferrer">Warning shot or publicity stunt - how worried should we be about the OpenAI hack?</a></h3>
+          <p>Hugging Face said the hack was done at superhuman speed by an AI with little or no human guidance.</p>
+          <span class="src">BBC World · 2d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260724061448.htm" target="_blank" rel="noopener noreferrer">A daily fiber supplement reduced knee arthritis pain and improved strength</a></h3>
+          <p>A prebiotic fiber supplement reduced knee osteoarthritis pain while also improving grip strength and pain sensitivity in a six-week trial. The results hint at a fascinating gut-muscle-pain connection and suggest that a simple daily supplement may be easier to maintain than…</p>
+          <span class="src">ScienceDaily · 2d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260724061434.htm" target="_blank" rel="noopener noreferrer">Venus may be tearing itself apart from within</a></h3>
+          <p>Scientists have uncovered new evidence that Venus may still be tearing itself apart from within. Advanced 3D simulations indicate that some of the planet&#39;s giant rift valleys formed relatively recently and could still be expanding. The results suggest Venus has a far more active…</p>
+          <span class="src">ScienceDaily · 2d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260723084049.htm" target="_blank" rel="noopener noreferrer">Scientists discover the Sun contains 55% more silver than expected</a></h3>
+          <p>A new analysis suggests the Sun holds far more silver than earlier estimates indicated. More advanced models of the solar atmosphere raised the calculated amount by 55 percent, bringing it into much closer agreement with ancient meteorites. The technique may also help scientists…</p>
+          <span class="src">ScienceDaily · 2d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260719230608.htm" target="_blank" rel="noopener noreferrer">AI helps Stanford scientists discover “natural Ozempic” without the usual side effects</a></h3>
+          <p>Stanford Medicine researchers have discovered a naturally occurring molecule that may suppress appetite and reduce body weight much like Ozempic, but without several of its common side effects. The molecule, called BRP, acts on a more targeted region of the brain involved in…</p>
+          <span class="src">ScienceDaily · 3d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260724061432.htm" target="_blank" rel="noopener noreferrer">Scientists discover a compound that could supercharge aging muscle repair</a></h3>
+          <p>A sulfur-based compound called LASSS appears to protect and supercharge a key protein involved in repairing damaged muscle. The discovery could eventually lead to new ways to slow muscle loss and preserve strength as people age.</p>
+          <span class="src">ScienceDaily · 3d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260724061431.htm" target="_blank" rel="noopener noreferrer">A new antiviral could stop measles before an outbreak takes off</a></h3>
+          <p>An experimental pill prevented a measles-like virus from spreading through the air or through close contact in ferrets. It worked when given shortly before or after exposure and also shortened illness and the period when infected animals remained contagious. Researchers say the…</p>
+          <span class="src">ScienceDaily · 3d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260723084854.htm" target="_blank" rel="noopener noreferrer">The billion-dollar problem keeping Ozempic, Wegovy, and Zepbound from patients</a></h3>
+          <p>Ozempic, Wegovy, and similar drugs may deliver excellent health value, but covering them for millions of eligible patients could overwhelm insurance budgets. Researchers say better long-term support is needed and warn that low-cost compounded versions may carry serious safety…</p>
+          <span class="src">ScienceDaily · 3d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://www.sciencedaily.com/releases/2026/07/260723084856.htm" target="_blank" rel="noopener noreferrer">APOE2 may protect the brain from Alzheimer’s and aging</a></h3>
+          <p>The longevity-linked APOE2 gene appears to protect brain cells by reducing DNA damage and helping neurons recover from stress. The finding could open a new path toward treatments that mimic APOE2’s defenses in people at higher genetic risk for Alzheimer’s.</p>
+          <span class="src">ScienceDaily · 3d ago</span>
+        </article>
+        
+        <article class="story">
+          
+          <h3><a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE4yM3BiWGJhY1RtWFk0U2tXSlp5b21ueFR0cjFRSlUyU3dvclFFdUJ1YThDdmJ5aVpqdlM4bUNHMVJ3NV94YjBhS3ZlUnJpVEVvRlpiVjV5Vk94VXJ5MUcybk91VzZVSFRFakxDN083X0IxajNjSmlMTDNXMG5uREU?oc=5" target="_blank" rel="noopener noreferrer">Morning Bid: Oil batters bonds as AI burns cash - Reuters</a></h3>
+          <p>Morning Bid: Oil batters bonds as AI burns cash Reuters</p>
+          <span class="src">Reuters · via Google News · 3d ago</span>
+        </article>
+        
+      
+    </div>
+  </section>
+  
+
+  
+  <section id="perspectives" class="panel">
+    
+    <div class="top-story">
+      <div class="top-story-label">Today's lead story across newsrooms · <strong>Iran</strong></div>
+      
+      <div class="ts-item">
+        <span class="ts-outlet">Al Jazeera</span>
+        <a href="https://www.aljazeera.com/news/2026/7/26/us-and-iran-hit-pause-on-strikes-for-second-day?traffic_source=rss" target="_blank" rel="noopener noreferrer">US and Iran hit pause on strikes for second day</a>
+        <span class="ts-ago">16h ago</span>
+      </div>
+      
+      <div class="ts-item">
+        <span class="ts-outlet">Haaretz</span>
+        <a href="https://www.haaretz.com/israel-news/2026-07-27/ty-article/.premium/israel-beats-the-drums-of-war-with-iran-but-trump-is-not-picking-up-the-tune/0000019f-9fed-db22-a5df-ffff6e790000" target="_blank" rel="noopener noreferrer">Israel beats the drums of war with Iran, but Trump is not picking up the tune</a>
+        <span class="ts-ago">16h ago</span>
+      </div>
+      
+      <div class="ts-item">
+        <span class="ts-outlet">Times of Israel</span>
+        <a href="https://www.timesofisrael.com/irans-fm-claims-ukraine-struck-iranian-vessel-at-israels-behest-vows-retaliation/" target="_blank" rel="noopener noreferrer">Iran’s FM claims Ukraine struck Iranian vessel ‘at Israel’s behest,’ vows retaliation</a>
+        <span class="ts-ago">15h ago</span>
+      </div>
+      
+      <div class="ts-item">
+        <span class="ts-outlet">Al Mayadeen · via Google News</span>
+        <a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxQQVFKQWUtRjlWeG0xeWlpMFVtYURpWGotVVpGM2VyX0tJUE10dE1xUTdpWS1nUU82UFUyT0ZSVFRmSTdtQVBta2ttRS1udXNhWVNhdXFBbTI4TDZUbmk3RXNXSnRYblZJS3BSWGFleTM2TFVPM3NsNWRsdmVMYnhOZXd6ZTNXS1VCWWdiRmZJVjBiSnhrSlMyZVlabDZUODhBeWhhajN4ZGM?oc=5" target="_blank" rel="noopener noreferrer">Ex-CIA chief: US attacks failed to force Iran into submission - english.almayadeen.net</a>
+        <span class="ts-ago">1d ago</span>
+      </div>
+      
+      <div class="ts-item">
+        <span class="ts-outlet">Reuters · via Google News</span>
+        <a href="https://news.google.com/rss/articles/CBMizgFBVV95cUxQT2hvLTRwU3J1WVZCTlA0WFVNRmhXdDVkTWhwQkdDTFZzbEVpYmRBUUppcjJudFY2M3JpQ3lzT0I0SkM4VFlmSk8xb0RuX192WjQ2dE9nbjJkUFFMTHFyZDh2c1ktdDJpSmtmdXJPYW5wNXRuM1hsQ0RqYkE4X3d1aDZ1SkpUM3ltc0h2NFNZbmpvZFhYa0ZJTlEyR0JkdDZvYWRUYXBRZE41YkVEdjV4VEZVb0hSSUxOQlFwT1U4X1FfNjJrbmhaSVkyT0w0Zw?oc=5" target="_blank" rel="noopener noreferrer">Iran says it will halt strikes as long as US bombing pause holds - Reuters</a>
+        <span class="ts-ago">15h ago</span>
+      </div>
+      
+      <div class="ts-item">
+        <span class="ts-outlet">NYT Middle East</span>
+        <a href="https://www.nytimes.com/2026/07/26/us/politics/trump-trapped-in-iran-war.html" target="_blank" rel="noopener noreferrer">Trump Seems Trapped by Iran War, Even as He Wields the World’s Biggest Hammer</a>
+        <span class="ts-ago">23h ago</span>
+      </div>
+      
+      <div class="ts-hint">Same event, 6 outlets — notice what each leads with, and what each leaves out. Full context below.</div>
+    </div>
+    
+    <div class="prose perspectives-body">
+      <h1>Same story, different newsroom</h1>
+<p>The fastest way to actually learn politics is to read how outlets with different allegiances cover the <em>identical</em> event. None of these is "the truth" and none is "just lies" — each reflects <strong>who owns the outlet, who its audience is, and what that audience already believes.</strong> Here is how five outlets covering the Middle East differ. Read them side by side daily.</p>
+<h2>On Gaza / Israel</h2>
+<h3>Al Jazeera</h3>
+<p><em>Qatar state-funded · pan-Arab audience.</em> Uses language like "genocidal war" and "Israeli aggression" as standard description, not just in opinion pieces. Centres Palestinian casualties and displacement in nearly every headline.</p>
+<h3>Haaretz</h3>
+<p><em>Israeli · left-leaning · Tel Aviv.</em> An Israeli paper that is nonetheless one of the most consistently critical-of-the-government outlets you'll find anywhere, including in Arab media. Runs investigations on settler violence and Gaza destruction using satellite evidence — while still writing from inside Israeli society, for an Israeli/Jewish-diaspora readership. <em>Being Israeli and being pro-government are not the same thing — Haaretz is proof.</em></p>
+<h3>Times of Israel / Israel Hayom</h3>
+<p><em>Israeli mainstream-right; Israel Hayom is privately funded and widely seen as close to the government.</em> Centres hostages, military operational updates, and regional threats to Israel; treats "genocide" framing as something to push back on rather than accept; gives far more space to Israeli domestic politics than to Palestinian civilian impact.</p>
+<h3>Al Mayadeen</h3>
+<p><em>Beirut-based · widely reported to be Iran/Hezbollah-aligned (it denies this).</em> Part of the "Axis of Resistance" media ecosystem. Runs a front-page Gaza death-toll counter; frames Hezbollah and Iran as defenders rather than aggressors; had two of its own journalists killed by an Israeli strike this year, which it covers as a press-freedom story.</p>
+<h3>New York Times</h3>
+<p><em>US paper of record.</em> A useful case study in itself: it has been accused of pro-Israel bias (softened headlines, downplayed casualties) <em>and</em> anti-Israel bias (by pro-Israel critics) simultaneously. When the same outlet is attacked from both directions at once, that's usually a sign it sits nearer the centre than either critic admits — though that's not proof of accuracy on any single story.</p>
+<hr />
+<p><strong>How to use this:</strong> pick one ongoing story. Read it in Al Jazeera, then in Times of Israel, then in a wire like Reuters. Notice what each <em>leads with</em>, what each <em>leaves out</em>, and which words each treats as neutral fact. That gap between them is the actual lesson.</p>
+    </div>
+  </section>
+
+  
+  <section id="learn" class="panel">
+    <div class="learn-nav">
+      <button class="learn-btn active" data-sub="explainers">Explainers</button>
+      <button class="learn-btn" data-sub="timelines">Timelines</button>
+      <button class="learn-btn" data-sub="glossary">Glossary</button>
+      <button class="learn-btn" data-sub="recaps">How we got here</button>
+    </div>
+
+    <div id="explainers" class="subpanel active">
+      
+      <div class="card prose"><h1>The 2026 Iran War</h1>
+<p><strong>Assume zero prior knowledge. Every term in bold is defined in the Glossary tab.</strong></p>
+<p>This war sits on top of decades of tension over Iran's nuclear program. Since the 1979 revolution that toppled the US-backed Shah (king) and installed a Shia Islamist government under Ayatollah Khomeini, Iran and the United States have been adversaries.</p>
+<p>Iran built a network of allied armed groups across the region often called the <strong>Axis of Resistance</strong> — Hezbollah in Lebanon, the Houthis in Yemen, Hamas in Gaza, and various Iraqi militias. These are <strong>proxies</strong>: groups Iran funds and arms so it can exert pressure on rivals without fighting directly itself.</p>
+<p>Years of failed diplomacy over Iran's <strong>uranium enrichment</strong> (which Iran says is peaceful energy, and which Israel and the US say is a weapons program) set the stage for Israel and the US to launch direct strikes on <strong>February 28, 2026</strong>, killing Iran's Supreme Leader.</p>
+<p><strong>Why the whole world feels this war:</strong> the <strong>Strait of Hormuz</strong> is a narrow sea passage through which roughly a fifth of the world's oil shipments pass. When Iran closes or threatens it, oil prices spike globally — which is why this conflict shows up in business/markets coverage (Financial Times style) just as much as in human-rights coverage (Al Jazeera style).</p>
+<p><strong>Where it stands now:</strong> a <strong>ceasefire</strong> was reached in April 2026 but repeatedly collapsed. The US has used a stop-start pattern of strikes — hit, pause, let diplomacy try, repeat — while keeping a target list as leverage. Iran went through a leadership transition mid-war after its Supreme Leader was killed.</p></div>
+      
+      <div class="card prose"><h1>Israel–Gaza / Israel–Palestine</h1>
+<p><strong>Assume zero prior knowledge.</strong></p>
+<p>The core dispute traces to competing claims over the same land after the British Mandate (British colonial rule over the area) ended in 1948, when the state of Israel was created and roughly 700,000 Palestinians were displaced in what Palestinians call the <strong>Nakba</strong> ("catastrophe" in Arabic).</p>
+<p>Wars in 1948, 1967, and 1973 shaped today's borders. Israel has militarily <strong>occupied</strong> the West Bank and Gaza since 1967 (occupation = controlling territory it does not consider part of its own recognised state). Gaza has been under a tight Israeli–Egyptian <strong>blockade</strong> since Hamas — an Islamist group designated a terrorist organisation by Israel, the US, and the EU — took control there in 2007.</p>
+<p><strong>The current war</strong> began after Hamas's October 7, 2023 attack on Israel, which killed about 1,200 people and took roughly 250 hostages. Israel's military response has killed a very large number of Palestinians in Gaza and caused a severe humanitarian crisis.</p>
+<p><strong>The genocide question:</strong> some genocide scholars and human-rights groups argue the campaign meets the legal definition of <strong>genocide</strong>; Israel and its allies reject that and describe the campaign as self-defence against Hamas. As the <strong>Perspectives</strong> tab shows, both descriptions circulate as settled fact in different parts of the media. Treat that as a reason to read across sources — not a reason to pick a side and stop reading.</p>
+<p><strong>Where it stands now:</strong> a US-brokered ceasefire has technically held since October 2025, built around a "Yellow Line" marking how far Israeli forces would withdraw — but strikes have continued and the line has reportedly shifted in practice, so the truce is fragile.</p></div>
+      
+      <div class="card prose"><h1>Western Sahara</h1>
+<p><strong>Relevant to you as a Moroccan — assume zero prior knowledge.</strong></p>
+<p>Western Sahara is a former Spanish colony that Morocco has administered since 1975, when Spain withdrew. The <strong>Polisario Front</strong>, backed mainly by Algeria, wants an independent Sahrawi state (the Sahrawi are the region's indigenous people) and has fought Morocco on and off since then.</p>
+<p>A UN-monitored <strong>ceasefire</strong> has held since 1991, but a political settlement never followed. The two positions:</p>
+<ul>
+<li><strong>Morocco</strong> proposes <strong>autonomy</strong> under Moroccan <strong>sovereignty</strong> — the territory governs some of its own affairs, but remains part of Morocco.</li>
+<li><strong>Polisario and Algeria</strong> want a UN-run independence <strong>referendum</strong> — a direct vote in which Sahrawis choose independence or integration.</li>
+</ul>
+<p><strong>The diplomatic trend:</strong> the US recognised Moroccan sovereignty over the territory in 2020, and more countries (recently France, plus several African and Latin American states) have followed or endorsed the autonomy plan as "the only viable basis" for a settlement.</p>
+<p><strong>The counter-current:</strong> several states and EU institutions still do not formally recognise Moroccan sovereignty. The <strong>European Court of Justice</strong> ruled that Sahrawi people were not properly consulted before EU–Morocco trade deals covering the territory were signed — a legal opening that opponents of Morocco's position keep citing.</p>
+<p>Morocco's most-read domestic outlets (Hespress, Morocco World News) cover this file almost daily and frame it consistently as a closed question of national sovereignty. Reading them alongside Al Jazeera or Algerian state media is a good way to see framing differences up close.</p></div>
+      
+      <div class="card prose"><h1>Sudan's Civil War</h1>
+<p><strong>Assume zero prior knowledge.</strong></p>
+<p>Since <strong>April 2023</strong>, Sudan's national army (the <strong>SAF</strong> — Sudanese Armed Forces) has been fighting a paramilitary force called the <strong>RSF</strong> (Rapid Support Forces). A paramilitary is an armed group organised like an army but not the country's official military.</p>
+<p><strong>How two allies became enemies:</strong> the SAF and RSF <em>jointly</em> ran the country after a 2019 revolution ousted longtime dictator Omar al-Bashir. They were supposed to merge into one national force — but fell out over how and when that merger would happen, and who would command it. That dispute became open war.</p>
+<p><strong>Why it matters beyond Sudan:</strong></p>
+<ul>
+<li>It has produced the <strong>world's largest displacement crisis</strong> — more people forced from their homes than in any other current conflict.</li>
+<li>Outside powers have backed both sides, turning a domestic power struggle into a regional proxy contest.</li>
+<li>Both sides now use <strong>drones</strong> heavily. A Yale researcher described this as "the future of warfare in Africa" — a pattern other conflicts on the continent may follow.</li>
+</ul>
+<p>It is badly under-covered internationally relative to its scale, which is part of why it's worth deliberately following.</p></div>
+      
+      <div class="card prose"><h1>Mali &amp; the Sahel's Shift Away from France</h1>
+<p><strong>Assume zero prior knowledge.</strong></p>
+<p>The <strong>Sahel</strong> is the dry belt of land just south of the Sahara desert, stretching across Africa — Mali, Burkina Faso, and Niger are the key countries here. Since roughly 2012 the region has faced <strong>jihadist insurgencies</strong>: armed extremist groups (some linked to al-Qaeda or ISIS) fighting national governments and seizing rural territory.</p>
+<p><strong>The big shift:</strong> Mali, Burkina Faso, and Niger have each had <strong>military coups</strong> since 2020 (a coup = the army seizes power by force). The new military governments:</p>
+<ol>
+<li><strong>Expelled French troops</strong>, who had been fighting the insurgents since 2013 (France is the former colonial power in this region).</li>
+<li><strong>Brought in Russian forces instead</strong> — the Wagner Group, a Russian private military company, now rebranded as "Africa Corps."</li>
+</ol>
+<p><strong>Has it worked?</strong> Not on security: insurgent and ambush attacks remain frequent — for example, a convoy of Malian troops and Russian fighters was ambushed with dozens killed. But the <em>political</em> realignment away from France and toward Russia has reshaped the region's alliances, and is a live example of great-power competition (US / France / Russia / China) playing out on African soil.</p></div>
+      
+      <div class="card prose"><h1>Ukraine &amp; Russia</h1>
+<p><strong>Assume zero prior knowledge. This is the great-power conflict everything else orbits.</strong></p>
+<p>Ukraine is a large European country that was part of the Soviet Union until it broke up in 1991. Since then Ukraine has drifted westward — toward the EU and NATO (the US-led Western military alliance) — which Russia sees as a threat on its own border.</p>
+<p><strong>How we got to war:</strong> in 2014 Russia seized Crimea (a Ukrainian peninsula) and backed separatists in eastern Ukraine. Then in <strong>February 2022</strong>, Russia launched a full-scale invasion aiming to topple Ukraine's government. It failed to take the capital; the war settled into a grinding fight in the east and south.</p>
+<p><strong>Why it connects to everything you follow:</strong>
+- <strong>Energy</strong> — Russia is a top oil and gas exporter. The war reshaped Europe's energy map and pushed prices up worldwide (see the <span class="xlink">Energy and Oil</span> thread).
+- <strong>The Sahel</strong> — the same Russian mercenary force fighting in Ukraine, <strong>Wagner / Africa Corps</strong>, operates in Mali and Niger. One actor, two continents (see <span class="xlink">Wagner Africa Corps</span>).
+- <strong>Great-power rivalry</strong> — it's the most direct US/Europe vs. Russia contest, with China watching closely (see <span class="xlink">Great Power Rivalry</span>).
+- <strong>Food</strong> — Ukraine is a huge grain exporter; the war raised bread prices across Africa and the Middle East.</p>
+<p><strong>The lens:</strong> this is a <span class="xlink">Great Power Rivalry</span> story first, a European story second. Watch energy and weapons flows to read it.</p></div>
+      
+      <div class="card prose"><h1>Yemen &amp; the Houthis</h1>
+<p><strong>Assume zero prior knowledge. The clearest example of how the Iran axis and global shipping connect.</strong></p>
+<p>Yemen is a poor country at the southern tip of the Arabian Peninsula, next to Saudi Arabia and beside one of the world's busiest shipping lanes.</p>
+<p><strong>The war:</strong> in 2014 a rebel movement called the <strong>Houthis</strong> — from Yemen's Zaidi Shia minority — seized the capital, Sanaa. In 2015 Saudi Arabia led a coalition (backed by the West) to push them back. Years of war created one of the world's worst humanitarian crises. The Houthis now control much of the country.</p>
+<p><strong>Why they matter far beyond Yemen:</strong>
+- <strong>The Iran axis</strong> — the Houthis are part of Iran's <span class="xlink">Axis of Resistance</span>. When Gaza flares, the Houthis open a front in solidarity.
+- <strong>The Red Sea</strong> — they sit beside the Bab el-Mandeb strait. Since 2023 they've attacked commercial ships, forcing much of global trade to reroute around Africa — raising shipping costs worldwide (the <span class="xlink">Energy and Oil</span> thread).</p>
+<p><strong>The connection to see:</strong> a single decision in Gaza or Tehran can show up as a <strong>more expensive container ship</strong> in the Red Sea, which shows up as higher prices in a shop in Morocco. That chain — proxy → chokepoint → your wallet — is the whole point of the Connections tab.</p>
+<p><strong>The lens:</strong> read Yemen through <span class="xlink">Proxy Warfare</span> and <span class="xlink">Energy and Oil</span>, not as an isolated civil war.</p></div>
+      
+      <div class="card prose"><h1>Syria</h1>
+<p><strong>Assume zero prior knowledge. A case study in how one civil war pulls in every outside power.</strong></p>
+<p>Syria sits at the crossroads of the Middle East. For decades it was ruled by the Assad family, a dictatorship.</p>
+<p><strong>The war:</strong> in 2011, peaceful protests (part of the "Arab Spring" uprisings) were crushed, and Syria spiralled into a brutal civil war. It fractured into zones held by the government, rebel groups, Kurdish forces, and jihadists (ISIS controlled a large area for years). Outside powers poured in:
+- <strong>Russia and Iran</strong> propped up Assad.
+- <strong>The US</strong> backed Kurdish-led forces against ISIS.
+- <strong>Turkey</strong> intervened against Kurdish groups.
+- <strong>Israel</strong> struck Iranian targets inside Syria.</p>
+<p>It became the textbook case of a local war turned into an <strong>everyone's proxy battlefield</strong> (see <span class="xlink">Proxy Warfare</span>).</p>
+<p><strong>The turn:</strong> in late 2024, a sudden rebel offensive toppled the Assad government — a huge shock that reshuffled the whole board and dealt a blow to both Russia and Iran, who lost a key ally.</p>
+<p><strong>Why it connects:</strong>
+- <strong>Refugees</strong> — over a decade of displacement reshaped Lebanon, Turkey, Jordan and European politics (the <span class="xlink">Displacement and Refugees</span> thread).
+- <strong>The Iran axis</strong> — Syria was the land bridge linking Iran to Hezbollah in Lebanon.</p>
+<p><strong>The lens:</strong> Syria shows how <span class="xlink">Russia</span>, <span class="xlink">Iran</span>, and the US all use one country as a chessboard.</p></div>
+      
+      <div class="card prose"><h1>DR Congo &amp; the Great Lakes</h1>
+<p><strong>Assume zero prior knowledge. The conflict that connects war directly to your phone and to the Science tab.</strong></p>
+<p>The Democratic Republic of the Congo (DR Congo, or DRC) is a vast country in central Africa — enormously rich in minerals, yet one of the poorest places on earth. Its mineral-rich <strong>east</strong> has been unstable for nearly 30 years.</p>
+<p><strong>The conflict:</strong> the aftermath of the 1994 Rwandan genocide spilled into eastern Congo, and it has never fully stabilised since. Dozens of armed groups operate there. The most prominent recent one, <strong>M23</strong>, is widely reported to be backed by neighbouring <strong>Rwanda</strong> — which DRC and the UN accuse of using the group to control mineral-rich territory. In early 2025 M23 seized major cities including Goma.</p>
+<p><strong>Why it's the key "connector" conflict:</strong>
+- <strong>Minerals → technology</strong> — eastern Congo holds much of the world's <strong>cobalt and coltan</strong>, essential for the <strong>batteries and chips</strong> in phones, electric cars, and the AI hardware you read about under <strong>Science &amp; Tech</strong>. The war is partly a fight over these (the <span class="xlink">Resources and Minerals</span> thread).
+- <strong>The clean-tech irony</strong> — the "green" and "AI" boom <em>increases</em> demand for these minerals, raising the stakes of the conflict.</p>
+<p><strong>The connection to see:</strong> the Science tab and the Africa tab are reading about the <strong>same supply chain</strong> from opposite ends. That's the clearest proof that "separate" sections are really one story.</p>
+<p><strong>The lens:</strong> follow the minerals (see the Analyst's Toolkit, "Follow the ______").</p></div>
+      
+    </div>
+
+    <div id="timelines" class="subpanel">
+      
+      <div class="card prose timeline"><h1>Timeline — Iran, the US &amp; Israel</h1>
+<p><em>Year by year, from the roots of the hostility to today's war. Bold = the year.</em></p>
+<p><strong>1953</strong> — US (CIA) and UK back a coup that removes Iran's elected PM Mohammad Mossadegh and restores the Shah. The seed of deep Iranian distrust of the West.</p>
+<p><strong>1979</strong> — The Islamic Revolution topples the US-backed Shah; Ayatollah Khomeini returns from exile. Students seize the US embassy in Tehran — 52 Americans held hostage for 444 days. US and Iran cut ties.</p>
+<p><strong>1980–1988</strong> — The Iran–Iraq War. Roughly a million dead. The West mostly backs Saddam Hussein's Iraq.</p>
+<p><strong>1984</strong> — The US officially designates Iran a "state sponsor of terrorism."</p>
+<p><strong>1988</strong> — A US warship shoots down Iran Air Flight 655, killing 290 civilians. Iran sees it as deliberate; the US calls it an error.</p>
+<p><strong>2002</strong> — Iran's secret nuclear sites at Natanz and Arak are exposed. President Bush names Iran part of an "Axis of Evil."</p>
+<p><strong>2006</strong> — The UN Security Council imposes its first sanctions over Iran's uranium enrichment.</p>
+<p><strong>2010</strong> — The "Stuxnet" cyber-weapon (widely attributed to the US and Israel) sabotages Iran's nuclear centrifuges.</p>
+<p><strong>2015</strong> — The <strong>JCPOA nuclear deal</strong>: Iran accepts strict limits on enrichment in exchange for sanctions relief. A diplomatic high point.</p>
+<p><strong>2018</strong> — President Trump withdraws the US from the deal and reimposes sweeping sanctions ("maximum pressure"). Iran gradually resumes enrichment.</p>
+<p><strong>2020</strong> — A US drone strike kills General Qassem Soleimani, Iran's top commander. Iran retaliates by striking US bases in Iraq. The region teeters on open war.</p>
+<p><strong>2023</strong> — After Hamas's Oct 7 attack, Iran's "Axis of Resistance" allies (Hezbollah, the Houthis, Iraqi militias) open fronts against Israel and US forces.</p>
+<p><strong>2024</strong> — Iran and Israel exchange direct strikes on each other's territory for the first time — a threshold crossed after decades of shadow war.</p>
+<p><strong>2025</strong> — Talks stall; enrichment climbs toward weapons-grade levels; both sides trade threats. The buildup to open war.</p>
+<p><strong>2026</strong> —
+- <strong>Feb 28:</strong> Israel and the US launch direct strikes on Iran, killing Supreme Leader Ali Khamenei and senior officials. The war begins.
+- <strong>Feb–Mar:</strong> Iran fires missiles and drones at Israel and US bases; closes the Strait of Hormuz; global oil shipping is disrupted.
+- <strong>Apr 7–8:</strong> A ceasefire is reached, mediated by Pakistan, after ~5 weeks of fighting.
+- <strong>Apr–Jun:</strong> Talks in Islamabad collapse; the US blockades Iran; Iran's Assembly of Experts names Mojtaba Khamenei (the late leader's son) as the new Supreme Leader.
+- <strong>Jul 6–9:</strong> Iran's Revolutionary Guard hits tankers off Oman; the US strikes back; the ceasefire is declared "over."
+- <strong>Now:</strong> Oil is above $100/barrel; Gulf states report Iranian fire on their soil; the UN warns the situation is "getting out of control."</p></div>
+      
+      <div class="card prose timeline"><h1>Timeline — Israel / Palestine</h1>
+<p><em>Year by year, from the origins of the dispute to today. Bold = the year.</em></p>
+<p><strong>1917</strong> — Britain's "Balfour Declaration" backs a "national home for the Jewish people" in Palestine, then under Ottoman then British control.</p>
+<p><strong>1947</strong> — The UN votes to partition Palestine into Jewish and Arab states. Jewish leaders accept; Arab leaders reject it.</p>
+<p><strong>1948</strong> — Israel declares independence. In the war that follows, ~700,000 Palestinians are displaced — the <strong>Nakba</strong> ("catastrophe"). Neighbouring Arab states intervene.</p>
+<p><strong>1956</strong> — The Suez Crisis: Israel, Britain and France attack Egypt.</p>
+<p><strong>1967</strong> — The <strong>Six-Day War</strong>. Israel captures the West Bank, Gaza, East Jerusalem, Sinai and the Golan Heights. The military occupation of Palestinian territory begins.</p>
+<p><strong>1973</strong> — The Yom Kippur / October War: Egypt and Syria attack to retake lost land.</p>
+<p><strong>1978–79</strong> — The Camp David Accords; Egypt becomes the first Arab state to make peace with Israel.</p>
+<p><strong>1982</strong> — Israel invades Lebanon to expel the PLO. The Sabra and Shatila massacre.</p>
+<p><strong>1987</strong> — The <strong>First Intifada</strong>, a mass Palestinian uprising, breaks out.</p>
+<p><strong>1993–95</strong> — The <strong>Oslo Accords</strong>: mutual recognition and limited Palestinian self-rule under a new Palestinian Authority. A hopeful peace process.</p>
+<p><strong>1995</strong> — Israeli PM Yitzhak Rabin is assassinated by an Israeli opposed to the peace deal.</p>
+<p><strong>2000</strong> — The peace process collapses; the <strong>Second Intifada</strong> erupts, far bloodier than the first.</p>
+<p><strong>2005</strong> — Israel withdraws its soldiers and settlers from inside Gaza (the "disengagement").</p>
+<p><strong>2006</strong> — Hamas wins Palestinian legislative elections.</p>
+<p><strong>2007</strong> — Hamas seizes full control of Gaza after a split with the rival Fatah party. Israel and Egypt impose the <strong>blockade</strong> of Gaza.</p>
+<p><strong>2008–09, 2012, 2014, 2021</strong> — Repeated wars between Israel and Hamas in Gaza, each with heavy Palestinian civilian tolls.</p>
+<p><strong>2023</strong> — <strong>Oct 7:</strong> Hamas attacks southern Israel, killing ~1,200 and taking ~250 hostages. Israel launches its largest-ever Gaza offensive.</p>
+<p><strong>2024</strong> — The war grinds on: mass displacement, famine warnings, a soaring death toll, and international genocide accusations that Israel rejects.</p>
+<p><strong>2025</strong> — <strong>October:</strong> A US-brokered ceasefire takes effect, built around a "Yellow Line" marking an Israeli withdrawal.</p>
+<p><strong>2026</strong> — The ceasefire holds on paper but frays: continued strikes, the Yellow Line reportedly shifting on the ground, Israeli politics moving rightward, and a new, weaker Hamas leader elected. Hostage families keep up weekly protests for a full deal.</p></div>
+      
+      <div class="card prose timeline"><h1>Timeline — Western Sahara</h1>
+<p><em>Year by year, from colony to today's diplomatic contest. Bold = the year.</em></p>
+<p><strong>1884</strong> — Spain colonises the coastal Sahara at the Berlin Conference; it becomes "Spanish Sahara."</p>
+<p><strong>1963</strong> — The UN adds the territory to its list of "non-self-governing" places awaiting decolonisation.</p>
+<p><strong>1973</strong> — The <strong>Polisario Front</strong> is founded to fight for Sahrawi independence from Spain.</p>
+<p><strong>1975</strong> —
+- The International Court of Justice finds historic ties but no basis to deny self-determination.
+- Morocco's <strong>"Green March"</strong> sends ~350,000 civilians into the territory.
+- The Madrid Accords: Spain withdraws and hands administration to Morocco and Mauritania.</p>
+<p><strong>1976</strong> — Polisario declares the Sahrawi Arab Democratic Republic (SADR). War begins. Tens of thousands of Sahrawis flee to refugee camps near Tindouf, Algeria — where many still live.</p>
+<p><strong>1979</strong> — Mauritania gives up its claim; Morocco takes over the whole territory.</p>
+<p><strong>1980s</strong> — Morocco builds a 2,700 km sand <strong>berm</strong> (defensive wall) that still splits the territory today.</p>
+<p><strong>1991</strong> — A <strong>UN-monitored ceasefire</strong> ends the war; the UN mission MINURSO is created to organise an independence referendum — which never happens, stuck on who is eligible to vote.</p>
+<p><strong>2007</strong> — Morocco proposes its <strong>autonomy plan</strong>: self-rule under Moroccan sovereignty. Polisario insists on a referendum with independence on the ballot.</p>
+<p><strong>2010</strong> — The Gdeim Izik protest camp near Laâyoune is broken up, with deaths on both sides.</p>
+<p><strong>2020</strong> —
+- A flare-up at the Guerguerat border crossing; Polisario declares the ceasefire void.
+- The <strong>US recognises Moroccan sovereignty</strong> over Western Sahara (tied to Morocco normalising ties with Israel).</p>
+<p><strong>2021</strong> — Low-level fighting resumes along the berm after nearly 30 years of calm.</p>
+<p><strong>2022</strong> — Spain shifts to back Morocco's autonomy plan, straining Spain–Algeria relations.</p>
+<p><strong>2024</strong> — <strong>France</strong> formally endorses the autonomy plan as the basis for a settlement — a major diplomatic win for Rabat.</p>
+<p><strong>2026</strong> — Momentum keeps tilting toward Morocco: more African, Arab and Latin American states back autonomy, and US lawmakers visit Dakhla. The counter-current stays legal — an EU court ruling on Sahrawi consent — while Algeria and Polisario still demand a referendum.</p></div>
+      
+      <div class="card prose timeline"><h1>Timeline — Sudan</h1>
+<p><em>Year by year, from independence to today's war. Bold = the year.</em></p>
+<p><strong>1956</strong> — Sudan becomes independent from Britain and Egypt — and almost immediately faces civil war between the Arab-Muslim north and the African-Christian/animist south.</p>
+<p><strong>1983–2005</strong> — Sudan's long second civil war (north vs. south), one of the deadliest conflicts of the era.</p>
+<p><strong>1989</strong> — Omar al-Bashir seizes power in an Islamist-backed coup and rules for 30 years.</p>
+<p><strong>2003</strong> — War erupts in <strong>Darfur</strong> (western Sudan). Government-backed "Janjaweed" militias are accused of genocide. Those militias later become the <strong>RSF</strong>.</p>
+<p><strong>2005</strong> — A peace deal ends the north–south war and sets up a referendum for the south.</p>
+<p><strong>2011</strong> — <strong>South Sudan</strong> votes for independence and splits off, taking most of the oil with it — wrecking Sudan's economy.</p>
+<p><strong>2019</strong> — A popular uprising ousts dictator Bashir. The army and the RSF jointly take power, promising a transition to civilian rule.</p>
+<p><strong>2021</strong> — The army and RSF stage a coup together, derailing the promised democratic transition.</p>
+<p><strong>2023</strong> — <strong>April 15:</strong> The two allies turn on each other. The national army (<strong>SAF</strong>) and the paramilitary <strong>RSF</strong> go to open war over who controls the country and how to merge their forces. Khartoum becomes a battlefield.</p>
+<p><strong>2024</strong> — The war spreads nationwide. It becomes the <strong>world's largest displacement crisis</strong>; famine is declared in parts of the country; both sides are accused of atrocities.</p>
+<p><strong>2025</strong> — Fighting hardens into a de facto split — the army holding the centre and east, the RSF holding much of Darfur and the west. Foreign powers arm both sides.</p>
+<p><strong>2026</strong> — The war passes its third year with no end in sight, now defined by heavy <strong>drone</strong> use on both sides — described as a preview of future African warfare — and still badly under-covered internationally relative to its scale.</p></div>
+      
+      <div class="card prose timeline"><h1>Timeline — Mali &amp; the Sahel</h1>
+<p><em>Year by year, from the 2012 collapse to today's Russia pivot. Bold = the year.</em></p>
+<p><strong>2011</strong> — The fall of Libya's Gaddafi sends fighters and weapons flooding south into the Sahel, supercharging local rebellions.</p>
+<p><strong>2012</strong> — Tuareg separatists and jihadist groups seize northern <strong>Mali</strong>. As they push south, France launches "Operation Serval" to stop them taking the capital, Bamako.</p>
+<p><strong>2013</strong> — French and African troops retake Mali's northern cities. France's mission becomes the long-term "Operation Barkhane" across the region.</p>
+<p><strong>2014–2015</strong> — A UN peacekeeping mission (MINUSMA) deploys; a peace deal is signed with northern rebels — but jihadist insurgencies keep spreading into Burkina Faso and Niger.</p>
+<p><strong>2020</strong> — <strong>Mali's first coup:</strong> the army overthrows the elected government amid anger at insecurity and corruption.</p>
+<p><strong>2021</strong> — A <strong>second coup</strong> in Mali brings a harder military junta to power. Mali turns to Russia's <strong>Wagner Group</strong> mercenaries.</p>
+<p><strong>2022</strong> — France, its relationship with Mali's junta broken, <strong>withdraws its troops</strong> from Mali after nearly a decade.</p>
+<p><strong>2023</strong> —
+- Mali forces the UN peacekeeping mission to leave.
+- <strong>Niger</strong> has its own coup; the new junta also expels French and US forces.
+- Burkina Faso, Mali and Niger — all now coup-led — draw closer to Russia.</p>
+<p><strong>2024</strong> — The three juntas form the "Alliance of Sahel States" and quit the West African bloc ECOWAS. Wagner is rebranded as Russia's state-run "Africa Corps."</p>
+<p><strong>2025</strong> — Security keeps deteriorating: deadly ambushes of army-and-Russian convoys, jihadist groups controlling more rural territory, and civilian tolls rising despite the change of foreign partners.</p>
+<p><strong>2026</strong> — The pivot from France to Russia is complete on the map — but not in results. Attacks remain frequent, and the region's realignment away from the West looks set to shape its alliances for years.</p></div>
+      
+      <div class="card prose timeline"><h1>Timeline — Ukraine &amp; Russia</h1>
+<p><em>Year by year. Bold = the year.</em></p>
+<p><strong>1991</strong> — The Soviet Union collapses; Ukraine becomes an independent country.</p>
+<p><strong>2004</strong> — The "Orange Revolution": mass protests overturn a rigged election, tilting Ukraine toward the West.</p>
+<p><strong>2014</strong> — Ukraine's pro-Russian president is ousted after protests. Russia responds by <strong>annexing Crimea</strong> and backing armed separatists in eastern Ukraine (the Donbas). A low-level war begins.</p>
+<p><strong>2015</strong> — The "Minsk agreements" try to freeze the eastern conflict; they mostly fail to hold.</p>
+<p><strong>2022</strong> — <strong>February 24:</strong> Russia launches a <strong>full-scale invasion</strong>. Its attempt to take Kyiv fails; Ukraine, armed by the West, pushes back. The war becomes a grinding fight in the east and south.</p>
+<p><strong>2023</strong> — Ukraine's counter-offensive makes limited gains. Wagner mercenaries play a major role, then their leader dies after a failed mutiny against Moscow. The war settles into attrition.</p>
+<p><strong>2024</strong> — A war of drones and artillery along a largely static front. Western military and financial support becomes a recurring political fight in the US and Europe.</p>
+<p><strong>2025</strong> — Pressure grows for negotiations amid shifting US politics; the front lines move little while both sides exhaust resources.</p>
+<p><strong>2026</strong> — The war endures as the defining great-power conflict — its ripple effects (energy prices, food exports, the Russia–West freeze, Wagner in Africa) still shaping the stories you follow elsewhere.</p></div>
+      
+      <div class="card prose timeline"><h1>Timeline — Yemen &amp; the Houthis</h1>
+<p><em>Year by year. Bold = the year.</em></p>
+<p><strong>2011</strong> — Arab Spring protests force out Yemen's long-time president; a shaky transition follows.</p>
+<p><strong>2014</strong> — The <strong>Houthi</strong> movement seizes the capital, Sanaa, and much of the north.</p>
+<p><strong>2015</strong> — <strong>Saudi Arabia</strong> leads a Western-backed coalition to push the Houthis back and restore the government. Years of bombing, blockade, and fighting create one of the world's worst humanitarian crises.</p>
+<p><strong>2018</strong> — The port city of Hodeidah becomes a focus of fighting and famine fears; UN-brokered talks slow but don't end the war.</p>
+<p><strong>2022</strong> — A fragile truce reduces frontline fighting; the Houthis are entrenched as the de facto rulers of northern Yemen.</p>
+<p><strong>2023</strong> — After the Gaza war escalates, the Houthis begin <strong>attacking commercial ships in the Red Sea</strong> in solidarity with the Palestinians — disrupting one of the world's busiest trade routes.</p>
+<p><strong>2024</strong> — The US and UK strike Houthi targets to protect shipping; global trade reroutes around Africa, raising costs worldwide. The Houthis gain regional prominence.</p>
+<p><strong>2025–2026</strong> — The Houthis remain a central node of Iran's <span class="xlink">Axis of Resistance</span>, their Red Sea leverage rising and falling with the wider Iran–Israel conflict.</p></div>
+      
+      <div class="card prose timeline"><h1>Timeline — Syria</h1>
+<p><em>Year by year. Bold = the year.</em></p>
+<p><strong>1971</strong> — Hafez al-Assad takes power, founding a family dictatorship that will last over 50 years.</p>
+<p><strong>2000</strong> — His son <strong>Bashar al-Assad</strong> inherits the presidency.</p>
+<p><strong>2011</strong> — Arab Spring protests erupt; the government's violent crackdown triggers civil war.</p>
+<p><strong>2013</strong> — A chemical-weapons attack near Damascus crosses a Western "red line" but brings no major intervention. The war deepens.</p>
+<p><strong>2014</strong> — <strong>ISIS</strong> seizes a vast area of Syria and Iraq, declaring a "caliphate." A US-led coalition and Kurdish forces begin fighting it.</p>
+<p><strong>2015</strong> — <strong>Russia</strong> intervenes militarily to save Assad, alongside <strong>Iran</strong> and Hezbollah. The war becomes a full proxy battlefield.</p>
+<p><strong>2016–2018</strong> — Assad, with Russian and Iranian help, retakes major cities like Aleppo. ISIS's territory is gradually destroyed.</p>
+<p><strong>2019–2023</strong> — The war freezes into zones of control; millions of refugees remain abroad; reconstruction stalls under sanctions.</p>
+<p><strong>2024</strong> — <strong>December:</strong> a sudden rebel offensive topples Assad — a stunning collapse that ends 50+ years of family rule and weakens both Russia and Iran, who lose a key ally.</p>
+<p><strong>2025–2026</strong> — A fragile transition: rival factions, outside powers, and Syria's neighbours jockey over what comes next, with the refugee question still central to the region.</p></div>
+      
+      <div class="card prose timeline"><h1>Timeline — DR Congo &amp; the Great Lakes</h1>
+<p><em>Year by year. Bold = the year.</em></p>
+<p><strong>1994</strong> — The <strong>Rwandan genocide</strong>: perpetrators and refugees flee into eastern Congo, exporting the conflict across the border.</p>
+<p><strong>1996–2003</strong> — Two devastating "Congo Wars" drag in numerous African armies. Millions die, mostly from hunger and disease — among the deadliest conflicts since WWII.</p>
+<p><strong>2003 onward</strong> — A formal end to the wars, but eastern Congo never stabilises: dozens of armed groups fight over territory and minerals.</p>
+<p><strong>2012</strong> — The <strong>M23</strong> rebel group (widely reported to be Rwanda-backed) briefly seizes the city of Goma, then withdraws under pressure.</p>
+<p><strong>2021</strong> — M23 re-emerges and resumes a major offensive in the east.</p>
+<p><strong>2023–2024</strong> — M23 expands its control; DRC and the UN accuse Rwanda of arming it to control mineral-rich land. Regional peace efforts repeatedly stall.</p>
+<p><strong>2025</strong> — <strong>January:</strong> M23 seizes <strong>Goma</strong>, a major eastern city, sharply escalating the crisis and the risk of a wider regional war.</p>
+<p><strong>2026</strong> — The east remains volatile — a conflict powered by the global demand for <strong>cobalt and coltan</strong> (the <span class="xlink">Resources and Minerals</span> thread), linking it directly to the technology stories under Science &amp; Tech.</p></div>
+      
+    </div>
+
+    <div id="glossary" class="subpanel">
+      <div class="card prose glossary"><h1>Glossary</h1>
+<p><em>A growing list. Add your own terms by editing <code>content/glossary.md</code>.</em></p>
+<h2>Conflict &amp; diplomacy</h2>
+<p><strong>Ceasefire</strong> — a formal agreement to stop fighting, usually temporary. It is not a peace treaty; fighting often resumes.</p>
+<p><strong>Blockade</strong> — sealing off a place so goods and people can't move freely in or out. Can be by land, sea, or air.</p>
+<p><strong>Occupation</strong> — one country controlling territory it does not consider part of its own recognised state, usually militarily (e.g. Israel in the West Bank).</p>
+<p><strong>Proxy war</strong> — a conflict where major powers back opposing local forces instead of fighting each other directly. Iran's "Axis of Resistance" groups are proxies.</p>
+<p><strong>Sanctions</strong> — economic penalties (trade bans, asset freezes) one country imposes on another to pressure it without war.</p>
+<p><strong>Sovereignty</strong> — a state's recognised authority to govern a territory. The core of the Western Sahara dispute.</p>
+<p><strong>Autonomy plan</strong> — Morocco's proposal to let Western Sahara govern local affairs while remaining under Moroccan sovereignty.</p>
+<p><strong>Referendum</strong> — a direct public vote on a single question (e.g. independence yes/no).</p>
+<p><strong>Annexation</strong> — one state formally absorbing territory into itself.</p>
+<h2>Institutions</h2>
+<p><strong>UN Security Council resolution</strong> — a formal decision by the UN's most powerful body (15 members, 5 with veto power). Binding in principle, but enforcement depends on member states.</p>
+<p><strong>European Court of Justice (ECJ)</strong> — the EU's top court; its rulings bind EU institutions.</p>
+<p><strong>International Court of Justice (ICJ)</strong> — the UN's court for disputes between states.</p>
+<h2>Actors &amp; terms</h2>
+<p><strong>Axis of Resistance</strong> — the network of Iran-aligned armed groups: Hezbollah (Lebanon), the Houthis (Yemen), Hamas (Gaza), and Iraqi militias.</p>
+<p><strong>Paramilitary</strong> — an armed group organised like an army but outside the official military (e.g. Sudan's RSF).</p>
+<p><strong>Jihadist insurgency</strong> — an armed rebellion by extremist groups claiming a religious justification (as in the Sahel).</p>
+<p><strong>Uranium enrichment</strong> — processing uranium to higher concentrations; low levels fuel power plants, very high levels can fuel a bomb. The heart of the Iran nuclear dispute.</p>
+<p><strong>Strait of Hormuz</strong> — a narrow sea passage carrying ~20% of the world's oil shipments; closing it spikes global oil prices.</p>
+<p><strong>Nakba</strong> — Arabic for "catastrophe"; the 1948 displacement of ~700,000 Palestinians.</p></div>
+    </div>
+
+    <div id="recaps" class="subpanel">
+      <div class="card prose"><h1>How we got here — the past year, per region</h1>
+<p><em>A quick "if you've been away" catch-up. Edit <code>content/recaps.md</code> to keep it current.</em></p>
+<h2>Iran War</h2>
+<p>Started <strong>Feb 28, 2026</strong> with US/Israeli strikes that killed Iran's Supreme Leader. Five weeks of missiles, drones, and a closed Strait of Hormuz followed, then an April ceasefire that never really held. Iran named the killed leader's son as successor. By July the ceasefire was declared "over" and stop-start US strikes resumed. The through-line: <strong>oil and shipping keep this a global economic story, not just a regional one.</strong></p>
+<h2>Gaza / Israel</h2>
+<p>A US-brokered ceasefire has technically held since <strong>October 2025</strong>, but strikes continued and the agreed "Yellow Line" for Israeli withdrawal has reportedly shifted on the ground. Israeli domestic politics moved rightward under the prolonged war; Hamas elected a new, weaker leader. Casualty totals differ sharply by source — compare them directly rather than trusting one.</p>
+<h2>Western Sahara</h2>
+<p>The diplomatic momentum kept <strong>tilting toward Rabat</strong>: France plus more African, Arab, and Latin American states endorsed Morocco's autonomy plan, and US lawmakers visited Dakhla. The counter-current is legal — an EU court ruling on Sahrawi consultation that opponents keep citing. Algeria and Polisario still demand a referendum.</p>
+<h2>Sudan</h2>
+<p>The <strong>SAF vs RSF</strong> war (since April 2023) ground on as the world's largest displacement crisis, now defined by heavy drone use on both sides — described as a preview of future African warfare. Still badly under-covered globally.</p>
+<h2>The Sahel (Mali, Burkina Faso, Niger)</h2>
+<p>The post-coup governments completed their pivot from <strong>France to Russia</strong> (Wagner / "Africa Corps"). Security did not improve — deadly ambushes continued — but the alliance map of the region changed for years to come.</p></div>
+    </div>
+  </section>
+
+  
+  <section id="connect" class="panel">
+    <div class="conn-nav">
+      <button class="conn-btn active" data-conn="conn-map">The Map</button>
+      <button class="conn-btn" data-conn="conn-threads">The Threads</button>
+      <button class="conn-btn" data-conn="conn-actors">The Actors</button>
+      <button class="conn-btn" data-conn="conn-toolkit">Analyst's Toolkit</button>
+    </div>
+
+    <div id="conn-map" class="connpanel active">
+      <div class="card prose"><h1>How it all connects</h1>
+<p>You don't have to memorise 40 conflicts. You have to learn <strong>~15 actors</strong> and <strong>~7 threads</strong> — then every story becomes a combination of things you already know.</p>
+<p>This is the <em>horizontal</em> layer of the app. The <strong>Learn</strong> tab goes <em>deep</em> on one conflict at a time (vertical). This tab goes <em>across</em> them (horizontal) — showing the shared players and forces that make separate wars part of one board.</p>
+<p><strong>Read it in this order:</strong></p>
+<ol>
+<li><strong>The Threads</strong> — the cross-cutting forces (energy, great-power rivalry, proxy warfare…). Each lists the conflicts it runs through. This is where "everything connects."</li>
+<li><strong>The Actors</strong> — the recurring players. Learn what each <em>wants</em> and the news starts predicting itself.</li>
+<li><strong>The Analyst's Toolkit</strong> — the repeatable method for reading any new story and slotting it into the map.</li>
+</ol>
+<p>The habit to build: for any headline, name the <strong>actors</strong>, name the <strong>thread</strong>, and find <strong>one other conflict</strong> that shares them. Three connections, every time.</p></div>
+
+      <div class="board">
+        <div class="hub h-iran">
+          <div class="hub-name">Iran</div>
+          <div class="hub-role">funds &amp; arms the “Axis of Resistance”</div>
+          <div class="chips">
+            <span class="chip">Hezbollah · Lebanon</span>
+            <span class="chip">Hamas · Gaza</span>
+            <span class="chip">Houthis · Yemen</span>
+            <span class="chip">Iraqi militias</span>
+          </div>
+        </div>
+        <div class="hub h-russia">
+          <div class="hub-name">Russia</div>
+          <div class="hub-role">energy lever + deniable force abroad</div>
+          <div class="chips">
+            <span class="chip">Ukraine</span>
+            <span class="chip">Syria (ally lost ’24)</span>
+            <span class="chip">Wagner · the Sahel</span>
+            <span class="chip">gas → Europe</span>
+          </div>
+        </div>
+        <div class="hub h-us">
+          <div class="hub-name">United States</div>
+          <div class="hub-role">backs allies, guards sea lanes</div>
+          <div class="chips">
+            <span class="chip">Israel</span>
+            <span class="chip">Gulf states</span>
+            <span class="chip">Morocco · Sahara</span>
+            <span class="chip">Ukraine</span>
+          </div>
+        </div>
+        <div class="hub h-china">
+          <div class="hub-name">China</div>
+          <div class="hub-role">trade, minerals, infrastructure</div>
+          <div class="chips">
+            <span class="chip">Africa · Belt &amp; Road</span>
+            <span class="chip">Taiwan</span>
+            <span class="chip">chips &amp; minerals</span>
+            <span class="chip">tilts to Russia/Iran</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="board-note">
+        <strong>The threads run through all of them:</strong>
+        energy · minerals · proxy war · colonial legacy · displacement · great-power rivalry.
+        Pick any headline → name the <em>hub</em>, name the <em>thread</em>, find one <em>other</em> conflict that shares them.
+      </p>
+    </div>
+
+    <div id="conn-threads" class="connpanel">
+      
+      <div class="card prose thread"><h1>Thread — Great-Power Rivalry</h1>
+<p><strong>The pattern:</strong> the US, China, and Russia compete for influence everywhere, usually <em>through</em> local conflicts rather than by fighting each other directly. Most "local" wars are also a venue for this bigger contest.</p>
+<p><strong>Where it shows up:</strong>
+- <strong>Ukraine</strong> — the most direct US/Europe vs. Russia contest.
+- <strong>The Sahel (Mali, Niger, Burkina Faso)</strong> — juntas swap French/US troops for Russian ones.
+- <strong>The Iran war</strong> — the US backs Israel and the Gulf; Russia and China tilt toward Iran.
+- <strong>Africa broadly</strong> — China builds infrastructure and buys minerals; the US and Russia counter.
+- <strong>Western Sahara</strong> — even this is shaped by which powers back Rabat vs. Algiers.</p>
+<p><strong>Watch for:</strong> when a small country suddenly changes partners (expels one power, invites another), that's this thread moving. Ask <em>what each great power gets</em> from the switch.</p>
+<p><strong>Connects to:</strong> <span class="xlink">Energy and Oil</span>, <span class="xlink">Proxy Warfare</span>, <span class="xlink">Resources and Minerals</span>.</p></div>
+      
+      <div class="card prose thread"><h1>Thread — Energy &amp; Oil</h1>
+<p><strong>The pattern:</strong> whoever controls the production and shipping of oil and gas holds a lever over the whole world economy. A conflict near an energy chokepoint or a big producer instantly becomes everyone's problem — which is why markets react to wars far away.</p>
+<p><strong>Where it shows up:</strong>
+- <strong>The Strait of Hormuz</strong> (Iran war) — ~20% of the world's oil passes through it; closing it spikes prices globally.
+- <strong>The Red Sea / Houthis (Yemen)</strong> — attacks on tankers reroute global shipping.
+- <strong>Ukraine–Russia</strong> — Russia is a top gas/oil exporter; the war reshaped Europe's energy map.
+- <strong>The Gulf states</strong> — their wealth and diplomacy run on hydrocarbons.</p>
+<p><strong>Watch for:</strong> a price move in oil is a "tell." If crude jumps, scan for what happened near a producer or a chokepoint — the political story is usually upstream of the market story.</p>
+<p><strong>Why it matters to you:</strong> Morocco imports most of its energy, so these spikes hit Moroccan fuel and food prices directly.</p>
+<p><strong>Connects to:</strong> <span class="xlink">Great Power Rivalry</span>, <span class="xlink">Displacement and Refugees</span>.</p></div>
+      
+      <div class="card prose thread"><h1>Thread — Proxy Warfare</h1>
+<p><strong>What it means:</strong> a <strong>proxy</strong> is a local armed group that a bigger power funds, arms, and directs so it can fight a rival <em>without</em> sending its own army (cheaper, deniable, less risky at home).</p>
+<p><strong>The pattern:</strong> many "civil wars" are partly proxy contests. To understand them, look past the local fighters to their sponsors.</p>
+<p><strong>Where it shows up:</strong>
+- <strong>Iran's "Axis of Resistance"</strong> — Hezbollah (Lebanon), Hamas (Gaza), the Houthis (Yemen), Iraqi militias. One sponsor, many fronts.
+- <strong>Russia's Wagner / Africa Corps</strong> — Russia's proxy force across the Sahel and Syria.
+- <strong>Sudan</strong> — the SAF and RSF each draw on outside backers.
+- <strong>The Gulf</strong> — rival states have backed opposing sides in Yemen and Libya.</p>
+<p><strong>Watch for:</strong> when the same weapons or tactics appear in far-apart conflicts, suspect a shared sponsor. Ask "<strong>whose proxy is this</strong>, and what does the <em>sponsor</em> want?" — the local group's stated cause is only half the story.</p>
+<p><strong>Connects to:</strong> <span class="xlink">Great Power Rivalry</span>, <span class="xlink">Religion and Sect</span>.</p></div>
+      
+      <div class="card prose thread"><h1>Thread — Colonial Legacy</h1>
+<p><strong>The pattern:</strong> many of today's borders, grievances, and alliances were set by European empires (Britain, France, Spain, Ottoman) — often drawing lines that ignored who actually lived there. Decades later, those lines are still what people fight over.</p>
+<p><strong>Where it shows up:</strong>
+- <strong>Israel / Palestine</strong> — the dispute traces to the end of the British Mandate in 1948.
+- <strong>Western Sahara</strong> — a former Spanish colony whose status was never resolved when Spain left in 1975.
+- <strong>The Sahel</strong> — France's former colonies, now expelling French troops and turning to Russia (a direct reaction <em>against</em> the colonial relationship).
+- <strong>Sudan / South Sudan</strong> — British-era divisions still shape the conflict.</p>
+<p><strong>Watch for:</strong> when a country dramatically breaks with a former colonial power, that's this thread. The move is often as much about <em>identity and sovereignty</em> as about practical security.</p>
+<p><strong>Why it matters to you:</strong> Morocco and the whole Maghreb sit inside this thread — colonial borders, the France relationship, and the Sahara file all belong here.</p>
+<p><strong>Connects to:</strong> <span class="xlink">Great Power Rivalry</span>, <span class="xlink">Proxy Warfare</span>.</p></div>
+      
+      <div class="card prose thread"><h1>Thread — Resources &amp; Minerals</h1>
+<p><strong>The pattern:</strong> control of valuable resources — oil, gold, cobalt, lithium, rare earths, water, farmland — funds wars and attracts outside powers. Follow the resource map and you can often predict where conflict appears.</p>
+<p><strong>Where it shows up:</strong>
+- <strong>DR Congo</strong> — cobalt and coltan, essential for batteries and electronics, help fund armed groups in the east.
+- <strong>Sudan</strong> — gold revenue bankrolls both sides of the war.
+- <strong>The Sahel</strong> — gold and uranium (Niger) draw in outside partners.
+- <strong>The Gulf &amp; Iran</strong> — oil, again.</p>
+<p><strong>The bridge to your Science tab:</strong> the cobalt and lithium fought over in Congo end up in the <strong>batteries and AI chips</strong> you read about under Science &amp; Tech. The "clean tech" supply chain starts in conflict zones. Politics and technology are the same story here.</p>
+<p><strong>Watch for:</strong> a spike in demand for a mineral (e.g. an AI or EV boom) tends to raise the stakes — and the violence — wherever that mineral is mined.</p>
+<p><strong>Connects to:</strong> <span class="xlink">Great Power Rivalry</span>, <span class="xlink">Energy and Oil</span>.</p></div>
+      
+      <div class="card prose thread"><h1>Thread — Displacement &amp; Refugees</h1>
+<p><strong>The pattern:</strong> war forces people from their homes. Where they flee to becomes part of the story — pressuring neighbouring countries, reshaping their politics, and sometimes spreading the conflict. Displacement is both a <em>consequence</em> and a <em>cause</em>.</p>
+<p><strong>Where it shows up:</strong>
+- <strong>Sudan</strong> — the world's largest displacement crisis; millions pushed into Chad, Egypt, and beyond.
+- <strong>Gaza</strong> — mass internal displacement within a sealed territory.
+- <strong>Syria</strong> — over a decade of refugees reshaped Lebanon, Jordan, Turkey, and European politics.
+- <strong>The Sahel</strong> — insurgencies empty rural areas and swell fragile cities.
+- <strong>Western Sahara</strong> — Sahrawi refugees have lived in camps near Tindouf, Algeria, since the 1970s.</p>
+<p><strong>Watch for:</strong> refugee flows are a leading indicator. A surge tells you a conflict is intensifying <em>before</em> the headline numbers catch up — and tells you which neighbouring country gets pulled in next.</p>
+<p><strong>Why it matters to you:</strong> migration across the Mediterranean and the Sahara is a core Morocco/Europe issue, sitting right on this thread.</p>
+<p><strong>Connects to:</strong> <span class="xlink">Colonial Legacy</span>, <span class="xlink">Religion and Sect</span>.</p></div>
+      
+      <div class="card prose thread"><h1>Thread — Religion &amp; Sect</h1>
+<p><strong>A careful note:</strong> religion is often <em>used</em> to mobilise people, but it's rarely the whole cause. Power, land, and money usually sit underneath. Treat "religious war" as a starting question, not an answer — ask what material interest the religious language is carrying.</p>
+<p><strong>The pattern:</strong> sectarian identity (especially the <strong>Sunni–Shia</strong> split in Islam) is a fault line that powers align along and exploit.</p>
+<p><strong>Where it shows up:</strong>
+- <strong>The Iran axis</strong> — Shia-led Iran backs Shia and allied groups (Hezbollah, the Houthis) against Sunni-led rivals like Saudi Arabia. But it's as much about <em>power</em> as theology — Iran allies with Sunni Hamas too.
+- <strong>The Sahel &amp; Nigeria</strong> — jihadist insurgencies use religious framing over local grievances.
+- <strong>Sudan, Syria, Iraq</strong> — sect maps onto political power struggles.</p>
+<p><strong>Watch for:</strong> when leaders reach for religious language, ask <em>what practical thing</em> it's mobilising people toward. Follow that, not just the label.</p>
+<p><strong>Connects to:</strong> <span class="xlink">Proxy Warfare</span>, <span class="xlink">Great Power Rivalry</span>.</p></div>
+      
+    </div>
+
+    <div id="conn-actors" class="connpanel">
+      
+      <div class="card prose actor"><h1>Iran</h1>
+<p><strong>What it is:</strong> a Shia-Islamist republic (since the 1979 revolution), ruled ultimately by a Supreme Leader, not the elected president.</p>
+<p><strong>What it wants:</strong> regime survival, regional influence, deterrence against the US and Israel, and leverage over its nuclear program.</p>
+<p><strong>Allies:</strong> its "Axis of Resistance" proxies (Hezbollah, Hamas, the Houthis, Iraqi militias); tilts toward Russia and China.</p>
+<p><strong>Rivals:</strong> the US, Israel, Saudi Arabia and most Gulf states.</p>
+<p><strong>In these conflicts:</strong> the Iran war, Gaza, Lebanon, Yemen, Syria.</p>
+<p><strong>Runs through threads:</strong> <span class="xlink">Proxy Warfare</span>, <span class="xlink">Energy and Oil</span>, <span class="xlink">Religion and Sect</span>.</p></div>
+      
+      <div class="card prose actor"><h1>Israel</h1>
+<p><strong>What it is:</strong> a state created in 1948; the region's most powerful military, closely allied with the US.</p>
+<p><strong>What it wants:</strong> security above all — neutralising Iran and its proxies, managing the Palestinian question on its own terms, and maintaining a military edge.</p>
+<p><strong>Allies:</strong> the US (primary), and increasingly some Gulf states via normalisation deals.</p>
+<p><strong>Rivals:</strong> Iran and its Axis; contested relations across the Arab world.</p>
+<p><strong>Internal split to remember:</strong> Israeli society is <em>not</em> one voice — see the <strong>Perspectives</strong> tab (Haaretz vs. Israel Hayom). "Israeli" ≠ "pro-government."</p>
+<p><strong>In these conflicts:</strong> Gaza, Lebanon, the Iran war, the West Bank.</p>
+<p><strong>Runs through threads:</strong> <span class="xlink">Colonial Legacy</span>, <span class="xlink">Proxy Warfare</span>.</p></div>
+      
+      <div class="card prose actor"><h1>The United States</h1>
+<p><strong>What it is:</strong> the world's dominant military and economic power, with alliances and bases on every continent.</p>
+<p><strong>What it wants:</strong> keep global sea lanes and energy flowing, back key allies (Israel, Gulf states, Morocco, Ukraine), contain Iran, Russia and China, and avoid costly long wars — a balance that shifts with each administration.</p>
+<p><strong>Allies:</strong> Israel, NATO/Europe, Gulf monarchies, Morocco.</p>
+<p><strong>Rivals:</strong> Iran, Russia, China (as strategic competitors).</p>
+<p><strong>Watch for:</strong> US policy can swing fast with domestic politics (elections, Congress). A "foreign" story is often really a US <em>domestic</em> story — see the <strong>US &amp; Europe</strong> tab.</p>
+<p><strong>In these conflicts:</strong> the Iran war, Gaza, Ukraine, Western Sahara (recognised Moroccan sovereignty in 2020), Africa policy.</p>
+<p><strong>Runs through threads:</strong> <span class="xlink">Great Power Rivalry</span>, <span class="xlink">Energy and Oil</span>.</p></div>
+      
+      <div class="card prose actor"><h1>Russia</h1>
+<p><strong>What it is:</strong> a major military power and top energy exporter, seeking to restore great-power status and push back against US/NATO influence.</p>
+<p><strong>What it wants:</strong> a sphere of influence on its borders (Ukraine), leverage over Europe via energy, and footholds in Africa and the Middle East that weaken the West.</p>
+<p><strong>Allies:</strong> tilts toward Iran and China; client relationships with Sahel juntas and (historically) Syria.</p>
+<p><strong>Rivals:</strong> the US, NATO, Europe.</p>
+<p><strong>Its key tool:</strong> the <strong>Wagner Group</strong>, now rebranded "Africa Corps" — a mercenary force that gives Moscow deniable reach. See <span class="xlink">Wagner Africa Corps</span>.</p>
+<p><strong>In these conflicts:</strong> Ukraine, Syria, the Sahel (Mali, Niger, Burkina Faso).</p>
+<p><strong>Runs through threads:</strong> <span class="xlink">Great Power Rivalry</span>, <span class="xlink">Proxy Warfare</span>, <span class="xlink">Energy and Oil</span>.</p></div>
+      
+      <div class="card prose actor"><h1>China</h1>
+<p><strong>What it is:</strong> the world's second economic power, expanding its global influence mainly through trade, lending, and infrastructure rather than military bases.</p>
+<p><strong>What it wants:</strong> secure supply of energy and minerals, export markets, reunification with Taiwan on its terms, and a world less dominated by the US.</p>
+<p><strong>How it operates:</strong> the "Belt and Road" — building ports, railways and mines across Africa and Asia in exchange for influence and resources.</p>
+<p><strong>Allies:</strong> a partnership with Russia; deep economic ties with the Gulf and much of Africa.</p>
+<p><strong>Rivals:</strong> the US (the central 21st-century rivalry); tension with neighbours over Taiwan.</p>
+<p><strong>In these stories:</strong> Africa infrastructure and minerals, US–China trade wars, the global backdrop to the Iran war.</p>
+<p><strong>Runs through threads:</strong> <span class="xlink">Great Power Rivalry</span>, <span class="xlink">Resources and Minerals</span>.</p></div>
+      
+      <div class="card prose actor"><h1>Morocco</h1>
+<p><strong>What it is:</strong> a monarchy in northwest Africa (the Maghreb); a stable, Western-aligned state that is also a rising African economic player.</p>
+<p><strong>What it wants:</strong> international recognition of its sovereignty over <strong>Western Sahara</strong> (the top priority of its foreign policy), economic growth, and a leading role in Africa.</p>
+<p><strong>Allies:</strong> the US (recognised its Sahara claim in 2020), France, Gulf states, and increasingly Israel via normalisation.</p>
+<p><strong>Rivals:</strong> Algeria — the central regional rivalry, largely <em>about</em> Western Sahara and backing for the Polisario Front.</p>
+<p><strong>In these stories:</strong> Western Sahara diplomacy, Maghreb rivalry with Algeria, Africa strategy, migration to Europe.</p>
+<p><strong>Runs through threads:</strong> <span class="xlink">Colonial Legacy</span>, <span class="xlink">Great Power Rivalry</span>, <span class="xlink">Displacement and Refugees</span>.</p></div>
+      
+      <div class="card prose actor"><h1>Algeria</h1>
+<p><strong>What it is:</strong> a large, energy-rich North African state; Morocco's main regional rival, with a military-influenced government.</p>
+<p><strong>What it wants:</strong> regional leadership in the Maghreb, and — central to everything — support for the <strong>Polisario Front's</strong> claim to an independent Western Sahara, opposing Morocco.</p>
+<p><strong>Allies:</strong> historically close to Russia (arms) and sympathetic to the non-Western bloc; hosts Sahrawi refugees near Tindouf.</p>
+<p><strong>Rivals:</strong> Morocco (border closed for years); tensions with France.</p>
+<p><strong>Its main lever:</strong> natural gas exports, especially to Europe.</p>
+<p><strong>In these stories:</strong> Western Sahara, Maghreb rivalry, European energy.</p>
+<p><strong>Runs through threads:</strong> <span class="xlink">Colonial Legacy</span>, <span class="xlink">Energy and Oil</span>, <span class="xlink">Great Power Rivalry</span>.</p></div>
+      
+      <div class="card prose actor"><h1>The Axis of Resistance</h1>
+<p><strong>What it is:</strong> not one group, but a <strong>network</strong> of armed movements funded and armed by Iran across the region. Learning it as one actor unlocks several conflicts at once.</p>
+<p><strong>The members:</strong>
+- <strong>Hezbollah</strong> (Lebanon) — the most powerful; a political party <em>and</em> a militia stronger than the Lebanese army.
+- <strong>Hamas</strong> (Gaza) — Sunni Islamist (an exception to Iran's mostly-Shia axis — proof it's about power, not just sect); governed Gaza from 2007.
+- <strong>The Houthis</strong> (Yemen) — control much of Yemen; attack Red Sea shipping and Saudi Arabia.
+- <strong>Iraqi militias</strong> — pressure US forces in Iraq.</p>
+<p><strong>What it wants:</strong> to deter and bleed Israel and the US, and extend Iran's reach without Iran fighting directly. The textbook example of <span class="xlink">Proxy Warfare</span>.</p>
+<p><strong>Watch for:</strong> when one front flares (Gaza), expect others (Lebanon, Yemen) to move in coordination.</p>
+<p><strong>In these conflicts:</strong> Gaza, Lebanon, Yemen, the Iran war. Sponsor: <span class="xlink">Iran</span>.</p></div>
+      
+      <div class="card prose actor"><h1>Wagner / Africa Corps</h1>
+<p><strong>What it is:</strong> a Russian <strong>mercenary</strong> force (private soldiers for hire) — originally "Wagner," now folded into the Russian state as "Africa Corps" after Wagner's leader died in 2023.</p>
+<p><strong>What it does:</strong> gives Moscow a <strong>deniable</strong> way to project power — propping up friendly governments in exchange for access to gold, minerals, and influence, without officially deploying the Russian army.</p>
+<p><strong>What Russia gets:</strong> footholds in Africa, resource revenue, and leverage against Western influence — see <span class="xlink">Russia</span> and <span class="xlink">Great Power Rivalry</span>.</p>
+<p><strong>Where it operates:</strong> Mali, Burkina Faso, Niger (the Sahel), the Central African Republic, and Syria.</p>
+<p><strong>Watch for:</strong> when an African government expels French or US troops, Wagner/Africa Corps often arrives next. The pattern is a reliable tell of <span class="xlink">Proxy Warfare</span> and the Russia pivot.</p>
+<p><strong>In these conflicts:</strong> the Sahel, Syria, Sudan (contested reports).</p></div>
+      
+    </div>
+
+    <div id="conn-toolkit" class="connpanel">
+      <div class="card prose"><h1>The Analyst's Toolkit</h1>
+<p><em>How to read </em><em>any</em><em> political story — even one about a place you've never heard of. Run these lenses in order. With practice they become automatic.</em></p>
+<h2>1 · The five questions</h2>
+<p>Ask them of every story, in this order:</p>
+<ol>
+<li><strong>Who are the actors?</strong> Which states, groups, institutions, or leaders are in the room? (Check the <strong>Actors</strong> tab — most stories reuse the same ~15 players.)</li>
+<li><strong>What does each one <em>want</em>?</strong> Not what they <em>say</em> — what outcome benefits them. Territory, security, legitimacy, resources, staying in power.</li>
+<li><strong>Who benefits from this event?</strong> If a pipeline blows up or a ceasefire collapses, ask <em>cui bono</em> — "who gains?" It's often not who you'd guess.</li>
+<li><strong>What's the framing?</strong> The <em>same</em> fact is "liberation" to one outlet and "aggression" to another. (The <strong>Perspectives</strong> tab is built for exactly this.)</li>
+<li><strong>What's the root, and what's the ripple?</strong> Every story has a history (check the <strong>Timeline</strong>) and a second-order effect (check the <strong>Threads</strong>).</li>
+</ol>
+<h2>2 · Follow the ______</h2>
+<p>A shortcut for question 3. When a story is confusing, follow one of these and it usually clarifies:</p>
+<ul>
+<li><strong>Follow the oil / gas.</strong> Who ships energy through here? A price spike explains a lot of "sudden" moves.</li>
+<li><strong>Follow the weapons.</strong> Who armed whom? Proxy wars are visible in the supply chain.</li>
+<li><strong>Follow the refugees.</strong> Displacement reveals who's losing, and pressures neighbouring countries into the story.</li>
+<li><strong>Follow the minerals.</strong> Cobalt, lithium, rare earths — resource maps predict where "surprise" conflicts appear.</li>
+<li><strong>Follow the vote / the money.</strong> Domestic elections and budgets often drive "foreign policy."</li>
+</ul>
+<h2>3 · The connection habit</h2>
+<p>After you understand a story on its own, <strong>connect it</strong>:</p>
+<ul>
+<li>Which <strong>other conflict</strong> shares an actor with this one? (Russia is in Ukraine <em>and</em> Mali. Iran is in Gaza <em>and</em> Yemen.)</li>
+<li>Which <strong>thread</strong> is this an example of? (Is this really an <em>energy</em> story? A <em>great-power rivalry</em> story wearing a local costume?)</li>
+</ul>
+<p>Do this three times and the "separate" conflicts start to look like one connected board — which is what they are.</p>
+<h2>4 · Guard against your own shortcuts</h2>
+<ul>
+<li><strong>Beware the single source.</strong> One outlet is a hypothesis, not a fact. Confirm across the Perspectives set.</li>
+<li><strong>Beware the tidy story.</strong> Real politics is messy; a narrative that's <em>too</em> clean is usually missing something.</li>
+<li><strong>Beware your team.</strong> Notice when you're relieved a fact is true because it flatters "your side." That relief is the bias to check.</li>
+<li><strong>Numbers vary by source and date</strong> — especially casualty figures. Compare, don't adopt the first one you see.</li>
+</ul>
+<h2>5 · A worked example</h2>
+<p><em>Headline: "Oil jumps 8% after tankers hit near the Strait of Hormuz."</em></p>
+<ul>
+<li><strong>Actors:</strong> Iran, the US, Gulf states, global shipping.</li>
+<li><strong>Wants:</strong> Iran wants leverage; the US wants open sea lanes; Gulf states want stability.</li>
+<li><strong>Benefits:</strong> Iran gains a bargaining chip; oil producers gain higher prices.</li>
+<li><strong>Framing:</strong> "Iranian aggression" vs. "response to the US blockade."</li>
+<li><strong>Root &amp; ripple:</strong> Root = the 2026 Iran war (Timeline). Ripple = the <strong>Energy</strong> thread → higher prices → pressure on Europe and on your own Morocco (fuel imports).</li>
+</ul>
+<p>One headline, fully unpacked — and now connected to three other things you already know.</p></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer-note">
+  Headlines, short snippets, source names and outbound links only — no full article text is fetched or stored.
+  Learn &amp; Perspectives content lives in editable text files under <code>content/</code>.
+</footer>
+
+<script>
+// --- main tab switching (remembers your last tab across auto-reloads) ---
+const tabs = document.querySelectorAll('#tabnav button');
+function showTab(id){
+  document.querySelectorAll('#tabnav button').forEach(b=>b.classList.toggle('active', b.dataset.tab===id));
+  document.querySelectorAll('main > .panel').forEach(p=>p.classList.toggle('active', p.id===id));
+  window.scrollTo({top:0, behavior:'instant'});
+}
+tabs.forEach(b=>b.addEventListener('click',()=>{ showTab(b.dataset.tab); localStorage.setItem('tab', b.dataset.tab); }));
+const saved = localStorage.getItem('tab');
+if (saved && document.getElementById(saved)) showTab(saved);
+
+// --- Learn sub-tabs ---
+document.querySelectorAll('.learn-btn').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.learn-btn').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.subpanel').forEach(p=>p.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.sub).classList.add('active');
+}));
+
+// --- Connect sub-tabs ---
+document.querySelectorAll('.conn-btn').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.conn-btn').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.connpanel').forEach(p=>p.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.conn).classList.add('active');
+}));
+
+// --- light / dark toggle ---
+const toggle = document.getElementById('themeToggle');
+toggle.addEventListener('click', ()=>{
+  const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark':'light';
+  const next = cur === 'dark' ? 'light':'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+});
+
+
+</script>
+
+</body>
+</html>
