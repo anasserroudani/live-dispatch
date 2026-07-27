@@ -124,8 +124,26 @@ and logo are baked in), so:
 
 > **Note:** truly *live* hosting (always-fresh news at a URL) now requires a
 > credit card on every major host (Render, Railway, Fly…), even on their free
-> tiers. The Netlify Drop snapshot above avoids that entirely. See `DEPLOY.md`
+> tiers. The snapshot approach avoids that entirely. See `DEPLOY.md`
 > for the live-hosting route if you ever want it.
+
+### The public link (GitHub Pages — free, no card)
+
+The site is already published, for free, at:
+
+**https://anasserroudani.github.io/live-dispatch/**
+
+It's a snapshot hosted from the `docs/` folder of the GitHub repo. To **update
+the live site** with fresh news later, run three commands:
+
+```bash
+cd ~/Desktop/live-dispatch && source venv/bin/activate && python build_static.py
+```
+```bash
+cd ~/Desktop/live-dispatch && git add -A && git commit -m "refresh news" && git push
+```
+
+GitHub rebuilds the page automatically about a minute after you push.
 
 The **news is a snapshot** from the moment you build it; the Learn, Connect,
 Timelines and Perspectives sections are evergreen. Re-run the command any time

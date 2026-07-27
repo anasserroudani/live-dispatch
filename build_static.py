@@ -71,11 +71,21 @@ def build():
     with open(OUT_FILE, "w", encoding="utf-8") as f:
         f.write(html)
 
+    # Also refresh the GitHub Pages copy (docs/) so the live site can be updated
+    # by simply committing + pushing after a rebuild.
+    docs_dir = os.path.join(HERE, "docs")
+    os.makedirs(docs_dir, exist_ok=True)
+    with open(os.path.join(docs_dir, "index.html"), "w", encoding="utf-8") as f:
+        f.write(html)
+    open(os.path.join(docs_dir, ".nojekyll"), "w").close()
+
     size_kb = os.path.getsize(OUT_FILE) / 1024
     stamp = datetime.now().strftime("%Y-%m-%d %H:%M")
     print(f"\n  ✓ Built {OUT_FILE}")
-    print(f"    {size_kb:.0f} KB · snapshot {stamp} · a single self-contained file")
-    print(f"    Send it to a friend — they just double-click to open it.\n")
+    print(f"    also updated docs/index.html (the GitHub Pages copy)")
+    print(f"    {size_kb:.0f} KB · snapshot {stamp} · a single self-contained file\n")
+    print("  To send as a file: share/index.html")
+    print("  To update the live site: git add -A && git commit -m update && git push\n")
 
 
 if __name__ == "__main__":
