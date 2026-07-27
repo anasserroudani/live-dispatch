@@ -4,3 +4,4 @@ __pycache__/
 dispatch.db
 server.log
 share/
+autopublish.log
