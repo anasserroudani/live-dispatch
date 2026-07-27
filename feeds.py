@@ -17,6 +17,7 @@ import urllib.parse
 
 # ---- Region identifiers (order = display order on the page) -----------------
 MIDEAST = "mideast"
+EGYPT = "egypt"
 MOROCCO = "morocco"
 AFRICA = "africa"
 GLOBAL = "global"
@@ -25,7 +26,9 @@ BOOKS = "books"
 
 REGIONS = [
     {"id": MIDEAST, "title": "Iran War & Middle East",
-     "tag": "incl. Gaza / Israel / Lebanon / Egypt"},
+     "tag": "incl. Gaza / Israel / Lebanon"},
+    {"id": EGYPT, "title": "Egypt",
+     "tag": "politics, economy & the region"},
     {"id": MOROCCO, "title": "Morocco",
      "tag": "incl. Western Sahara"},
     {"id": AFRICA, "title": "Africa",
@@ -99,8 +102,8 @@ FEEDS = [
      "default_region": GLOBAL, "note": "via Google News"},
     {"name": "DR Congo wire",     "url": _gnews("DR Congo M23 conflict when:4d"),
      "default_region": AFRICA, "note": "via Google News"},
-    {"name": "Egypt wire",        "url": _gnews("Egypt Sisi OR Cairo OR Suez when:3d"),
-     "default_region": MIDEAST, "note": "via Google News"},
+    {"name": "Egypt wire",        "url": _gnews("Egypt Sisi OR Cairo OR Egyptian economy when:3d"),
+     "default_region": EGYPT, "note": "via Google News"},
 
     # -- Science & Knowledge (sub-sorted into topics on the page) --
     {"name": "ScienceDaily",      "url": "https://www.sciencedaily.com/rss/all.xml",
@@ -164,7 +167,16 @@ _MIDEAST_KW = [
     "jordan", "red sea", "gulf state",
     "syria", "syrian", "damascus", "assad", "aleppo", "kurdish", "kurds",
     "bab el-mandeb", "sanaa",
-    "egypt", "egyptian", "cairo", "sisi", "suez", "nile",
+]
+# Egypt gets its own section. Guarded so a Gaza-ceasefire story that merely
+# mentions Egyptian mediation stays in the Middle East, not the Egypt tab.
+_EGYPT_KW = [
+    "egypt", "egyptian", "cairo", "sisi", "el-sisi", "suez", "nile",
+    "alexandria", "giza", "aswan",
+]
+_MIDEAST_CORE = [
+    "iran", "iranian", "tehran", "israel", "israeli", "gaza", "hamas",
+    "hezbollah", "netanyahu", "west bank", "houthi", "syria", "lebanon",
 ]
 _AFRICA_KW = [
     "africa", "african", "sudan", "sudanese", "rsf", "khartoum", "mali", "malian",
@@ -231,6 +243,9 @@ def classify(title, summary, default_region):
         return SCIENCE
     if _has(text, _MOROCCO_KW):
         return MOROCCO
+    # Egypt -> its own section, unless it's really a Gaza/Israel/Iran story.
+    if _has(text, _EGYPT_KW) and not _has(text, _MIDEAST_CORE):
+        return EGYPT
     if _has(text, _MIDEAST_KW):
         return MIDEAST
     if _has(text, _AFRICA_KW):
