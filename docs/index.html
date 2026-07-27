@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Dispatch">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#cfe6fb" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#101a20" media="(prefers-color-scheme: dark)">
 <style>
 /* ============================================================
@@ -18,27 +18,27 @@
    ============================================================ */
 
 :root{
-  /* Light (default) — warm paper, hopeful teal, sunrise amber */
-  --bg:        #f4f1ea;
-  --bg-grad-a: #f7f3ea;
-  --bg-grad-b: #eef2ee;
+  /* Light (default) — bright summer sky, sunshine amber */
+  --bg:        #eaf4fd;
+  --bg-grad-a: #cfe6fb;   /* clear blue sky up top */
+  --bg-grad-b: #eaf4fd;
   --card:      #ffffff;
-  --card-soft: #fbf9f4;
-  --ink:       #1c2b33;
-  --ink-soft:  #5d6b72;
-  --ink-faint: #8b979d;
-  --line:      #e6ded0;
-  --brand:     #0e8f7e;   /* teal-green = hope */
-  --brand-2:   #0b6f62;
-  --amber:     #c67d1a;   /* sunrise / science */
-  --amber-soft:#fbf1dc;
-  --rose:      #c2653d;   /* perspectives */
-  --rose-soft: #f7e6dd;
-  --hope:      #17924f;   /* glimmer */
-  --hope-soft: #e4f4e9;
-  --science-bg:#eef5f8;
-  --shadow:    0 1px 2px rgba(28,43,51,.05), 0 10px 30px rgba(28,43,51,.06);
-  --shadow-sm: 0 1px 2px rgba(28,43,51,.06);
+  --card-soft: #f1f8fe;
+  --ink:       #123249;
+  --ink-soft:  #4f6a80;
+  --ink-faint: #86a0b5;
+  --line:      #d3e6f4;
+  --brand:     #1489d6;   /* sky blue */
+  --brand-2:   #0b6cad;
+  --amber:     #e6a026;   /* sunshine / science */
+  --amber-soft:#fbf0d5;
+  --rose:      #e37a5c;   /* warm coral (perspectives) */
+  --rose-soft: #fbe6dd;
+  --hope:      #12a066;   /* glimmer */
+  --hope-soft: #dcf5e9;
+  --science-bg:#e4f1fc;
+  --shadow:    0 1px 2px rgba(18,60,100,.06), 0 12px 30px rgba(20,110,180,.10);
+  --shadow-sm: 0 1px 2px rgba(18,60,100,.08);
   --radius:    16px;
   --serif: ui-serif, "New York", Georgia, "Iowan Old Style", "Times New Roman", serif;
   --sans:  -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
@@ -55,8 +55,8 @@
   --ink-soft:  #9fb0b7;
   --ink-faint: #6f828a;
   --line:      #26363f;
-  --brand:     #35c4ad;
-  --brand-2:   #4fd3bd;
+  --brand:     #3aa9ee;
+  --brand-2:   #5cbcf5;
   --amber:     #e2ab48;
   --amber-soft:#22303a;
   --rose:      #e28a5f;
@@ -91,7 +91,7 @@ a{ color:inherit; }
   max-width:1000px; margin:0 auto;
 }
 .brand{ display:inline-flex; align-items:center; gap:14px; }
-.brand-mark{ width:52px; height:52px; flex:none; filter:drop-shadow(0 4px 10px rgba(14,143,126,.25)); }
+.brand-mark{ width:52px; height:52px; flex:none; filter:drop-shadow(0 4px 10px rgba(20,137,214,.28)); }
 .brand-text{ text-align:left; }
 .kicker{
   font-family:var(--mono); font-size:10.5px; letter-spacing:2px;
@@ -113,12 +113,12 @@ a{ color:inherit; }
 }
 .dot{
   width:7px; height:7px; border-radius:50%; background:var(--brand);
-  box-shadow:0 0 0 0 rgba(14,143,126,.5); animation:pulse 2.4s infinite;
+  box-shadow:0 0 0 0 rgba(20,137,214,.5); animation:pulse 2.4s infinite;
 }
 @keyframes pulse{
-  0%{ box-shadow:0 0 0 0 rgba(14,143,126,.45); }
-  70%{ box-shadow:0 0 0 7px rgba(14,143,126,0); }
-  100%{ box-shadow:0 0 0 0 rgba(14,143,126,0); }
+  0%{ box-shadow:0 0 0 0 rgba(20,137,214,.45); }
+  70%{ box-shadow:0 0 0 7px rgba(20,137,214,0); }
+  100%{ box-shadow:0 0 0 0 rgba(20,137,214,0); }
 }
 .refresh-btn{
   font-family:var(--mono); font-size:11px; color:var(--ink-soft);
@@ -461,19 +461,19 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
       <div class="brief-item">
         <a href="https://www.timesofisrael.com/at-odds-with-trump-on-iran-netanyahu-heads-to-dc-to-seek-agreement-where-he-still-can/" target="_blank" rel="noopener noreferrer">At odds with Trump on Iran, Netanyahu heads to DC to seek agreement where he still can</a>
         <p>With both leaders facing elections and divergent priorities, the premier may pursue understandings on Israel&#39;s security needs while advancing Saudi normalization and US-backed pacts in Gaza and Lebanon The post At odds with Trump on Iran, Netanyahu heads to DC to seek agreement…</p>
-        <span class="src">Times of Israel · 11 min ago</span>
+        <span class="src">Times of Israel · 18 min ago</span>
       </div>
       
       <div class="brief-item">
         <a href="https://news.google.com/rss/articles/CBMijAFBVV95cUxPRVVvb0dKSEN0YkhEcm9kLWFqamJPMGhRcE1ZNXMxdTVLVi1PS3oyczRkNkw3Q3dhSlVvS3RwZ0tjZ2VZOE5HNTBwOWRJc3duS1VRejFTeE9ySTFtSno4NnlhUWFndHNTT0Etc2pVZmN0NE02UUlWZEQ2QVRJbGxVX1RVNnJ3REhPaERXMw?oc=5" target="_blank" rel="noopener noreferrer">Jordan, Egypt explore stronger parliamentary cooperation - وكالة الانباء الاردنية</a>
         <p>Jordan, Egypt explore stronger parliamentary cooperation وكالة الانباء الاردنية</p>
-        <span class="src">Egypt wire · 22 min ago</span>
+        <span class="src">Egypt wire · 28 min ago</span>
       </div>
       
       <div class="brief-item">
         <a href="https://www.haaretz.com/israel-news/podcasts/2026-07-27/ty-article-podcast/three-months-to-israels-election-why-is-netanyahu-really-going-to-washington/0000019f-a301-df92-a7ff-a7839a380000" target="_blank" rel="noopener noreferrer">Three months to Israel&#39;s election: Why is Netanyahu really going to Washington?</a>
         
-        <span class="src">Haaretz · 38 min ago</span>
+        <span class="src">Haaretz · 45 min ago</span>
       </div>
       
     </div>
@@ -484,13 +484,13 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
       <div class="brief-item">
         <a href="https://en.hespress.com/142685-nayef-aguerd-could-leave-marseille-just-one-year-after-arrival.html" target="_blank" rel="noopener noreferrer">Nayef Aguerd could leave Marseille just one year after arrival</a>
         <p>Moroccan international defender Nayef Aguerd could be on his way out of Olympique de Marseille just one year after joining the French club. French media reports, including La Provence, indicate that Marseille management is open to letting the Atlas Lion leave. Aguerd joined the…</p>
-        <span class="src">Hespress · 9 min ago</span>
+        <span class="src">Hespress · 16 min ago</span>
       </div>
       
       <div class="brief-item">
         <a href="https://en.hespress.com/142680-t2s-draws-48-12-billion-dirhams-in-orders-in-first-2026-casablanca-ipo.html" target="_blank" rel="noopener noreferrer">T2S draws 48.12 billion dirhams in orders in first 2026 Casablanca IPO</a>
         <p>T2S Group’s initial public offering was oversubscribed 43.75 times, drawing more than 48.12 billion dirhams in orders from over 110,000 investors, the Casablanca Stock Exchange said on Monday. The strong demand left investors with an allocation rate of just 2.29%, exchange chief…</p>
-        <span class="src">Hespress · 33 min ago</span>
+        <span class="src">Hespress · 39 min ago</span>
       </div>
       
       <div class="brief-item">
@@ -530,19 +530,19 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
       <div class="brief-item">
         <a href="https://news.google.com/rss/articles/CBMiTkFVX3lxTE1Ja2Q2Skg1NFh5ZkxRT3dwaW5lMzdDWGE1NzdxTEo4M19YNWpCTHRjblNfeFhmOHcwcHY0OUo3RjBxcThidmYtX2w3WEtWZw?oc=5" target="_blank" rel="noopener noreferrer">Ukraine News Today: Breaking Updates &amp; Live Coverage - July 27, 2026 from Kyiv Post - Kyiv Post</a>
         <p>Ukraine News Today: Breaking Updates &amp; Live Coverage - July 27, 2026 from Kyiv Post Kyiv Post</p>
-        <span class="src">Ukraine wire · 10 min ago</span>
+        <span class="src">Ukraine wire · 17 min ago</span>
       </div>
       
       <div class="brief-item">
         <a href="https://news.google.com/rss/articles/CBMihAFBVV95cUxPS2huT1Y5aG5kaEw1VzdaU2FnN0lOem5mbFQ3U0d5bnFoWWxQVTBiMDB1ZFdiUjlpSW5lbjQ1T1BwekZoMk5Xeks3MG8tcTA4MkN4ODY1a1pXcmNOR2x3RjY5UnZhVUJnbmlFZDVudnJhanlIQmdLbFNXOVNsMU5rQkY1Yk7SAYcBQVVfeXFMT2hOdjF6eUlZdTA3NVBnZEZsaE5ISGwtd2JMZ1hobnFqT3hHWGthTlJOb0tsTThvY1ZHTWNvTGh6TGROOHVZWkJMdlV1OXJNNFItMkd6bGNLelRyeXRUOVU4STc3YjdfQzFXQ0lfaUpqLUZxUnlMdWhGRDBMVEs2UWsyZUhSZXRn?oc=5" target="_blank" rel="noopener noreferrer">During Talks With Putin, Kazakh Leader Urges Freeze in Ukraine War - Radio Free Europe/Radio Liberty</a>
         <p>During Talks With Putin, Kazakh Leader Urges Freeze in Ukraine War Radio Free Europe/Radio Liberty</p>
-        <span class="src">Ukraine wire · 11 min ago</span>
+        <span class="src">Ukraine wire · 18 min ago</span>
       </div>
       
       <div class="brief-item">
         <a href="https://news.google.com/rss/articles/CBMiowFBVV95cUxNc1BlS2JzSjg0bGdwS0F1aTB4NlUxano2a0tVTFkxdUdIQWxaazVMeEJUTW1UcVotbVlTWHpiMWNNRjl4Unh1cHJMdk16LWpncUc1bWEzN2NyS3hoYXQzcjQ1Sl9HWnQ5OUM4a1VlUFpzZ0VJRVFqLWpVZWRnenZqbWJHc1U0TXhONExvbXc5SGNPczhiRjNmbXZkTzFrRXE2UTlR?oc=5" target="_blank" rel="noopener noreferrer">Black Sea grain trapped as Russia, Ukraine attacks continue - World-Grain.com</a>
         <p>Black Sea grain trapped as Russia, Ukraine attacks continue World-Grain.com</p>
-        <span class="src">Ukraine wire · 20 min ago</span>
+        <span class="src">Ukraine wire · 26 min ago</span>
       </div>
       
     </div>
@@ -553,19 +553,19 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
       <div class="brief-item">
         <a href="https://news.google.com/rss/articles/CBMizgFBVV95cUxQbG9NYk1aMlVtTzBLUGZtZW1TWHczZEQwMkRBYUUxQTFGeGZreFBZb1FNZWxuNGFNcGhhUmw4V1NoUEpyNk5iOTVsNUo5bjBUS3dBeU1HMHFvVHJsSFJ0TjQwRU5hRVBWb3lZbkRNZnpoTlcyV05HY2xXVXhIUXlTbHZhdlNuTHJnQS1aUE96U0ZybDlBTmR0Nnl4d0d6VDg3WDN0SFR1U0hzM2c3VldFSlE2OFFJNEFGdzFvSjFWYTFtYWlOS1NaZmI4djk4Zw?oc=5" target="_blank" rel="noopener noreferrer">High school students explore artificial intelligence at Wright State summer camp - Wright State Newsroom</a>
         <p>High school students explore artificial intelligence at Wright State summer camp Wright State Newsroom</p>
-        <span class="src">AI wire · 4 min ago</span>
+        <span class="src">AI wire · 11 min ago</span>
       </div>
       
       <div class="brief-item">
         <a href="https://www.bbc.co.uk/news/articles/c5y3gymn6p6o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener noreferrer">Carly Simon reveals Parkinson&#39;s diagnosis</a>
         <p>The singer also reveals she has received treatment for skin cancer, but vows to keep singing.</p>
-        <span class="src">BBC World · 8 min ago</span>
+        <span class="src">BBC World · 15 min ago</span>
       </div>
       
       <div class="brief-item">
         <a href="https://news.google.com/rss/articles/CBMisgFBVV95cUxPaU1HWXRRNnFQUnZZOHI3dlhNaWE4RWtOMERtS1VsUnpBVGd4ZkNNeFdTZjk2QUNKV1hJWmUyZnlhR1RGSnpEUVRHYkpMekRST0VrcE92Tm5xUUZEUTg3UDNVaXdaMEEtaGYyQVpKaWlFLWptc0o1dHJpZkZ3Y3Z3ZW1iQUhGMmQ1R1VkLU9oZjByYk1qR2xvUklUNFdoS2dGMnRYdktqNVNuVTVmalk2OGV3?oc=5" target="_blank" rel="noopener noreferrer">Machine learning in medical devices: promise, pitfalls, and the road ahead - Med-Tech Insights</a>
         <p>Machine learning in medical devices: promise, pitfalls, and the road ahead Med-Tech Insights</p>
-        <span class="src">AI wire · 10 min ago</span>
+        <span class="src">AI wire · 17 min ago</span>
       </div>
       
     </div>
@@ -607,56 +607,56 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
             
             <h3><a href="https://www.timesofisrael.com/at-odds-with-trump-on-iran-netanyahu-heads-to-dc-to-seek-agreement-where-he-still-can/" target="_blank" rel="noopener noreferrer">At odds with Trump on Iran, Netanyahu heads to DC to seek agreement where he still can</a></h3>
             <p>With both leaders facing elections and divergent priorities, the premier may pursue understandings on Israel&#39;s security needs while advancing Saudi normalization and US-backed pacts in Gaza and Lebanon The post At odds with Trump on Iran, Netanyahu heads to DC to seek agreement…</p>
-            <span class="src">Times of Israel · 11 min ago</span>
+            <span class="src">Times of Israel · 18 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMijAFBVV95cUxPRVVvb0dKSEN0YkhEcm9kLWFqamJPMGhRcE1ZNXMxdTVLVi1PS3oyczRkNkw3Q3dhSlVvS3RwZ0tjZ2VZOE5HNTBwOWRJc3duS1VRejFTeE9ySTFtSno4NnlhUWFndHNTT0Etc2pVZmN0NE02UUlWZEQ2QVRJbGxVX1RVNnJ3REhPaERXMw?oc=5" target="_blank" rel="noopener noreferrer">Jordan, Egypt explore stronger parliamentary cooperation - وكالة الانباء الاردنية</a></h3>
             <p>Jordan, Egypt explore stronger parliamentary cooperation وكالة الانباء الاردنية</p>
-            <span class="src">Egypt wire · via Google News · 22 min ago</span>
+            <span class="src">Egypt wire · via Google News · 28 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://www.haaretz.com/israel-news/podcasts/2026-07-27/ty-article-podcast/three-months-to-israels-election-why-is-netanyahu-really-going-to-washington/0000019f-a301-df92-a7ff-a7839a380000" target="_blank" rel="noopener noreferrer">Three months to Israel&#39;s election: Why is Netanyahu really going to Washington?</a></h3>
             
-            <span class="src">Haaretz · 38 min ago</span>
+            <span class="src">Haaretz · 45 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://www.bbc.co.uk/news/articles/c998pzd1e8xo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener noreferrer">More than 600 US military service members injured since Iran War began in February</a></h3>
             <p>The latest figure includes casualties from Operation Fury and a new category called &#34;Overseas Operations&#34;.</p>
-            <span class="src">BBC World · 41 min ago</span>
+            <span class="src">BBC World · 47 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="http://www.africanews.com/2026/07/27/netanyahu-defies-icc-pressure-plans-un-visit-to-new-york/" target="_blank" rel="noopener noreferrer">Netanyahu defies ICC pressure, plans UN visit to New York</a></h3>
             <p>Netanyahu was responding to comments by New York mayoral candidate Zohran Mamdani, who said he would support efforts to enforce an International Criminal Court arrest warrant if the Israeli leader visits the city.</p>
-            <span class="src">Africanews · 41 min ago</span>
+            <span class="src">Africanews · 48 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://www.nytimes.com/2026/07/27/world/middleeast/trump-netanyahu-relationship-iran.html" target="_blank" rel="noopener noreferrer">In Washington, Netanyahu Faces a Delicate Balancing Act</a></h3>
             <p>Prime Minister Benjamin Netanyahu of Israel is set to meet President Trump on Tuesday, with one eye on Iran and another on the coming elections back home.</p>
-            <span class="src">NYT Middle East · 41 min ago</span>
+            <span class="src">NYT Middle East · 48 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMi2AFBVV95cUxNNGE1c0g5ZHQxVW9KaV81YjdLV3FXRFo2dnp4S1FaeWZjbTdHbjhMOXVxRDdNVmRIenhzTWdYeU5WQWVqOWVURmxGTXJEVm5mVkN3MkdzSERyM2tHUkt5QWhkNWxkY2tzSXc3OGVtUmVzYXlPSE1vQ29Sak5vN1dDQnJicUZSZlVVSlN5ZkZhUXAxbHhDeWwtQmJxanEwam1FRlVLY2d6OFd6ejVuQUVDaWw5cEJkbHo4cDJ2TG04LU1kSm1aVVNMZE02ZmxwMGZENjZvaEZpUG4?oc=5" target="_blank" rel="noopener noreferrer">Crude oil futures are pricing market adaptability, not hopeful Iran peace - Reuters</a></h3>
             <p>Crude oil futures are pricing market adaptability, not hopeful Iran peace Reuters</p>
-            <span class="src">Reuters · via Google News · 42 min ago</span>
+            <span class="src">Reuters · via Google News · 49 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMivgFBVV95cUxQdUJtRzZ1NUdKYk9YZVJwME50dFpPVmRESE9pR0tIcmVWNVYwYl8taXR6cGJoWkJDUmYxNnV2WTJjSC0xOU1RZEgwVXkzd2xOc2FwSjE3OHp4YzZtOXJPbVl0bTZXYXZhRVZ3TGRzbHNMdzltaUxRX3o0R0pXWlpXeFdFUno5S3RuZVpFUTFUdmtIR1hEbFJ6N2hURXhrVzBiUEJITUVqUWZlMHFqT3V2N1pmd0s1VGluR2stOGh3?oc=5" target="_blank" rel="noopener noreferrer">President El-Sisi reviews progress on digitizing Egyptian Radio and TV archives - Society - Egypt - Ahram Online</a></h3>
             <p>President El-Sisi reviews progress on digitizing Egyptian Radio and TV archives - Society - Egypt Ahram Online</p>
-            <span class="src">Egypt wire · via Google News · 52 min ago</span>
+            <span class="src">Egypt wire · via Google News · 59 min ago</span>
           </article>
           
           <article class="story">
@@ -719,21 +719,21 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
             <span class="glimmer" title="A de-escalation / hope story">◗ glimmer</span>
             <h3><a href="https://news.google.com/rss/articles/CBMiogFBVV95cUxOVHhXdm1LMW9wUmp6UHctWldmTGpCQWlBOWVTdk5GeEtuMzNYQU42TGlWWXQtSDAxeE1aa3JvNFRDRUx6WVB5eGliS21TMEluRkJEUndXeHE1MUYzUVZlZG9CQ1V4VXFITFIyMEhJNUNlczhueTJpX2FjbFBoSmVkSnZJX0pQOS05RExueWpHMGpRMElqUTBVV0lqajBCRG9Kc1E?oc=5" target="_blank" rel="noopener noreferrer">Gold climbs 1% as US-Iran truce pressures oil; all eyes on Fed meeting - Reuters</a></h3>
             <p>Gold climbs 1% as US-Iran truce pressures oil; all eyes on Fed meeting Reuters</p>
-            <span class="src">Reuters · via Google News · 1h ago</span>
+            <span class="src">Reuters · via Google News · 2h ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://www.haaretz.com/opinion/2026-07-27/ty-article-opinion/.premium/french-dj-barbara-butchs-original-sin-being-jewish/0000019f-a2c5-df42-a1df-e7f561b20000" target="_blank" rel="noopener noreferrer">French DJ Barbara Butch&#39;s original sin? Being Jewish</a></h3>
             <p>The violent boycott against the performer shows that there is basically no way for an Israeli or Jew who reveals the slightest empathy with Israelis to receive a shred of understanding</p>
-            <span class="src">Haaretz · 1h ago</span>
+            <span class="src">Haaretz · 2h ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://www.haaretz.com/world-news/asia-and-australia/2026-07-27/ty-article/.premium/report-israeli-siblings-refusing-idf-may-qualify-as-refugees-in-australia/0000019f-a233-df42-a1df-e77389d30000" target="_blank" rel="noopener noreferrer">Report: Australian tribunal says Israeli siblings facing jail time for IDF refusal may qualify as refugees</a></h3>
             <p>Australia has allowed three Israelis being drafted to the IDF to reapply for protection visas after a tribunal found they could be persecuted for refusing military service out of fear of breaking international humanitarian law in Gaza, the Guardian reported</p>
-            <span class="src">Haaretz · 1h ago</span>
+            <span class="src">Haaretz · 2h ago</span>
           </article>
           
           <article class="story">
@@ -796,21 +796,21 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
             
             <h3><a href="https://www.timesofisrael.com/government-appointed-media-regulatory-body-chief-resigns-citing-court-freeze-on-tenure/" target="_blank" rel="noopener noreferrer">Government-appointed media regulatory body chief resigns, citing court freeze on tenure</a></h3>
             <p>Ben Hai Segev says &#39;silence is complicity&#39; with High Court ruling against Second Authority appointments. Petitioners allege she was appointed to thwart media buyout by government critics The post Government-appointed media regulatory body chief resigns, citing court freeze on…</p>
-            <span class="src">Times of Israel · 2h ago</span>
+            <span class="src">Times of Israel · 3h ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMijAJBVV95cUxOMVhPYmRRLTN5ZFdZOFk5VWlnY2ZVeGFzX2tqZkVSZ0ttTHFOUnhUVlFkUTVMWnE1SzVUR2ZfaTVpRkVubVlWSlJVNGx6b0hDb1FSbmRHRldSenk5cUR5RVFwLUNCWGtjWUZ3REo2THVpU3JTbUphdk9tUWdsaWJfdUVUOUxOeXhObGRXZWdsODlDaFkxbUdUNE1TUWNTT0ZDdEhaZTZBU3RpVXBjRHZKLXBvMWp3cFBOSFZKODNoVnZqcnZmcGpzZ2dZekJMLXJiSzA2RTlPaFc5b3JBTTVEWm5lV2FxNjdvX2RpYXBTalVCeFJGR1NwV1N2RURXWnNjb3RIM1V0QXduci1j0gGSAkFVX3lxTE9pVC1NV05hajgxa1dLc2VtUlpqSFZ0QUJFWWFJcWlLejRRVThkNWhvVjRIS3pVeUwyeG5kZHZ2ZDE5QVZZQUZoQTVTRXpZUExjTFdjMTdXTmR5MEFsN3M1bWpIOUR1aUVzNWwxVFdydU5ncUU3LU15RTJwemlyZElRTktnVlZSU2FIMHJuaWdxeUpwZW9CVzNoYjJEYkNDNUtQTVJZanJoRmxPWUFqLWw1TWpBWHVZd1NpWEM5WUZzVzVxaVZvVkd4dmU2Z1JIRHVxSVFNbEtZU19jRTlBVjlJWDFuUWFzSmJKWHc4bHAwdTg3a3REVldwZGxkU253N19Kb2RwMDM2WllDWDRlb3VYdGc?oc=5" target="_blank" rel="noopener noreferrer">&#39;Won&#39;t go unanswered&#39;: Will the Ukrainian attacks on Caspian Sea vessels lead to the convergence of the Iran war and the Russia-Ukraine war? - WION</a></h3>
             <p>&#39;Won&#39;t go unanswered&#39;: Will the Ukrainian attacks on Caspian Sea vessels lead to the convergence of the Iran war and the Russia-Ukraine war? WION</p>
-            <span class="src">Ukraine wire · via Google News · 2h ago</span>
+            <span class="src">Ukraine wire · via Google News · 3h ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMihAFBVV95cUxQX0l0NC1BTXhVN0NiRkJna05TYWRLdGI0VjlfM2dfd1JtZnhQU3dGOWNmQklnSzNPODRZbzJLY1JaWno3QUttc25Jc0xseGNKckhLRG11VzRCWGRGYWZOYmN6R1hna0hZb1NfZmQ2UzBfUDJfeUVTOFZWNHNpNHAzVDdESkg?oc=5" target="_blank" rel="noopener noreferrer">Ukraine, Iran and how regional wars go global - Financial Times</a></h3>
             <p>Ukraine, Iran and how regional wars go global Financial Times</p>
-            <span class="src">Ukraine wire · via Google News · 2h ago</span>
+            <span class="src">Ukraine wire · via Google News · 3h ago</span>
           </article>
           
           <article class="story">
@@ -898,14 +898,14 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
             
             <h3><a href="https://en.hespress.com/142685-nayef-aguerd-could-leave-marseille-just-one-year-after-arrival.html" target="_blank" rel="noopener noreferrer">Nayef Aguerd could leave Marseille just one year after arrival</a></h3>
             <p>Moroccan international defender Nayef Aguerd could be on his way out of Olympique de Marseille just one year after joining the French club. French media reports, including La Provence, indicate that Marseille management is open to letting the Atlas Lion leave. Aguerd joined the…</p>
-            <span class="src">Hespress · 9 min ago</span>
+            <span class="src">Hespress · 16 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://en.hespress.com/142680-t2s-draws-48-12-billion-dirhams-in-orders-in-first-2026-casablanca-ipo.html" target="_blank" rel="noopener noreferrer">T2S draws 48.12 billion dirhams in orders in first 2026 Casablanca IPO</a></h3>
             <p>T2S Group’s initial public offering was oversubscribed 43.75 times, drawing more than 48.12 billion dirhams in orders from over 110,000 investors, the Casablanca Stock Exchange said on Monday. The strong demand left investors with an allocation rate of just 2.29%, exchange chief…</p>
-            <span class="src">Hespress · 33 min ago</span>
+            <span class="src">Hespress · 39 min ago</span>
           </article>
           
           <article class="story">
@@ -1308,7 +1308,7 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
             
             <h3><a href="http://www.africanews.com/2026/07/26/climate-experts-say-super-el-nino-will-negatively-impact-african-economies/" target="_blank" rel="noopener noreferrer">Climate experts say super El Niño will negatively impact African economies</a></h3>
             <p>The African Development bank says is will likely inflict a combined $10 billion to $20 billion hit on affected countries.</p>
-            <span class="src">Africanews · 23h ago</span>
+            <span class="src">Africanews · 1d ago</span>
           </article>
           
           <article class="story">
@@ -1480,77 +1480,77 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
             
             <h3><a href="https://news.google.com/rss/articles/CBMiTkFVX3lxTE1Ja2Q2Skg1NFh5ZkxRT3dwaW5lMzdDWGE1NzdxTEo4M19YNWpCTHRjblNfeFhmOHcwcHY0OUo3RjBxcThidmYtX2w3WEtWZw?oc=5" target="_blank" rel="noopener noreferrer">Ukraine News Today: Breaking Updates &amp; Live Coverage - July 27, 2026 from Kyiv Post - Kyiv Post</a></h3>
             <p>Ukraine News Today: Breaking Updates &amp; Live Coverage - July 27, 2026 from Kyiv Post Kyiv Post</p>
-            <span class="src">Ukraine wire · via Google News · 10 min ago</span>
+            <span class="src">Ukraine wire · via Google News · 17 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMihAFBVV95cUxPS2huT1Y5aG5kaEw1VzdaU2FnN0lOem5mbFQ3U0d5bnFoWWxQVTBiMDB1ZFdiUjlpSW5lbjQ1T1BwekZoMk5Xeks3MG8tcTA4MkN4ODY1a1pXcmNOR2x3RjY5UnZhVUJnbmlFZDVudnJhanlIQmdLbFNXOVNsMU5rQkY1Yk7SAYcBQVVfeXFMT2hOdjF6eUlZdTA3NVBnZEZsaE5ISGwtd2JMZ1hobnFqT3hHWGthTlJOb0tsTThvY1ZHTWNvTGh6TGROOHVZWkJMdlV1OXJNNFItMkd6bGNLelRyeXRUOVU4STc3YjdfQzFXQ0lfaUpqLUZxUnlMdWhGRDBMVEs2UWsyZUhSZXRn?oc=5" target="_blank" rel="noopener noreferrer">During Talks With Putin, Kazakh Leader Urges Freeze in Ukraine War - Radio Free Europe/Radio Liberty</a></h3>
             <p>During Talks With Putin, Kazakh Leader Urges Freeze in Ukraine War Radio Free Europe/Radio Liberty</p>
-            <span class="src">Ukraine wire · via Google News · 11 min ago</span>
+            <span class="src">Ukraine wire · via Google News · 18 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMiowFBVV95cUxNc1BlS2JzSjg0bGdwS0F1aTB4NlUxano2a0tVTFkxdUdIQWxaazVMeEJUTW1UcVotbVlTWHpiMWNNRjl4Unh1cHJMdk16LWpncUc1bWEzN2NyS3hoYXQzcjQ1Sl9HWnQ5OUM4a1VlUFpzZ0VJRVFqLWpVZWRnenZqbWJHc1U0TXhONExvbXc5SGNPczhiRjNmbXZkTzFrRXE2UTlR?oc=5" target="_blank" rel="noopener noreferrer">Black Sea grain trapped as Russia, Ukraine attacks continue - World-Grain.com</a></h3>
             <p>Black Sea grain trapped as Russia, Ukraine attacks continue World-Grain.com</p>
-            <span class="src">Ukraine wire · via Google News · 20 min ago</span>
+            <span class="src">Ukraine wire · via Google News · 26 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxNcFdYS1BKMmVBemtXekx2WW94WkNCUUljYy01Mmw0aFJMQ1lmVHRPaHBHNmpTZXpibmxYWk1iOTFIc2N3OHd4VkNNb3E3dFJhOVBQV05FMDEzLVNZaElUMGJpdVAzQTF0R3ZYaDVZMHNyRWNqMnNmRjN1U0c0bEtBMVdiaDlVOFVIMXVUcmZZckdaOXZ3U3JpaUhreGdFeVlGM2FBaWJLR3JWT3c3Uzd2S2p4OGhCcWk0M3JueC1zMEhsM2VLQXV1Tw?oc=5" target="_blank" rel="noopener noreferrer">Lithuania weighs additional national sanctions on Russian, Belarusian citizens - Anadolu Ajansı</a></h3>
             <p>Lithuania weighs additional national sanctions on Russian, Belarusian citizens Anadolu Ajansı</p>
-            <span class="src">Ukraine wire · via Google News · 21 min ago</span>
+            <span class="src">Ukraine wire · via Google News · 28 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://www.aljazeera.com/news/2026/7/27/australian-court-rejects-racial-discrimination-appeal-by-pauline-hanson?traffic_source=rss" target="_blank" rel="noopener noreferrer">Australian court rejects racial discrimination appeal by Pauline Hanson</a></h3>
             <p>⁠Court upholds earlier ruling ⁠that a post directed at Greens Senator Mehreen Faruqi was unlawful.</p>
-            <span class="src">Al Jazeera · 26 min ago</span>
+            <span class="src">Al Jazeera · 33 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMiS0FVX3lxTFBIUzc5Yjl5YjZ5MGhqbjh6NTV5eVkyalBWb05LX3JSSkxwSVRJRDJvWTFvTG9HTS1UaE1WTXA1TXdqM1ZaaFY5dC1RMA?oc=5" target="_blank" rel="noopener noreferrer">Lithuania to Bar Pro-War Russians, Belarusians From Public Activities - Kyiv Post</a></h3>
             <p>Lithuania to Bar Pro-War Russians, Belarusians From Public Activities Kyiv Post</p>
-            <span class="src">Ukraine wire · via Google News · 27 min ago</span>
+            <span class="src">Ukraine wire · via Google News · 34 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMiygFBVV95cUxPOV8xT0FLcUg2dGlBcklUUnJGS2o1STg0b0E4dkZhNklKNDF4WkN3aG9sVnJKUlpZQ0E1WXRhY1JwVHZKNjRLSVptcHJkWHVNYWpvd0tEZTNRdFRkcktpVG4zakQ2ZGR3TjJUcll1SUg1M3lRWmIycElEXzdCWlNMUmkxSWNBZ0Q5MFltenBMUmtRRlZvQlZJZ3lzYkdwZ2hySm5VVndJMnJYb1FuT3VBRC10WWpHX0ZldEtobVhOOWMxaDFnTk9WRGtn?oc=5" target="_blank" rel="noopener noreferrer">Wildberries Removed the “Everything for the Special Military Operation” Tag—but There’s a Catch - UNITED24 Media</a></h3>
             <p>Wildberries Removed the “Everything for the Special Military Operation” Tag—but There’s a Catch UNITED24 Media</p>
-            <span class="src">Ukraine wire · via Google News · 28 min ago</span>
+            <span class="src">Ukraine wire · via Google News · 35 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMic0FVX3lxTE1SRUlPV3pMN2E4eTJGSnFld2Y0UWZWLVlPaU5kYTUtTktRdWpiQ1BzRFJ4bEhpOWtRMFpiMzBRbUJrdEJjRnRSNTNIVVBlb0pfMnZJQWdORkl2S1ZoM0xtaVJ6MkZEdVA1emVOelFMRU14eGM?oc=5" target="_blank" rel="noopener noreferrer">How Russia Uses Sexual Violence to Wage War - WSJ</a></h3>
             <p>How Russia Uses Sexual Violence to Wage War WSJ</p>
-            <span class="src">Ukraine wire · via Google News · 28 min ago</span>
+            <span class="src">Ukraine wire · via Google News · 35 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMiS0FVX3lxTE9lWlpjcHgzNGx6RjZnM0hMbDBCSHlwOXU3cnlhM3FOaHpHbWlNMnJrUU5iOVBsWGxXSzdxRHI4Qm9lbVNHRkhiWHRFQQ?oc=5" target="_blank" rel="noopener noreferrer">Russia’s Largest Online Retailer Removes War Gear Page After Drone Strikes - Kyiv Post</a></h3>
             <p>Russia’s Largest Online Retailer Removes War Gear Page After Drone Strikes Kyiv Post</p>
-            <span class="src">Ukraine wire · via Google News · 35 min ago</span>
+            <span class="src">Ukraine wire · via Google News · 42 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMinAFBVV95cUxOYWRaWnNQc3FmUzdwOHF3aE9JdktjU0NWSE93MUhjZmF6YnRKVXR1TV9wU1czWDFrUUFNNmZHM0RPTE1WdGU0TFFNcUFvdE54ei1HWWdNQzZNWWE0ZkJvVkpFQS1UM1dkdXVaUFpBREFORjJyQTYtUVZjSmFPTHFWUU5kdUdZNUJMZk1zaGdZZWVobUFDWENGVGpWQUc?oc=5" target="_blank" rel="noopener noreferrer">Europe can learn from Ukraine how to break Russian myths - New Eastern Europe</a></h3>
             <p>Europe can learn from Ukraine how to break Russian myths New Eastern Europe</p>
-            <span class="src">Ukraine wire · via Google News · 52 min ago</span>
+            <span class="src">Ukraine wire · via Google News · 59 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMiS0FVX3lxTE00STRwNjc2ZGpxbkVFRnhIdnhoMFZmc19qbWhvaUw3d255SUZnZndxSThmeVFqS3Z5Q3Q0dFgwNElLWnByaFlaS0ZUYw?oc=5" target="_blank" rel="noopener noreferrer">Kazakhstan Calls on Putin to Freeze the War - Kyiv Post</a></h3>
             <p>Kazakhstan Calls on Putin to Freeze the War Kyiv Post</p>
-            <span class="src">Ukraine wire · via Google News · 57 min ago</span>
+            <span class="src">Ukraine wire · via Google News · 1h ago</span>
           </article>
           
           <article class="story hopeful">
@@ -1704,7 +1704,7 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
             
             <h3><a href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxOTWYxQTJoYTRiUFVPb0xvTTJHdmp2SDhqaW45WFU2eXdXMVpHQTJia3dYQjFoeWZmT0xINHdKX3NFbEg1SjZFM01VN0pPOTlCRUFicWtsYzdTV1YzSnRpWm12OW80ZWNxc2had1RGQTY0T2JKNkVWazV5OFhDZUZ6eXlQMWJRY3lHaFJXZzh5SVlQQ2NzN0wwankzWGh3Yk1RM2VYYnVfeklrelhsS0N5am1HdGtjWHZDRDhj?oc=5" target="_blank" rel="noopener noreferrer">Putin Urges Russian Society to Embrace Ukraine War as Casualties Reach 1.4 Million - UNITED24 Media</a></h3>
             <p>Putin Urges Russian Society to Embrace Ukraine War as Casualties Reach 1.4 Million UNITED24 Media</p>
-            <span class="src">Ukraine wire · via Google News · 3h ago</span>
+            <span class="src">Ukraine wire · via Google News · 4h ago</span>
           </article>
           
           <article class="story">
@@ -1774,77 +1774,77 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
             
             <h3><a href="https://news.google.com/rss/articles/CBMizgFBVV95cUxQbG9NYk1aMlVtTzBLUGZtZW1TWHczZEQwMkRBYUUxQTFGeGZreFBZb1FNZWxuNGFNcGhhUmw4V1NoUEpyNk5iOTVsNUo5bjBUS3dBeU1HMHFvVHJsSFJ0TjQwRU5hRVBWb3lZbkRNZnpoTlcyV05HY2xXVXhIUXlTbHZhdlNuTHJnQS1aUE96U0ZybDlBTmR0Nnl4d0d6VDg3WDN0SFR1U0hzM2c3VldFSlE2OFFJNEFGdzFvSjFWYTFtYWlOS1NaZmI4djk4Zw?oc=5" target="_blank" rel="noopener noreferrer">High school students explore artificial intelligence at Wright State summer camp - Wright State Newsroom</a></h3>
             <p>High school students explore artificial intelligence at Wright State summer camp Wright State Newsroom</p>
-            <span class="src">AI wire · via Google News · 4 min ago</span>
+            <span class="src">AI wire · via Google News · 11 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMisgFBVV95cUxPaU1HWXRRNnFQUnZZOHI3dlhNaWE4RWtOMERtS1VsUnpBVGd4ZkNNeFdTZjk2QUNKV1hJWmUyZnlhR1RGSnpEUVRHYkpMekRST0VrcE92Tm5xUUZEUTg3UDNVaXdaMEEtaGYyQVpKaWlFLWptc0o1dHJpZkZ3Y3Z3ZW1iQUhGMmQ1R1VkLU9oZjByYk1qR2xvUklUNFdoS2dGMnRYdktqNVNuVTVmalk2OGV3?oc=5" target="_blank" rel="noopener noreferrer">Machine learning in medical devices: promise, pitfalls, and the road ahead - Med-Tech Insights</a></h3>
             <p>Machine learning in medical devices: promise, pitfalls, and the road ahead Med-Tech Insights</p>
-            <span class="src">AI wire · via Google News · 10 min ago</span>
+            <span class="src">AI wire · via Google News · 17 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMi7wFBVV95cUxOUEMtTTZLcVhVVm5rbU1ISTJkZ2RQbW1ac2NZNXQ1T0tvb1dZaXVXbHlhQndNY09HdHI4c0ZqOUhVWWhnaXRrYWlCRXQ0R1pHcFdNbFBZXzY4REdVamFNazd6TWxuT3lQSnJBREFLYTN0LUtyb0dQMUgzSXdNRzdCNy0yNGY1ZXJEUEFlNHR3VGo2eGdZWks1QjNBV0s0S2F6TG5xcmhlYlJ1YXRLS1R3SVFyTFQtelRKOFZLU280WjU4YkdNUXpfRTBmRGFJV1FnbzVXRG9nemw5RER0U01wTVNGVndSUWdqY3lmMFE5aw?oc=5" target="_blank" rel="noopener noreferrer">Omnelytics AI Introduces Its Enterprise Artificial Intelligence Platform to Accelerate Global Digital Transformation - EIN News</a></h3>
             <p>Omnelytics AI Introduces Its Enterprise Artificial Intelligence Platform to Accelerate Global Digital Transformation EIN News</p>
-            <span class="src">AI wire · via Google News · 12 min ago</span>
+            <span class="src">AI wire · via Google News · 18 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMi1gFBVV95cUxQbnI2M2EzNXFvc3o5NlE2VklseFY5aHFtV3lOREFQYU5lVk1YUk5EMkFfd041SEU3OWxlX1cyT2hxanl3Y2xLQ09OUk95UFJ6WkpvQ25PMFhlQTB4NXRaRWREYnRNWDdZZkJCbzZqQ3FIdHBFUnlyV0ZQLThBejBQVUtwUXNCeTVNUGQyeHppRTdWZy1ta0xKbG9FdGpLb04wREtNYmxVQ3UyOWREelRGS0lmcnA0enlfcDBGY1BpS0hKLThycFVOU1NTal9LTS1kZ181M3Bn0gHWAUFVX3lxTE1lQzRuYklkaHNQS21McXV2SDBJc25nREpGNUhFYzZqVkI0cTluVHozYUM5VS1ydjZfVTN4N0pRQkpJYmpPODk3ZkFjMnBOaVVzMjFTVjZ1elp4SHgxb24yZC1IX3I0Z182UXdBeUJScExqMzV5SEwybkxRcVVyQzNVMDJMVTFpMzFQQjJMd29yTVBRa01CTnlPWHN4aE5tOFJsUTZBb3pBUmpxTkxZNGJzQ3J2ZEt4YzNRMjFCTWgtbnBGSFVsV0ZOdUJzYlM3ZU5heTVKanc?oc=5" target="_blank" rel="noopener noreferrer">Backlash vs boom: US, China townships diverge in the global AI data centre race - South China Morning Post</a></h3>
             <p>Backlash vs boom: US, China townships diverge in the global AI data centre race South China Morning Post</p>
-            <span class="src">AI wire · via Google News · 12 min ago</span>
+            <span class="src">AI wire · via Google News · 19 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMivgJBVV95cUxQMDJmblF6R3hfWUtyTFAyeU1BMWJza0dvYjNvVXZwaHZic2xUZ0NLM3dfOXJEd1R4czExdVBMUzNhNmhINWdrVFdYYXRkUWJhcHB2clJUdG4wRnJyNUVtcWMyT1BVdkVJMGExc3VxSjFTUmpHUTQ5U2NSR0RuTUNCRXRZT1g4RS05UUFsQlRhYUJLV2N1VVhYR0tEVnJrVXEtSVBSNjZ5ZVg0TVZzbDFEdHF0SEE1by1iVkJWMFNiZUJIWFoySkh2cFRRTVNQZGdtM1ltanpoWS1Nd2NPZHZJUnk5QXYxTGF1WUlxaGpBaDF6NHFsU3dqN2wzWU5DOER6T3BIbzg3Y01Zazd4SDRBN3hhbEVhMnR3QUJ3MkdVSk1LUW9LUFFwSkhTWVhtWTdZeEQwa19DRTFwaExUQnc?oc=5" target="_blank" rel="noopener noreferrer">Massive Bio and GELL Announce Strategic Partnership to Advance Research, Medical Education, and Artificial Intelligence Across Latin America and the United States - Business Wire</a></h3>
             <p>Massive Bio and GELL Announce Strategic Partnership to Advance Research, Medical Education, and Artificial Intelligence Across Latin America and the United States Business Wire</p>
-            <span class="src">AI wire · via Google News · 13 min ago</span>
+            <span class="src">AI wire · via Google News · 19 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMingFBVV95cUxNUDMxbmlJMlgzR1lnRTE0TjUyVm1pamloejl3b01OR0VmamVGZ2FOWUR2ekRtNHVUWTZFN0VkT1dyMTRUTmwwZHFmOHNEOV9FQ2ZuYnBuYklCNFpONEU5Q05TNjl0all4X3dveElIU0lwQVp1aXlud1FXamxxclFVSGRGb1djaEVvdmNQLUZKSC1Ta29JS0V1WS0xakotdw?oc=5" target="_blank" rel="noopener noreferrer">How AI Inside Clinical Workflows Is Unlocking Patient Throughput - MedCity News</a></h3>
             <p>How AI Inside Clinical Workflows Is Unlocking Patient Throughput MedCity News</p>
-            <span class="src">AI wire · via Google News · 14 min ago</span>
+            <span class="src">AI wire · via Google News · 20 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMinAFBVV95cUxOakdicmxOVnRBSkRpUldpZTVXTlF6V2lmOFlOal9uRTFoVmcxUnZvUV9TdEhQdVl6dHZ0NjExUG80Q0dPRjdOZ0U2M2JZamVXNE5RclBWTDNZZzhTZzRSQmROb3N6dUdUcHhJTkpPbklBU2hrTU5zbDFkd25fTS1CeEhGcF9mT204a2hPaDhBei12Z3BjVXZjWmNtTDM?oc=5" target="_blank" rel="noopener noreferrer">Soil carbon effectively measured by new, efficient AI model - Cornell Chronicle</a></h3>
             <p>Soil carbon effectively measured by new, efficient AI model Cornell Chronicle</p>
-            <span class="src">AI wire · via Google News · 19 min ago</span>
+            <span class="src">AI wire · via Google News · 25 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMizwFBVV95cUxPaDNpTVlNSjBRNTlfYjcwWmZnOE92ZjJ0LWhKY2FrcGlTTkVlcjdlSDlWTlBfVThvVWFRYXdiZWRYZmM3dG51RjRSTVZrRDZFY0FKRE0wNGpUQWhRZkgxS1FHMW5yUVgyaTJxelJleGJnSVFnSjJ6ZERmd0NPQVV3LTgtRFJYVzFOdVFuNUdtb0U3bFoybkVoRjdjbmFjWmpmdXFQU1Y5blBvN1NURlduQy0xRkY4d0g2WEowWVZ6eWRHS21lM3kteVN0cWlVUVk?oc=5" target="_blank" rel="noopener noreferrer">NJ AI Hub marks first anniversary with inaugural startup cohort - The Princetonian</a></h3>
             <p>NJ AI Hub marks first anniversary with inaugural startup cohort The Princetonian</p>
-            <span class="src">AI wire · via Google News · 20 min ago</span>
+            <span class="src">AI wire · via Google News · 26 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMimAFBVV95cUxPWllHTnYxeUpsaVhmYk0wSFJ3eGJLMnBJMTFhOVl2ZnAxaE5TMmZNVUpVaDZqNU5va3Nvanc4ZkMxeVQ1WUxzYzEzZDRfZDF2bzBFXzctNEdlWmV2a0NYU09SWDNieVl5VGUxaHhmai1VVDRUdjItSG9CWVF5ZnBPaFpXMjhjdWc4YkRVUTgtTXcyRmU5SzhMSA?oc=5" target="_blank" rel="noopener noreferrer">Intel Is up 170% in 2026. Should You Buy the Artificial Intelligence (AI) Comeback or Take Profits Today? - The Motley Fool</a></h3>
             <p>Intel Is up 170% in 2026. Should You Buy the Artificial Intelligence (AI) Comeback or Take Profits Today? The Motley Fool</p>
-            <span class="src">AI wire · via Google News · 24 min ago</span>
+            <span class="src">AI wire · via Google News · 31 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMi5wFBVV95cUxPTHd2di1xcUVjRVRlbjR3eTZwZC1sSmdQdHZraVM1NHZncG10WXNac0ZhM0JhQXFTQVZZRUozdGR3YjF3R1RCXzRqQVpJeG9sYU5Pc1lHbXlqZUQyaVdCUldyRDZsUEVSREdVaTNUSWpXejlnX3R2ZHcyX2FxTXRweHBRSFoyQTV6WExUZ3hSVk82aUVCNFQ0cEc0c2FJMk5PWkJ6b2ZmWFJGV3hZOVRNU2g1N0VGZUkwd3JuZ05MT0Q2YXF3MGd0bjQtOTc0QnVNTzNRcWJoQjUxbURtc0c5NFloY29VU2_SAecBQVVfeXFMT0x3dnYtcXFFY0VUZW40d3k2cGQtbEpnUHR2a2lTNTR2Z3BtdFlzWnNGYTNCYUFxU0FWWUVKM3Rkd2Ixd0dUQl80akFaSXhvbGFOT3NZR215amVEMmlXQlJXckQ2bFBFUkRHVWkzVElqV3o5Z190dmR3Ml9hcU10cHhwUUhaMkE1elhMVGd4UlZPNmlFQjRUNHBHNHNhSTJOT1pCem9mZlhSRld4WTlUTVNoNTdFRmVJMHdybmdOTE9ENmFxdzBndG40LTk3NEJ1TU8zUXFiaEI1MW1EbXNHOTRZaGNvVVNv?oc=5" target="_blank" rel="noopener noreferrer">New Global CARE-AI Framework Sets Standard for Responsible AI in Health Education and Care | Newswise - Newswise</a></h3>
             <p>New Global CARE-AI Framework Sets Standard for Responsible AI in Health Education and Care | Newswise Newswise</p>
-            <span class="src">AI wire · via Google News · 28 min ago</span>
+            <span class="src">AI wire · via Google News · 34 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMigwFBVV95cUxNdEk3UzhxSEFaZmdCXzhqQzNxR3BwejNneENNR3kwUmlFZ3ZLWGljdXNoalFoeG1vaXhLbzJraHlGYXJoZU50bVg0cm9SVFZIcmctMVFuUzRnaDdoY0NuVUtWeEpoYmx5bmFjTTRDcTlVdHd5NnlqcFFfMy1PRGRkZDdvWQ?oc=5" target="_blank" rel="noopener noreferrer">AT&amp;T unveils telco open AI model - Computer Weekly</a></h3>
             <p>AT&amp;T unveils telco open AI model Computer Weekly</p>
-            <span class="src">AI wire · via Google News · 36 min ago</span>
+            <span class="src">AI wire · via Google News · 42 min ago</span>
           </article>
           
           <article class="story">
@@ -1963,28 +1963,28 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
             
             <h3><a href="https://news.google.com/rss/articles/CBMizwFBVV95cUxQaldnZlYzNHBXcFNKV2NiaWhiSzFnV0k4NmZ0TFRFU2l6eFNIRVU4b2FqaXpFVVdmVHNQVnBvOU53R3dwN1huRm1OZERvTnBfbGFENG5LVWFaY2FMWkw4UzJ0b3B3WVcxV0pFTEN0SFFZeW14cm9UNUJxMG1ZZ2ZzWlBXZFFUY1BqOWd4dVFJMHRJYnlXcDlWVUstczVKM3FIMXQzZzVKbDZtM2ZnN2k4dFdMVEtFNy1HLUFQcERGNFpIazNJVWFVSGJrNThLUlk?oc=5" target="_blank" rel="noopener noreferrer">Article - CFA Complaint Against Speechify for Facilitating AI Voice Cloning Impersonation Scams - Consumer Federation of America</a></h3>
             <p>Article - CFA Complaint Against Speechify for Facilitating AI Voice Cloning Impersonation Scams Consumer Federation of America</p>
-            <span class="src">AI wire · via Google News · 1h ago</span>
+            <span class="src">AI wire · via Google News · 2h ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMihgFBVV95cUxNbGRodFJ1ZV9oWGZnSGtzMHdERktVMWFROE00bjJUMkYySGlpNUIxa3lyVU9BRDhtR2JwQ0h6TjVqM013VHI2cU9DVGlDdHJnc1ZLWm9idDAyekdZd0pyNWQ5VGR5TXRodXhMZjZnUFFTcHI4emxkdjRpdk9mYldWaUVVZlhVUQ?oc=5" target="_blank" rel="noopener noreferrer">Open or Shut? The A.I. Debate That’s Driving a Wedge Through Big Tech. - The New York Times</a></h3>
             <p>Open or Shut? The A.I. Debate That’s Driving a Wedge Through Big Tech. The New York Times</p>
-            <span class="src">AI wire · via Google News · 1h ago</span>
+            <span class="src">AI wire · via Google News · 2h ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMic0FVX3lxTE1Yc3QybWtDZ0tmNGhiRTVuNVI2YWNyTkMwTFVacU00ZmRaWWtpZWEwWDJnck1SdGxtdzA0YzE0VUxVazdpWjJOMDc1eVIwNnRRaUd6VE1RV3ZGNXh5R2RuenVIWVZOZVdQLXM0LUFrNTU4Vms?oc=5" target="_blank" rel="noopener noreferrer">Renowned researchers to advance personalized medicine, AI at UGA - UGA Today</a></h3>
             <p>Renowned researchers to advance personalized medicine, AI at UGA UGA Today</p>
-            <span class="src">AI wire · via Google News · 1h ago</span>
+            <span class="src">AI wire · via Google News · 2h ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMiqgFBVV95cUxQeXdtRTh1VXBrTFVtQlB3T3FQdHFMZW9WTXliMXRWdWE3S01UOE5LTVdlTnhVWXllUkNiYV9PSGJibG1EbzZyWUVWUzR3cnNvME1OUXhpeVpSZjlRUTFBOUtIZVp0aVBoLVhtbU9IaTJsLTYyT3VvdUp4SUEyeGNpaWEtMEhXeHhNQ0ViZDNaVVVXenBXTHYyUXJXS2JNUFh5MkhJTFpTWkFsQQ?oc=5" target="_blank" rel="noopener noreferrer">In the U.S., lawyers are prohibited from charging for time saved by artificial intelligence - UA.NEWS</a></h3>
             <p>In the U.S., lawyers are prohibited from charging for time saved by artificial intelligence UA.NEWS</p>
-            <span class="src">AI wire · via Google News · 1h ago</span>
+            <span class="src">AI wire · via Google News · 2h ago</span>
           </article>
           
           <article class="story">
@@ -2082,14 +2082,14 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
             
             <h3><a href="https://news.google.com/rss/articles/CBMiekFVX3lxTE1xTUhidjI1R3dlN2xKc0dxMWdfekl0NHhQMDVnbHlLV2E2TUFOY0d1YXRoRm9VQkRxT19JWGduSGJPbzVQcHBENnFjanZpdExSMkxySkVWMjF3Q2FRWkVPalBObGVGU3JaUWNTbEFQaUI4aFFFaDVNQml30gF6QVVfeXFMTXFNSGJ2MjVHd2U3bEpzR3ExZ196SXQ0eFAwNWdseUtXYTZNQU5jR3VhdGhGb1VCRHFPX0lYZ25IYk9vNVBwcEQ2cWNqdml0TFIyTHJKRVYyMXdDYVFaRU9qUE5sZUZTclpRY1NsQVBpQjhoUUVoNU1CaXc?oc=5" target="_blank" rel="noopener noreferrer">US Military Supercharges Data Processing With First AI Supercomputer - The Defense Post</a></h3>
             <p>US Military Supercharges Data Processing With First AI Supercomputer The Defense Post</p>
-            <span class="src">AI wire · via Google News · 2h ago</span>
+            <span class="src">AI wire · via Google News · 3h ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMiiwFBVV95cUxPdDR4X3NCNEJwUlBvMnc2RXlINWF0VGMxZlB1eFhQMjNQcjNoaDBKRU9WWE9ZYm5oZExJb0NNeFFxZ2VRMHp6bEpWaWJhRy1COFVNYWQ2M2VIM1pxVU1NdkVoZjdMRm9nY0psWXlXTjlNdlJ6RHByOWo1UHF3S0N0V3kxbTV5WGJINjh3?oc=5" target="_blank" rel="noopener noreferrer">Tech Sell-Off: 1 No-Brainer Artificial Intelligence (AI) ETF to Buy With $85 and Hold for the Long Term - Yahoo Finance</a></h3>
             <p>Tech Sell-Off: 1 No-Brainer Artificial Intelligence (AI) ETF to Buy With $85 and Hold for the Long Term Yahoo Finance</p>
-            <span class="src">AI wire · via Google News · 2h ago</span>
+            <span class="src">AI wire · via Google News · 3h ago</span>
           </article>
           
           <article class="story">
@@ -2145,7 +2145,7 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
             
             <h3><a href="https://www.bbc.co.uk/news/articles/c9q9w3x9qn2o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener noreferrer">Chinese chipmaker shares surge nearly 470% in blockbuster stock market debut</a></h3>
             <p>The company&#39;s shares soared by nearly 470% in its market debut, as the AI boom drives chip demand.</p>
-            <span class="src">BBC World · 3h ago</span>
+            <span class="src">BBC World · 4h ago</span>
           </article>
           
           <article class="story">
@@ -2257,14 +2257,14 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
             
             <h3><a href="https://news.google.com/rss/articles/CBMihAFBVV95cUxONUdiaVltVDRhM3FyNGpXeGVCTWxKaXRDVlVsakI4N0F6M1E1dHlPOWNqbmY3dHJ2cm1QYXBYYmIwd2RoRmRQMnBNZGdpbzFPSjlETnNYTEh3QzJGV1RNTUpyM2Q3ZC10aW9LaHV5VjdpNU55ZmN2NTQ1VEVFSXowZmljUTY?oc=5" target="_blank" rel="noopener noreferrer">Alphabet Spent $45 Billion on Artificial Intelligence Last Quarter, and It Already Plans to Spend $811 Billion More - The Motley Fool</a></h3>
             <p>Alphabet Spent $45 Billion on Artificial Intelligence Last Quarter, and It Already Plans to Spend $811 Billion More The Motley Fool</p>
-            <span class="src">AI wire · via Google News · 4h ago</span>
+            <span class="src">AI wire · via Google News · 5h ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxQMkh0a3kyeUlYblEwbWtfS3VzRXJnQm92bUJuQkdUWjRkbXZNY3BPWklFcHc0M0NsdWE4OHhJeFRxSndLN0ducjZxcm9Ha0J3dmxNSk9wU19Xc1RhRVItSDV4TXJHNFdXd28tLXpXM0hZdm9aLXZxbmhBeDhNd2JkN0NLdldkMWRYV1BUdEFjdVh5LU1JQlRmdUdEQnBmM3VpRm9nVGdVTlY?oc=5" target="_blank" rel="noopener noreferrer">Harnessing Artificial Intelligence to build whole-of-society resilience: - PwC</a></h3>
             <p>Harnessing Artificial Intelligence to build whole-of-society resilience: PwC</p>
-            <span class="src">AI wire · via Google News · 4h ago</span>
+            <span class="src">AI wire · via Google News · 5h ago</span>
           </article>
           
           <article class="story">
@@ -2341,49 +2341,49 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
             
             <h3><a href="https://news.google.com/rss/articles/CBMipgFBVV95cUxONE1wXzFMbTZ3S2RtNXVkakIwaHdyWDZCRHUwQ2J4elJ4dVNxajQ4T2JRX3ZYazZvcHBzRFRBamppdHFHdXg5d2pDemVoWjhheTBoNnZNRngyZGZtNmtvcktXdWViSWdURlVCWHZSMGdYSXVFT0tkYUxvQWgydVoxeHFqTUprbnpSclBoazJIUnpGVUdoMFJNSHFoM2lpSGlpX3pTcHl3?oc=5" target="_blank" rel="noopener noreferrer">Nvidia Forms AI Safety Alliance Following OpenAI Cyberattack - PYMNTS.com</a></h3>
             <p>Nvidia Forms AI Safety Alliance Following OpenAI Cyberattack PYMNTS.com</p>
-            <span class="src">AI wire · via Google News · 11 min ago</span>
+            <span class="src">AI wire · via Google News · 18 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMiuAFBVV95cUxPenVNWWVoRDFXcnU5b1ZneEh3alREbDBaQjItY0VTU09zRWd1QVdnRTlISUMzVmlKMXJhcl8yc0Qxd2tSUDUzVGEyWV9USEN2bVQzOGxGczAyNDZfdjVzVFZtSEZoaUJzeGd2ajdsUDZ6eTR0WDdfNU40UTRPSHVjS0ZScTZRMjh4clYzVE5haUlJMkxFMC01aHI0eGpJUzIyMl9GTG9Ra21iMjFZYzVqVTJpSzZGQXdj?oc=5" target="_blank" rel="noopener noreferrer">I stopped being John Henry - Route Fifty</a></h3>
             <p>I stopped being John Henry Route Fifty</p>
-            <span class="src">AI wire · via Google News · 13 min ago</span>
+            <span class="src">AI wire · via Google News · 19 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://www.sciencedaily.com/releases/2026/07/260726015241.htm" target="_blank" rel="noopener noreferrer">These insect submariners survive depths that should crush them</a></h3>
             <p>Lake fly larvae plunge more than 200 meters into Lake Malawi each day to hide from predators, using tiny air sacs to control their depth. A rubber-like material called resilin lets them expand or shrink the sacs by changing their pH. Their toughness challenges a popular…</p>
-            <span class="src">ScienceDaily · 35 min ago</span>
+            <span class="src">ScienceDaily · 42 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMic0FVX3lxTFBXZWFybmJybFAwV294RDM0dWs0bE1pelZfNjIxdENzRk5BbFhfVWdNUVk0RXk1NzVHNE55b2ctemJTOXkyQVdYVUE0NE9Jd2xBbnNlQi0wQXUtSmtoTlAxUEFOeE9pZUxlRXNfTVhpV2plVW8?oc=5" target="_blank" rel="noopener noreferrer">To build lifelong AI, teach it to forget - Rice University</a></h3>
             <p>To build lifelong AI, teach it to forget Rice University</p>
-            <span class="src">AI wire · via Google News · 37 min ago</span>
+            <span class="src">AI wire · via Google News · 43 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMimgFBVV95cUxNaXdNdFhJM0lBemFVR1FPU0dZSzZVdEdUb2RNZmxOdy1Sd29OTVNwNnhhMGcxQy05N1Z1dzdPelQ3YkxVaEoxVkZtQWFobDdXQWRXczJKQm1xQUlSazNJOElpYVM4R0VhOGRsRDFEOWJ3TkEwdWFvNGdmaHF6YzBhQmVORGRPSHk1TkRJbnhrVEFGQ0xOUUF6MHhn?oc=5" target="_blank" rel="noopener noreferrer">Hacker claims deal struck with Origin over data breach - Information Age | ACS</a></h3>
             <p>Hacker claims deal struck with Origin over data breach Information Age | ACS</p>
-            <span class="src">Cybersecurity wire · via Google News · 37 min ago</span>
+            <span class="src">Cybersecurity wire · via Google News · 43 min ago</span>
           </article>
           
           <article class="story hopeful">
             <span class="glimmer">◗ glimmer</span>
             <h3><a href="https://news.google.com/rss/articles/CBMiowFBVV95cUxNUVp4RENWTVJWbjlZVkJOakxFZ196NGFBaFNMREJPQlVxT2RBaXlpUFgwU2hYd3Uwd1UwTEhzc212Q0lKRlJoUm9UbFhOZktmcEFjem01RzRPbmZQM3VCSTJ0UVZYaTdUZ2phaWZaVnctVFJlUl8wVGZQSnVEZUF0d05aY0Q5by1yR3g1enRYeGlETDlWYVMwZW4waWc4WnEyZHY4?oc=5" target="_blank" rel="noopener noreferrer">Bank of Baroda says core banking systems secure after reported data breach - Telangana Today</a></h3>
             <p>Bank of Baroda says core banking systems secure after reported data breach Telangana Today</p>
-            <span class="src">Cybersecurity wire · via Google News · 41 min ago</span>
+            <span class="src">Cybersecurity wire · via Google News · 47 min ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMiwAFBVV95cUxQOHloVE9VZ2dBZXV4QUFBRWxOaWlVV2NDTzR4VGpkSWpCdHVub3h2TEtfejMxVjdld3I5LU1NeUU3SUhTdUR4TTQxeUt0d2tBZjN4U01ya1dyYjU1Vll4SmZlYkJzWW44dUliZEVxTkdHSkRCMDVvQ05iN1dmX2lVQTRhajM0MDlMakE5bWhPQlhDT3RLcUtHYWY3NFNkZ01UM1U2WkNESjdJMzk0bzZYYTltOU5BQzI2UUZ5RFVWa1nSAcYBQVVfeXFMT1JLeUxnNVVCYXFPcEMybXc0Z1Q0UVpYYndWejZNUEVhbkNwZ1BDVDFkTHN4QVBqSTFSS1FyNVhsMVJPSWRHemtScWViNVA3NGJGVFFFcGdrTTgzY1JBTThzT1dTbllkYXV1bTRHMTVsamltMEEzZ2Q2QW85RTVFT0RaUnVacHpRdUo1YTRNVEVrUkFSZE5EY0J2em5RNFFfTXhoTUk2YU9TTWxXeG9NYjhDcFJlanpMdnVJejA4ckFmWkhuYUxR?oc=5" target="_blank" rel="noopener noreferrer">DentaQuest disclosed a data breach that impacted +23 million individuals - Security Affairs</a></h3>
             <p>DentaQuest disclosed a data breach that impacted +23 million individuals Security Affairs</p>
-            <span class="src">Cybersecurity wire · via Google News · 44 min ago</span>
+            <span class="src">Cybersecurity wire · via Google News · 51 min ago</span>
           </article>
           
           <article class="story">
@@ -2481,7 +2481,7 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
             
             <h3><a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxNdVBybDNhQ3JuZGFqQlNsdGRBeGMwNUZXdy1kdS1FenBIYl9EVzdpS2stM3lyci1rc2lVNDFxVUpVNlF2Si0tbU5GYTYyaHdVYy1Ja2FBS1JmeGE5aFFKZW0yUU1kdC1fbnFOUXRCd19Dbm5LcVZDXzhhY29wcUFTX3VlaUxEQWZSWTYtM3dCZFFNTjgzbHY1ZEg3NnNCeW8?oc=5" target="_blank" rel="noopener noreferrer">AnMed Closes Almost 80 Facilities While it Grapples with Cyberattack - The HIPAA Journal</a></h3>
             <p>AnMed Closes Almost 80 Facilities While it Grapples with Cyberattack The HIPAA Journal</p>
-            <span class="src">Cybersecurity wire · via Google News · 1h ago</span>
+            <span class="src">Cybersecurity wire · via Google News · 2h ago</span>
           </article>
           
           <article class="story">
@@ -2558,21 +2558,21 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
             
             <h3><a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxOU3U5ekJheXdMNXN3X0xqT3FHc1hWX244WW5PMjRiSWVDQ0lLVzdRWGZuMW1rMjBnZUQ2TWowSUM1YjZqXzFXcElaV1pwRU5vUFlFNGZxcG91YWZXMVJLLUdhX1ZuUUpFR0U3YUxZODFGRjN0a3BvT3B4aDQtSmdQOU5jc01adDhnZ2RIeU8tOW5mSzZ0NWdna3phOUlWdW91bE9ObnVuS2J5Q0RuRnpadmpBY0tKbEVCa1dDaU5Ud9IBvwFBVV95cUxOU3U5ekJheXdMNXN3X0xqT3FHc1hWX244WW5PMjRiSWVDQ0lLVzdRWGZuMW1rMjBnZUQ2TWowSUM1YjZqXzFXcElaV1pwRU5vUFlFNGZxcG91YWZXMVJLLUdhX1ZuUUpFR0U3YUxZODFGRjN0a3BvT3B4aDQtSmdQOU5jc01adDhnZ2RIeU8tOW5mSzZ0NWdna3phOUlWdW91bE9ObnVuS2J5Q0RuRnpadmpBY0tKbEVCa1dDaU5Udw?oc=5" target="_blank" rel="noopener noreferrer">EFF: Most Smart Wearables Still Fall Short on Privacy and Transparency - Security Affairs</a></h3>
             <p>EFF: Most Smart Wearables Still Fall Short on Privacy and Transparency Security Affairs</p>
-            <span class="src">Cybersecurity wire · via Google News · 2h ago</span>
+            <span class="src">Cybersecurity wire · via Google News · 3h ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMixgFBVV95cUxQcGNLcHVmbXlxOWpvQUdsYTFtT1NYdmgxaXAyV2tETXdoQklpU0ZJSjdEamgyRUd1Q0ZfeTdlci1RSHR3aF9RTXJmNjBGNXZ0ZXg4T3VUM1RhNFRTT3FKTWd5SzZCaVpmVzA4ZENtZzBVNlZ2RFlCdVNVcllCVVZLcWxPQ0J2Yks1eHRjOEhMSHRLNUQzclprVVY1Y2d4YU9Sc0FKaFZOQ0JQMGRsTHZYWWpXc0NGTVhmcmRGVGY4MjBGUUlzOVE?oc=5" target="_blank" rel="noopener noreferrer">Customer data from India&#39;s Bank of Baroda leaked online, source and researcher say - Reuters</a></h3>
             <p>Customer data from India&#39;s Bank of Baroda leaked online, source and researcher say Reuters</p>
-            <span class="src">Cybersecurity wire · via Google News · 2h ago</span>
+            <span class="src">Cybersecurity wire · via Google News · 3h ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMi8gFBVV95cUxQNFRHSlNGSE5ad2JTQzkxTWxxSnJ5NTVrcTU5Y3pZY29aMmJaazRsenlWeXpQWnhjOHFSak12dGdYVUk0cGc5bjEycWdndU1kTG1pT2VJd3dUQTc5aW1Yc0NMckF6M1UzdUhVQXoxRHI4OW9kMGdjOXpmNWlwbGpVVElaUXNmck04QWVDVGlzTWtlR1BzanZNNU1GYjVJOFJkSzJTTEhIWXZMbmZTSTNDX29WdTJDUHp3X1ptNWVtSWxsMVBEVVE2bHpkRmRwLUh5QjlOQ0lIOE91b3pOelB2bkwyTEx2MGxOTTM3d2Z6WXBDZ9IB_wFBVV95cUxOOUxGcG1KOTNUT3NfRGV6Vnp5X2VIME9CUlpzNjVfaGdXU0liQjlkdjZCZXpyckNFeklkek1SY3h2NkNROVg5V3RqMXM0eDVXM3hsMnFFcXRyN0VIT2U0VmR2eVg4TU4ySkxJdF9CeHNTZzlILWhVYWZtRjdWVlBUUFJCRGJPU3JOMG5PUkF2bDJRaGtuQ0lma1E0T1J5Qlktay1CS0ZHcmpYQW9VNUtqWEdZdVJ0cGRMbDhuSnpKalI2SW5UOWw5czNfa3p4SzFoSjhNcWxySzZ4SUVqYk0tTWx3YWFlTnJPT01CRmtlS1NuUGFIVjVwWmpIRURuaVk?oc=5" target="_blank" rel="noopener noreferrer">Bank of Baroda confirms data breach; cybersecurity experts see 1TB breach as ‘bad’ and ‘concerning’ - Fortune India</a></h3>
             <p>Bank of Baroda confirms data breach; cybersecurity experts see 1TB breach as ‘bad’ and ‘concerning’ Fortune India</p>
-            <span class="src">Cybersecurity wire · via Google News · 2h ago</span>
+            <span class="src">Cybersecurity wire · via Google News · 3h ago</span>
           </article>
           
           <article class="story">
@@ -2719,7 +2719,7 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
             
             <h3><a href="https://news.google.com/rss/articles/CBMiVEFVX3lxTE80WWZxTWdlRk1xQmpqTzhQcUN5RFhTWmpONFh5OVZINTJ0VUpSeFlwWnA3dF84UUg1WC1MaFdac1FtdktYRG1zbnVIVm9JeWw2elNsOQ?oc=5" target="_blank" rel="noopener noreferrer">Taiwan cyber agency warns of growing ransomware threats - Taiwan News</a></h3>
             <p>Taiwan cyber agency warns of growing ransomware threats Taiwan News</p>
-            <span class="src">Cybersecurity wire · via Google News · 4h ago</span>
+            <span class="src">Cybersecurity wire · via Google News · 5h ago</span>
           </article>
           
           <article class="story">
@@ -2761,7 +2761,7 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
             
             <h3><a href="https://news.google.com/rss/articles/CBMiV0FVX3lxTE11N0pBelh0QUVkUlVfVmU0T0VkNXRHWGdseFV5SFFHX244dUw2bVVsS1NDdG12c01tNVFjMnpscE1udG94aE9TTVU0aGJLdHVWSllLRFE2bw?oc=5" target="_blank" rel="noopener noreferrer">&#39;No matter what password you use, I will break it in a fraction of a second&#39; - The Jerusalem Post</a></h3>
             <p>&#39;No matter what password you use, I will break it in a fraction of a second&#39; The Jerusalem Post</p>
-            <span class="src">Quantum wire · via Google News · 5h ago</span>
+            <span class="src">Quantum wire · via Google News · 6h ago</span>
           </article>
           
         
@@ -2782,14 +2782,14 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
             
             <h3><a href="https://news.google.com/rss/articles/CBMic0FVX3lxTFBxQmEzaG0zV3Y3NVJPVDAyaWFjQUJUbTBuckttczItSzhvNjFQOVR2dWJ1c1M4N0wxeDVOd1dVeXNGMk5PYTdkZTg5Y3VQVk9sQlVCSzg3THdRUGpuYXU5RTloRXRkZmkzSF9SNDV5VGNmbHM?oc=5" target="_blank" rel="noopener noreferrer">Estonia Quantum Computing Companies, The Complete Vendor Guide - Quantum Zeitgeist</a></h3>
             <p>Estonia Quantum Computing Companies, The Complete Vendor Guide Quantum Zeitgeist</p>
-            <span class="src">Quantum wire · via Google News · 3h ago</span>
+            <span class="src">Quantum wire · via Google News · 4h ago</span>
           </article>
           
           <article class="story">
             
             <h3><a href="https://news.google.com/rss/articles/CBMickFVX3lxTE9BZGlHVHVGczRUVHM4VEJGTzA1SURNR0lHSU5GNVR2cFVVTlBwT3J6MjJZY1lGdVJudlV6RU5GOFMwSC1iYnV5NzJpMEhRRmFScFVNUW9TRHpjbHlJdm1mMnByV3Fnd2pULVltWDdFTHVXUQ?oc=5" target="_blank" rel="noopener noreferrer">Mexico Quantum Computing Companies, The Complete Vendor Guide - Quantum Zeitgeist</a></h3>
             <p>Mexico Quantum Computing Companies, The Complete Vendor Guide Quantum Zeitgeist</p>
-            <span class="src">Quantum wire · via Google News · 3h ago</span>
+            <span class="src">Quantum wire · via Google News · 4h ago</span>
           </article>
           
           <article class="story">
@@ -2831,7 +2831,7 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
             
             <h3><a href="https://news.google.com/rss/articles/CBMirAFBVV95cUxPTmZnakZRckJGNm5JVEROUk1ocjNTY1ZPeXoxQ3UzaEJZTnlLdFA3SjFJdW84OWVfM1o4RHBjRGtjLW5GRWR1Vmd1bEZkbERIMy1EbHFSLTZvRWFnZy1aWkM2bHVKZngybU9XMEk0UEFuLVdlVk43N05IcGJEb1hOWnNjdFkycEZ1aDZNYnJPU2hRTEdJTU0xaUhWdGpueVBnNTRuZ2ZUN0RWa3VE?oc=5" target="_blank" rel="noopener noreferrer">NASA’s Hubble Shows Star Formation in Andromeda Galaxy Winding Down - NASA Science (.gov)</a></h3>
             <p>NASA’s Hubble Shows Star Formation in Andromeda Galaxy Winding Down NASA Science (.gov)</p>
-            <span class="src">Astronomy wire · via Google News · 12 min ago</span>
+            <span class="src">Astronomy wire · via Google News · 19 min ago</span>
           </article>
           
           <article class="story">
@@ -2894,7 +2894,7 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
             
             <h3><a href="https://www.bbc.co.uk/news/articles/c5y3gymn6p6o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener noreferrer">Carly Simon reveals Parkinson&#39;s diagnosis</a></h3>
             <p>The singer also reveals she has received treatment for skin cancer, but vows to keep singing.</p>
-            <span class="src">BBC World · 8 min ago</span>
+            <span class="src">BBC World · 15 min ago</span>
           </article>
           
           <article class="story">
@@ -3244,7 +3244,7 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
       <div class="ts-item">
         <span class="ts-outlet">Times of Israel</span>
         <a href="https://www.timesofisrael.com/at-odds-with-trump-on-iran-netanyahu-heads-to-dc-to-seek-agreement-where-he-still-can/" target="_blank" rel="noopener noreferrer">At odds with Trump on Iran, Netanyahu heads to DC to seek agreement where he still can</a>
-        <span class="ts-ago">11 min ago</span>
+        <span class="ts-ago">18 min ago</span>
       </div>
       
       <div class="ts-item">
@@ -3256,13 +3256,13 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
       <div class="ts-item">
         <span class="ts-outlet">Reuters · via Google News</span>
         <a href="https://news.google.com/rss/articles/CBMi2AFBVV95cUxNNGE1c0g5ZHQxVW9KaV81YjdLV3FXRFo2dnp4S1FaeWZjbTdHbjhMOXVxRDdNVmRIenhzTWdYeU5WQWVqOWVURmxGTXJEVm5mVkN3MkdzSERyM2tHUkt5QWhkNWxkY2tzSXc3OGVtUmVzYXlPSE1vQ29Sak5vN1dDQnJicUZSZlVVSlN5ZkZhUXAxbHhDeWwtQmJxanEwam1FRlVLY2d6OFd6ejVuQUVDaWw5cEJkbHo4cDJ2TG04LU1kSm1aVVNMZE02ZmxwMGZENjZvaEZpUG4?oc=5" target="_blank" rel="noopener noreferrer">Crude oil futures are pricing market adaptability, not hopeful Iran peace - Reuters</a>
-        <span class="ts-ago">42 min ago</span>
+        <span class="ts-ago">49 min ago</span>
       </div>
       
       <div class="ts-item">
         <span class="ts-outlet">NYT Middle East</span>
         <a href="https://www.nytimes.com/2026/07/27/world/middleeast/trump-netanyahu-relationship-iran.html" target="_blank" rel="noopener noreferrer">In Washington, Netanyahu Faces a Delicate Balancing Act</a>
-        <span class="ts-ago">41 min ago</span>
+        <span class="ts-ago">48 min ago</span>
       </div>
       
       <div class="ts-hint">Same event, 6 outlets — notice what each leads with, and what each leaves out. Full context below.</div>
