@@ -143,6 +143,20 @@ cd ~/Desktop/live-dispatch && source venv/bin/activate && python build_static.py
 cd ~/Desktop/live-dispatch && git add -A && git commit -m "refresh news" && git push
 ```
 
+### Automatic twice-a-day updates (already on)
+
+A scheduled job (`refresh_and_publish.sh`, run by the macOS launchd item
+`com.livedispatch.autopublish`) does the above **automatically at 8:00 and
+20:00** — fetching fresh news, rebuilding, and pushing to the live site. It only
+runs while your Mac is on and online (if it was asleep at 8:00, it runs shortly
+after you wake it).
+
+- **Change the times:** edit the `Hour` values in
+  `~/Library/LaunchAgents/com.livedispatch.autopublish.plist`, then run
+  `launchctl unload` and `launchctl load` on that file.
+- **Turn it off:** `launchctl unload ~/Library/LaunchAgents/com.livedispatch.autopublish.plist`
+- **See what it did:** the log is `autopublish.log` in the project folder.
+
 GitHub rebuilds the page automatically about a minute after you push.
 
 The **news is a snapshot** from the moment you build it; the Learn, Connect,
