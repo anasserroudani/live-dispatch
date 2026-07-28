@@ -69,6 +69,17 @@ body{
 }
 a{ color:inherit; }
 
+/* ---------- Habiba birthday banner ---------- */
+.habiba-banner{
+  display:block; text-align:center; text-decoration:none;
+  font-family:var(--sans); font-size:14px; letter-spacing:.02em; color:#fff;
+  padding:11px 16px; background:linear-gradient(90deg,#e0567f,#d9a441,#e0567f);
+  background-size:200% 100%; animation:habibaShimmer 6s linear infinite;
+}
+.habiba-banner b{ font-weight:700; }
+.habiba-banner:hover{ filter:brightness(1.05); }
+@keyframes habibaShimmer{ 0%{background-position:0 0;} 100%{background-position:200% 0;} }
+
 /* ---------- Masthead ---------- */
 .masthead{
   position:relative;

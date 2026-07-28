@@ -15,7 +15,7 @@ import glob
 from datetime import datetime, timezone
 
 import markdown as md
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, send_from_directory
 from apscheduler.schedulers.background import BackgroundScheduler
 
 import feeds as feeds_mod
@@ -179,6 +179,7 @@ def build_index_context(static_build=False):
         last_refresh=_humanize(store.get_meta("last_refresh")),
         today=datetime.now().strftime("%B %-d, %Y").upper(),
         refresh_minutes=REFRESH_MINUTES,
+        habiba_day=datetime.now().strftime("%m-%d") == "07-28",
         static_build=static_build,
     )
 
@@ -204,6 +205,14 @@ def search():
         region_titles=region_titles,
         today=datetime.now().strftime("%B %-d, %Y").upper(),
     )
+
+
+@app.route("/habiba")
+@app.route("/habiba/")
+def habiba():
+    """A birthday ceremony page for Habiba. 🌸"""
+    return send_from_directory(
+        os.path.join(os.path.dirname(__file__), "docs", "habiba"), "index.html")
 
 
 @app.route("/refresh", methods=["POST"])

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy Birthday, Habiba 🌸</title>
+<meta name="theme-color" content="#2a1220">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Amiri:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#3a1f2b; --rose:#e0567f; --rose-deep:#b23566; --gold:#d9a441;
+    --blush:#ffe6ee; --cream:#fff7f2; --plum:#5a2a44;
+    --serif:'Playfair Display', Georgia, 'Times New Roman', serif;
+    --body:'Cormorant Garamond', Georgia, serif;
+    --arab:'Amiri', 'Geeza Pro', 'Traditional Arabic', serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:var(--body);
+    color:var(--ink);
+    background:
+      radial-gradient(1200px 700px at 50% -10%, #ffd9e6 0%, #ffe9f0 30%, #fff7f2 60%),
+      linear-gradient(180deg,#fff7f2,#ffeef4);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    text-align:center;
+    line-height:1.6;
+  }
+  .wrap{ max-width:820px; margin:0 auto; padding:0 22px; position:relative; z-index:2; }
+
+  /* falling petals */
+  .petals{ position:fixed; inset:0; pointer-events:none; z-index:1; overflow:hidden; }
+  .petal{ position:absolute; top:-8vh; font-size:20px; opacity:.8; animation:fall linear infinite; }
+  @keyframes fall{
+    0%{ transform:translateY(-10vh) rotate(0deg); opacity:0; }
+    10%{ opacity:.9; }
+    100%{ transform:translateY(112vh) rotate(360deg); opacity:.15; }
+  }
+
+  /* ---- Hero ---- */
+  .hero{ min-height:100svh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px 22px; }
+  .kicker{
+    font-family:var(--body); letter-spacing:.42em; text-transform:uppercase;
+    font-size:14px; color:var(--rose-deep); margin-bottom:10px; opacity:0;
+    animation:rise 1.2s .2s forwards;
+  }
+  .name{
+    font-family:var(--serif); font-weight:700; color:var(--plum);
+    font-size:clamp(64px,17vw,150px); line-height:.98; margin:6px 0 4px;
+    background:linear-gradient(180deg,#b23566,#e0567f 55%,#d9a441);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    opacity:0; animation:rise 1.3s .5s forwards; text-shadow:0 8px 30px rgba(178,53,102,.12);
+  }
+  .meaning{ font-style:italic; font-size:clamp(18px,4.5vw,24px); color:var(--rose-deep); opacity:0; animation:rise 1.3s .9s forwards; }
+  .meaning b{ font-style:normal; }
+  .hbd{ font-family:var(--serif); font-size:clamp(22px,6vw,34px); color:var(--plum); margin-top:26px; opacity:0; animation:rise 1.3s 1.2s forwards; }
+  .sub-hbd{ font-size:clamp(15px,3.6vw,18px); color:#8a5c72; margin-top:4px; opacity:0; animation:rise 1.3s 1.5s forwards; }
+  .scroll-hint{ margin-top:40px; font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:var(--rose); opacity:0; animation:rise 1.3s 2s forwards, bob 2.4s 2.5s infinite; }
+  @keyframes rise{ from{opacity:0; transform:translateY(22px);} to{opacity:1; transform:none;} }
+  @keyframes bob{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(7px);} }
+
+  /* ---- Section frame ---- */
+  section.block{ padding:70px 0; }
+  .eyebrow{ font-family:var(--body); letter-spacing:.34em; text-transform:uppercase; font-size:13px; color:var(--gold); margin-bottom:12px; }
+  .htitle{ font-family:var(--serif); font-weight:700; color:var(--plum); font-size:clamp(30px,7vw,46px); margin:0 0 22px; }
+  .lead{ font-size:clamp(18px,4.6vw,22px); color:#5f3d4e; max-width:640px; margin:0 auto 8px; }
+
+  /* ---- Letter ---- */
+  .letter{
+    background:rgba(255,255,255,.66); border:1px solid #ffd4e2; border-radius:22px;
+    padding:34px 30px; max-width:660px; margin:0 auto; text-align:left;
+    box-shadow:0 20px 50px rgba(178,53,102,.10); backdrop-filter:blur(4px);
+  }
+  .letter p{ font-size:clamp(17px,4.4vw,20px); color:#4b2f3c; margin:0 0 15px; }
+  .letter p:last-child{ margin-bottom:0; }
+  .letter .sign{ font-family:var(--serif); font-style:italic; color:var(--rose-deep); margin-top:22px; }
+
+  /* ---- Compliments cascade ---- */
+  .comp-list{ max-width:660px; margin:26px auto 0; }
+  .comp{
+    display:flex; gap:16px; align-items:flex-start; text-align:left;
+    padding:15px 18px; margin:11px 0; border-radius:16px;
+    background:rgba(255,255,255,.62); border:1px solid #ffdbe6;
+    opacity:0; transform:translateY(24px); transition:opacity .7s, transform .7s;
+    box-shadow:0 8px 22px rgba(178,53,102,.06);
+  }
+  .comp.show{ opacity:1; transform:none; }
+  .comp .no{ font-family:var(--serif); font-weight:700; color:var(--rose); font-size:20px; min-width:42px; }
+  .comp .txt{ font-size:clamp(17px,4.4vw,20px); color:#4b2f3c; line-height:1.5; }
+  .comp .heart{ color:var(--rose); }
+  .comp-count{ font-family:var(--body); font-size:15px; color:#a4667e; letter-spacing:.1em; margin-top:26px; }
+
+  /* ---- Duaa / ayah ---- */
+  .prayers{ background:linear-gradient(180deg,#3a1230,#5a2140 60%,#7a2f4a); color:#ffe9f1; margin-top:20px; border-radius:30px 30px 0 0; }
+  .prayers .eyebrow{ color:#f4c66a; }
+  .prayers .htitle{ color:#fff2f7; }
+  .prayers .lead{ color:#f4d3df; }
+  .ayah{
+    max-width:640px; margin:22px auto; padding:26px 24px;
+    background:rgba(255,255,255,.06); border:1px solid rgba(244,198,106,.28);
+    border-radius:20px;
+  }
+  .ayah .ar{ font-family:var(--arab); font-size:clamp(26px,7vw,40px); line-height:1.9; color:#ffedc2; direction:rtl; margin-bottom:12px; }
+  .ayah .tr{ font-style:italic; color:#f6cdad; font-size:15px; margin-bottom:8px; }
+  .ayah .en{ font-size:clamp(16px,4.3vw,19px); color:#ffeef4; }
+  .ayah .ref{ font-family:var(--body); letter-spacing:.14em; text-transform:uppercase; font-size:12px; color:#f4c66a; margin-top:12px; }
+  .duaa{ max-width:640px; margin:16px auto; font-size:clamp(17px,4.5vw,21px); color:#ffe9f1; line-height:1.7; }
+  .duaa b{ color:#ffd98a; font-weight:500; }
+
+  /* ---- Candles / wish ---- */
+  .wishwrap{ background:#4a1836; color:#ffe9f1; padding:64px 0 90px; }
+  .cake{ font-size:64px; line-height:1; margin-bottom:6px; }
+  .candles{ display:flex; gap:18px; justify-content:center; margin:14px 0 26px; }
+  .candle{ position:relative; width:14px; height:52px; background:linear-gradient(#ffd9e6,#e0567f); border-radius:4px; }
+  .flame{ position:absolute; top:-16px; left:50%; transform:translateX(-50%); width:12px; height:18px; border-radius:50% 50% 50% 50%/60% 60% 40% 40%; background:radial-gradient(circle at 50% 70%, #fff3b0, #ffb347 55%, #ff6a3d); box-shadow:0 0 16px #ffb347; animation:flick .5s infinite alternate; transform-origin:bottom; }
+  @keyframes flick{ from{transform:translateX(-50%) scaleY(1) rotate(-3deg);} to{transform:translateX(-50%) scaleY(1.12) rotate(3deg);} }
+  .candle.out .flame{ opacity:0; transition:opacity .3s; }
+  .wishbtn{
+    font-family:var(--body); font-size:18px; letter-spacing:.12em; text-transform:uppercase;
+    color:#4a1836; background:linear-gradient(180deg,#ffd98a,#e0a53a); border:none;
+    padding:14px 30px; border-radius:999px; cursor:pointer; box-shadow:0 12px 30px rgba(0,0,0,.25);
+  }
+  .wishbtn:hover{ filter:brightness(1.06); }
+  .wishmsg{ font-family:var(--serif); font-size:clamp(22px,6vw,32px); color:#ffd98a; margin-top:26px; min-height:1.4em; opacity:0; transition:opacity .8s; }
+  .wishmsg.show{ opacity:1; }
+
+  /* ---- Closing ---- */
+  .closing{ padding:70px 22px 100px; background:#3a1230; color:#ffe9f1; }
+  .closing .big{ font-family:var(--serif); font-size:clamp(28px,7vw,44px); color:#fff2f7; margin:0 0 14px; }
+  .closing p{ font-size:clamp(17px,4.5vw,20px); color:#f4d3df; max-width:600px; margin:0 auto 10px; }
+  .stamp{ margin-top:28px; font-family:var(--body); letter-spacing:.24em; text-transform:uppercase; font-size:13px; color:#f4c66a; }
+
+  /* confetti canvas */
+  #confetti{ position:fixed; inset:0; pointer-events:none; z-index:5; }
+
+  @media (prefers-reduced-motion:reduce){ *{ animation:none !important; } .comp{ opacity:1; transform:none; } }
+</style>
+</head>
+<body>
+
+<canvas id="confetti"></canvas>
+<div class="petals" id="petals"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">28 July · Her Day</div>
+    <h1 class="name">Habiba</h1>
+    <div class="meaning">حبيبة — <b>the beloved one</b>. Named for love, and a lifetime of proving it true.</div>
+    <div class="hbd">Happy Birthday 🌸</div>
+    <div class="sub-hbd">عيد ميلاد سعيد · Joyeux anniversaire</div>
+    <div class="scroll-hint">scroll, this is all for you ↓</div>
+  </div>
+</header>
+
+<!-- LETTER -->
+<section class="block">
+  <div class="wrap">
+    <div class="eyebrow">A letter, first</div>
+    <h2 class="htitle">Before anything else</h2>
+    <div class="letter">
+      <p>Habiba,</p>
+      <p>Today the whole year pauses to celebrate the fact that you were born — and honestly, it should. The world got warmer the day you arrived in it, and it has been warmer every day you've stayed.</p>
+      <p>I made you this little corner of light because words in a message felt too small. You deserve more than a text. You deserve a hundred of them, and prayers on top, and a day that reminds you exactly how loved you are.</p>
+      <p>So take your time here. Read every line slowly. Every single one is true.</p>
+      <p class="sign">— with all my heart, your best friend 💛</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIMENTS -->
+<section class="block">
+  <div class="wrap">
+    <div class="eyebrow">One hundred and eight of them</div>
+    <h2 class="htitle">Things you need to know</h2>
+    <p class="lead">Because you never let anyone say enough good about you — so here they are, all at once.</p>
+    <div class="comp-list" id="comps"></div>
+    <div class="comp-count" id="compcount"></div>
+  </div>
+</section>
+
+<!-- PRAYERS -->
+<section class="block prayers">
+  <div class="wrap">
+    <div class="eyebrow">Prayers & light for you</div>
+    <h2 class="htitle">Duʿāʾ carried for you</h2>
+    <p class="lead">Verses I hold over your name — that your Lord fills your year with ease, light, and mercy.</p>
+
+    <div class="ayah">
+      <div class="ar">فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ۝ إِنَّ مَعَ الْعُسْرِ يُسْرًا</div>
+      <div class="tr">Fa-inna maʿa al-ʿusri yusrā · Inna maʿa al-ʿusri yusrā</div>
+      <div class="en">So, truly — with hardship comes ease. Truly, with hardship comes ease.</div>
+      <div class="ref">Sūrah Ash-Sharḥ · 94:5–6</div>
+    </div>
+
+    <div class="ayah">
+      <div class="ar">مَا وَدَّعَكَ رَبُّكَ وَمَا قَلَىٰ ۝ وَلَلْآخِرَةُ خَيْرٌ لَّكَ مِنَ الْأُولَىٰ ۝ وَلَسَوْفَ يُعْطِيكَ رَبُّكَ فَتَرْضَىٰ</div>
+      <div class="tr">Mā waddaʿaka rabbuka wa mā qalā · wa lal-ākhiratu khayrun laka mina al-ūlā · wa la-sawfa yuʿṭīka rabbuka fa-tarḍā</div>
+      <div class="en">Your Lord has not left you, nor forgotten you. What is coming is better for you than what has passed. And your Lord will keep giving to you, until you are pleased.</div>
+      <div class="ref">Sūrah Aḍ-Ḍuḥā · 93:3–5</div>
+    </div>
+
+    <div class="ayah">
+      <div class="ar">رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ</div>
+      <div class="tr">Rabbanā ātinā fī ad-dunyā ḥasanah, wa fī al-ākhirati ḥasanah, wa qinā ʿadhāba an-nār</div>
+      <div class="en">Our Lord, give her good in this life and good in the next, and protect her from all harm.</div>
+      <div class="ref">Sūrah Al-Baqarah · 2:201</div>
+    </div>
+
+    <div class="ayah">
+      <div class="ar">وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ</div>
+      <div class="tr">Wa man yatawakkal ʿalā Allāhi fa-huwa ḥasbuh</div>
+      <div class="en">And whoever places their trust in Allah — He is enough for them.</div>
+      <div class="ref">Sūrah Aṭ-Ṭalāq · 65:3</div>
+    </div>
+
+    <div class="ayah">
+      <div class="ar">وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ ۖ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ</div>
+      <div class="tr">Wa idhā saʾalaka ʿibādī ʿannī fa-innī qarīb, ujību daʿwata ad-dāʿi idhā daʿān</div>
+      <div class="en">When My servants ask about Me — I am near. I answer the call of the one who calls on Me.</div>
+      <div class="ref">Sūrah Al-Baqarah · 2:186</div>
+    </div>
+
+    <div class="duaa">
+      <p>Yā Allah — on the day You gave the world <b>Habiba</b>, let this new year be lighter than every year before it.</p>
+      <p>Fill her heart with <b>peace that no one can take</b>, her days with <b>rizq and open doors</b>, and her nights with <b>rest</b>.</p>
+      <p>Heal what she hides. Answer the duʿās she makes in secret. Keep the people she loves close, and keep her far from every harm.</p>
+      <p>Grant her a life so good that when she looks back, she smiles — and a Hereafter better still. <b>Āmīn.</b> 🤍</p>
+    </div>
+  </div>
+</section>
+
+<!-- WISH -->
+<section class="wishwrap">
+  <div class="wrap">
+    <div class="cake">🎂</div>
+    <div class="candles" id="candles">
+      <div class="candle"><div class="flame"></div></div>
+      <div class="candle"><div class="flame"></div></div>
+      <div class="candle"><div class="flame"></div></div>
+      <div class="candle"><div class="flame"></div></div>
+      <div class="candle"><div class="flame"></div></div>
+    </div>
+    <button class="wishbtn" id="wishbtn">Close your eyes &amp; make a wish</button>
+    <div class="wishmsg" id="wishmsg"></div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<footer class="closing">
+  <div class="wrap">
+    <div class="big">However bright you think today is —</div>
+    <p>you deserve brighter. And I'll be here for every birthday after this one, telling you the same hundred things until you finally believe them.</p>
+    <p style="margin-top:18px;">Happy birthday, Habiba. The world is lucky. I'm luckier.</p>
+    <div class="stamp">🌸 28 July · with love 🌸</div>
+  </div>
+</footer>
+
+<script>
+// ---- petals ----
+(function(){
+  const box=document.getElementById('petals'), kinds=['🌸','🌷','💗','✨','🌹'];
+  for(let i=0;i<26;i++){
+    const p=document.createElement('div'); p.className='petal';
+    p.textContent=kinds[i%kinds.length];
+    p.style.left=(Math.random()*100)+'vw';
+    p.style.animationDuration=(7+Math.random()*9)+'s';
+    p.style.animationDelay=(-Math.random()*12)+'s';
+    p.style.fontSize=(14+Math.random()*18)+'px';
+    box.appendChild(p);
+  }
+})();
+
+// ---- 108 compliments ----
+const COMPLIMENTS = [
+  "The world is softer because you are in it.",
+  "Your kindness arrives before you even speak.",
+  "You make ordinary days feel like they matter.",
+  "Knowing you is one of the luckiest things that ever happened to me.",
+  "Your name means <span class='heart'>beloved</span>, and you spend every day proving it right.",
+  "You love people the way everyone deserves to be loved.",
+  "Your laugh is my favourite sound in any room.",
+  "You notice the people no one else notices.",
+  "You carry so much, and still you show up smiling.",
+  "You are living proof that gentle and strong are the same thing.",
+  "You make people feel safe just by being near them.",
+  "Your heart is the most generous thing I know.",
+  "You forgive faster than anyone should have to.",
+  "You remember the small things that make people feel seen.",
+  "You turn strangers into friends without trying.",
+  "You give the best advice and the warmest hugs.",
+  "You are the friend everyone wishes they had.",
+  "Your presence calms a whole room down.",
+  "You listen like what someone says actually matters — because to you, it does.",
+  "You are braver than you give yourself credit for.",
+  "You've survived every hard day so far, and that is not small.",
+  "You make hope look effortless.",
+  "You are so much stronger than the things that tried to break you.",
+  "Your smile could end an argument.",
+  "You are beautiful in a way that has nothing to do with mirrors.",
+  "And also, yes — beautiful in the mirror kind of way too.",
+  "You have the sort of eyes that people trust.",
+  "Your energy makes everything more alive.",
+  "You are proof that good people still exist.",
+  "You love loudly and forgive quietly.",
+  "You are the reason a lot of people's bad days got better.",
+  "You are impossible to replace.",
+  "You are wildly, quietly talented.",
+  "You underestimate yourself far too often.",
+  "Your dreams are worth every bit of the effort.",
+  "You deserve every good thing coming your way.",
+  "You make loyalty look easy.",
+  "You never let a friend walk through anything alone.",
+  "You are honest even when it's hard, and that's rare.",
+  "Your mind is sharp and your heart is soft — the best combination.",
+  "You have a gift for making people feel less alone.",
+  "You are patient with everyone, sometimes even yourself.",
+  "You laugh at the corniest jokes and I love you for it.",
+  "You feel things deeply, and that is a strength, not a flaw.",
+  "You are the calm in other people's storms.",
+  "You make the people around you want to be better.",
+  "You've grown so much, and it's beautiful to witness.",
+  "You are exactly enough, exactly as you are.",
+  "Your voice is comforting even when you're just complaining.",
+  "You make me laugh until it hurts.",
+  "You keep secrets like a vault and give love like a fountain.",
+  "You are somebody's answered prayer — probably many people's.",
+  "You make hard days survivable.",
+  "You have never once made me feel like a burden.",
+  "You are the definition of a real friend.",
+  "You show up. Every time. That means everything.",
+  "You are worth celebrating far more than one day a year.",
+  "You have a heart that could hold the whole world.",
+  "You are kind to people who can do nothing for you.",
+  "You make everyone feel like the main character.",
+  "You are the human version of a warm cup on a cold day.",
+  "You handle life with more grace than you realise.",
+  "You deserve softness after everything you give.",
+  "You are a safe place for tired hearts.",
+  "You are funny in a way you don't even try to be.",
+  "You have impeccable taste — in everything but maybe your own worth.",
+  "You are the friend I'd choose in every lifetime.",
+  "You make growing up less scary.",
+  "You are proof that some people are simply good, all the way through.",
+  "You bring out the best version of everyone you love.",
+  "You are stronger than yesterday and softer than the world deserves.",
+  "You've never needed to change to be loved.",
+  "You radiate a light people can't quite explain.",
+  "You are the plot twist that made my story better.",
+  "You are endlessly, effortlessly lovable.",
+  "You make people feel chosen.",
+  "You are the kind of beautiful that grows the more someone knows you.",
+  "You deserve a love as big as the one you give.",
+  "You are somebody's favourite person — and definitely mine.",
+  "You make silence comfortable and conversation golden.",
+  "You are wiser than your years.",
+  "You are the reason 'best friend' isn't a big enough word.",
+  "You forgive the world daily and it doesn't deserve you.",
+  "You are a whole galaxy pretending to be one person.",
+  "You make everything feel possible.",
+  "You are proof that softness survives in a hard world.",
+  "You are somebody I'm proud to love.",
+  "You make me believe in good people.",
+  "You have never given up on anyone, including me.",
+  "You are the friend people write songs about.",
+  "You deserve peace that stays.",
+  "You are more loved than you will ever fully know.",
+  "You make the future look bright just by being in it.",
+  "You are gentle with a world that isn't always gentle back.",
+  "You are the definition of home in human form.",
+  "You are enough. You have always been enough.",
+  "You make ordinary moments feel like memories.",
+  "You are the calm and the confetti at the same time.",
+  "You deserve everything you're too humble to ask for.",
+  "You have a laugh that makes strangers smile.",
+  "You are the reason a lot of us believe in kindness.",
+  "You are a rare, rare thing — and you should know it.",
+  "You are prayed for, thought of, and adored.",
+  "You are the best part of so many people's day.",
+  "You make the word 'friend' mean something holy.",
+  "You are, and will always be, deeply and truly loved.",
+  "You are the answer to a prayer I didn't know I had made.",
+  "And on your birthday, and every day — I am so grateful you exist. 🤍"
+];
+
+(function(){
+  const box=document.getElementById('comps');
+  COMPLIMENTS.forEach((c,i)=>{
+    const d=document.createElement('div'); d.className='comp';
+    d.innerHTML=`<div class="no">${String(i+1).padStart(2,'0')}</div><div class="txt">${c}</div>`;
+    box.appendChild(d);
+  });
+  document.getElementById('compcount').textContent='… and still, it isn’t all of them.';
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
+  },{threshold:.15});
+  document.querySelectorAll('.comp').forEach(c=>io.observe(c));
+})();
+
+// ---- confetti ----
+const cv=document.getElementById('confetti'), ctx=cv.getContext('2d');
+let parts=[]; function size(){ cv.width=innerWidth; cv.height=innerHeight; } size(); addEventListener('resize',size);
+const COL=['#e0567f','#d9a441','#ffd9e6','#b23566','#ffb347','#ff6a9a'];
+function burst(n,originY){
+  for(let i=0;i<n;i++) parts.push({
+    x:Math.random()*cv.width, y:(originY!=null?originY:-20)+Math.random()*40,
+    vx:(Math.random()-.5)*7, vy:Math.random()*5+2, g:.12,
+    s:6+Math.random()*7, c:COL[i%COL.length], a:1, rot:Math.random()*6, vr:(Math.random()-.5)*.3
+  });
+}
+function loop(){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  parts.forEach(p=>{ p.vy+=p.g; p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr; p.a-=.006;
+    ctx.save(); ctx.globalAlpha=Math.max(0,p.a); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+    ctx.fillStyle=p.c; ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6); ctx.restore();
+  });
+  parts=parts.filter(p=>p.a>0 && p.y<cv.height+30);
+  requestAnimationFrame(loop);
+}
+loop();
+setTimeout(()=>burst(140),400);   // welcome burst
+
+// ---- make a wish ----
+const wishes=[
+  "Your wish is already on its way. 🌠",
+  "Consider it heard — and held. 🤍",
+  "May this be the year it all begins to go right for you.",
+  "The candles are out. The blessings are in. 🌸",
+  "Whatever you wished — you deserve it, and more."
+];
+document.getElementById('wishbtn').addEventListener('click',()=>{
+  document.querySelectorAll('#candles .candle').forEach((c,i)=>setTimeout(()=>c.classList.add('out'), i*180));
+  setTimeout(()=>{ burst(180, cv.height*0.35);
+    const m=document.getElementById('wishmsg'); m.textContent=wishes[Math.floor(Math.random()*wishes.length)]; m.classList.add('show');
+  }, 5*180+150);
+});
+</script>
+</body>
+</html>
