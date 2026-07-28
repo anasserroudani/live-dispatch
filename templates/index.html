@@ -198,29 +198,39 @@
 
     <div id="conn-map" class="connpanel active">
 
-      {# ---- Situation map: the globe of connected hotspots ---- #}
+      {# ---- Situation globe: rotating earth of connected hotspots ---- #}
       <div class="sitmap-wrap">
         <div class="sitmap-head">
-          <span class="sitmap-title">◉ GLOBAL SITUATION MONITOR</span>
-          <span class="sitmap-live"><span class="lv-dot"></span>LIVE · click a hotspot to trace its links</span>
+          <span class="sitmap-title">◉ GLOBAL SITUATION GLOBE</span>
+          <span class="sitmap-live"><span class="lv-dot"></span>LIVE · drag to spin · click a hotspot</span>
         </div>
-        <div class="sitmap-scroll">
-          <svg id="sitmap" viewBox="0 0 1000 460" preserveAspectRatio="xMidYMid meet" aria-label="Global situation map">
-            <defs>
-              <filter id="smGlow" x="-60%" y="-60%" width="220%" height="220%">
-                <feGaussianBlur stdDeviation="2.2" result="b"/>
-                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
-              <filter id="smLand"><feGaussianBlur stdDeviation="12"/></filter>
-            </defs>
-          </svg>
+        <div class="sitmap-body">
+          <div class="sitmap-globe">
+            <svg id="sitmap" viewBox="0 0 480 480" aria-label="Rotating situation globe">
+              <defs>
+                <radialGradient id="smOcean" cx="38%" cy="34%" r="75%">
+                  <stop offset="0" stop-color="#123a52"/>
+                  <stop offset="0.65" stop-color="#0a2231"/>
+                  <stop offset="1" stop-color="#04141d"/>
+                </radialGradient>
+                <filter id="smGlow" x="-70%" y="-70%" width="240%" height="240%">
+                  <feGaussianBlur stdDeviation="2" result="b"/>
+                  <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+            </svg>
+          </div>
+          <div id="sitmap-info" class="sitmap-info">
+            <div class="si-kicker">Situation dossier</div>
+            <div class="si-body">Spin the globe, then <b>click any glowing hotspot</b> to see who it's connected to — and <b>why</b>. Each line is a real relationship: who funds whom, who fights whom, who trades with whom.</div>
+          </div>
         </div>
         <div class="sitmap-legend">
-          <span class="lg" data-g="iran"><i style="background:#ff5a5a"></i>Iran &amp; its Axis</span>
-          <span class="lg" data-g="russia"><i style="background:#b98bff"></i>Russia's reach</span>
-          <span class="lg" data-g="us"><i style="background:#3ad0ff"></i>US alliances</span>
-          <span class="lg" data-g="china"><i style="background:#ffbf47"></i>China</span>
-          <span class="lg" data-g="rivalry"><i style="background:#ff8a3d"></i>Rivalry</span>
+          <span class="lg" data-g="fund"><i style="background:#ff5a5a"></i>Funds &amp; arms proxies</span>
+          <span class="lg" data-g="military"><i style="background:#b98bff"></i>Military force</span>
+          <span class="lg" data-g="ally"><i style="background:#3ad0ff"></i>Alliance</span>
+          <span class="lg" data-g="trade"><i style="background:#ffbf47"></i>Trade &amp; influence</span>
+          <span class="lg" data-g="rival"><i style="background:#ff8a3d"></i>Rivalry</span>
         </div>
       </div>
 
@@ -333,73 +343,122 @@ document.querySelectorAll('.conn-btn').forEach(b=>b.addEventListener('click',()=
   document.getElementById(b.dataset.conn).classList.add('active');
 }));
 
-// --- Situation map: build the ops-room globe ---
+// --- Situation globe: rotating earth of connected hotspots ---
 (function(){
-  const svg = document.getElementById('sitmap');
-  if(!svg) return;
-  const NS='http://www.w3.org/2000/svg', W=1000, H=460;
-  const GC={iran:'#ff5a5a',russia:'#b98bff',us:'#3ad0ff',china:'#ffbf47',rivalry:'#ff8a3d'};
-  const N={
-    us:{n:'WASHINGTON',x:291,y:120,hub:1,la:'r'}, uk:{n:'LONDON',x:531,y:74,la:'l'},
-    eu:{n:'BRUSSELS',x:548,y:90,la:'l'},         ru:{n:'MOSCOW',x:649,y:59,hub:1,la:'r'},
-    ua:{n:'KYIV',x:618,y:84,la:'l'},             ma:{n:'RABAT',x:503,y:141,la:'l'},
-    dz:{n:'ALGIERS',x:543,y:123,la:'l'},         eg:{n:'CAIRO',x:624,y:158,la:'l'},
-    il:{n:'TEL AVIV',x:645,y:147,la:'r'},        gz:{n:'GAZA',x:634,y:151,la:'l'},
-    lb:{n:'BEIRUT',x:648,y:135,la:'r'},          sy:{n:'DAMASCUS',x:655,y:141,la:'r'},
-    ir:{n:'TEHRAN',x:694,y:130,hub:1,la:'r'},    ye:{n:'SANAA',x:671,y:206,la:'r'},
-    sd:{n:'KHARTOUM',x:628,y:206,la:'l'},        ml:{n:'BAMAKO',x:503,y:216,la:'l'},
-    cd:{n:'KINSHASA',x:579,y:276,la:'l'},        cn:{n:'BEIJING',x:895,y:116,hub:1,la:'l'},
-    tw:{n:'TAIPEI',x:909,y:175,la:'r'}
+  const svg=document.getElementById('sitmap'); if(!svg) return;
+  const info=document.getElementById('sitmap-info');
+  const NS='http://www.w3.org/2000/svg', cx=240, cy=240, R=205, DEG=Math.PI/180;
+  const TC={fund:'#ff5a5a',military:'#b98bff',ally:'#3ad0ff',trade:'#ffbf47',rival:'#ff8a3d'};
+  const NODES={
+    us:{name:'WASHINGTON',lat:38.9,lon:-77,hub:1,role:"United States — backs allies (Israel, Morocco, Ukraine), guards global sea lanes, and works to contain Iran, Russia and China."},
+    uk:{name:'LONDON',lat:51.5,lon:-0.1,role:"United Kingdom — a core NATO ally of the US; a leading backer of Ukraine."},
+    eu:{name:'BRUSSELS',lat:50.8,lon:4.4,role:"The EU / NATO hub — Europe's political centre of gravity, aligned with the US."},
+    ru:{name:'MOSCOW',lat:55.8,lon:37.6,hub:1,role:"Russia — projects power through energy leverage and the Wagner / Africa Corps mercenary force; at war in Ukraine."},
+    ua:{name:'KYIV',lat:50.5,lon:30.5,role:"Ukraine — invaded by Russia in 2022 and armed by the West. The core great-power war."},
+    ma:{name:'RABAT',lat:34,lon:-6.8,role:"Morocco — US-aligned; its top priority is recognition of its sovereignty over Western Sahara."},
+    dz:{name:'ALGIERS',lat:36.8,lon:3,role:"Algeria — Morocco's regional rival; backs the Polisario Front over Western Sahara."},
+    eg:{name:'CAIRO',lat:30,lon:31.2,role:"Egypt — a key Arab power, Gaza mediator, and a magnet for Gulf and Chinese investment."},
+    il:{name:'TEL AVIV',lat:32.1,lon:34.8,role:"Israel — the closest US ally in the region; locked in conflict with Iran and its proxies."},
+    gz:{name:'GAZA',lat:31.5,lon:34.4,role:"Gaza — governed by Hamas; the centre of the war with Israel."},
+    lb:{name:'BEIRUT',lat:33.9,lon:35.5,role:"Lebanon — home to Hezbollah, Iran's most powerful proxy."},
+    sy:{name:'DAMASCUS',lat:33.5,lon:36.3,role:"Syria — long an Iran/Russia client; its government fell in 2024, reshuffling the board."},
+    ir:{name:'TEHRAN',lat:35.7,lon:51.4,hub:1,role:"Iran — funds and arms the 'Axis of Resistance' to pressure Israel and the US without fighting directly."},
+    ye:{name:'SANAA',lat:15.4,lon:44.2,role:"Yemen — the Iran-backed Houthis control the north and attack Red Sea shipping."},
+    sd:{name:'KHARTOUM',lat:15.5,lon:32.5,role:"Sudan — the SAF-vs-RSF war has become the world's largest displacement crisis."},
+    ml:{name:'BAMAKO',lat:12.6,lon:-8,role:"Mali / the Sahel — a coup-led junta that swapped French troops for Russian mercenaries."},
+    cd:{name:'KINSHASA',lat:-4.3,lon:15.3,role:"DR Congo — its cobalt and coltan (for batteries and chips) help fuel the eastern war."},
+    cn:{name:'BEIJING',lat:39.9,lon:116.4,hub:1,role:"China — expands influence via trade, lending and minerals (Belt & Road); claims Taiwan."},
+    tw:{name:'TAIPEI',lat:23.7,lon:121,role:"Taiwan — self-governed; China vows to take it. The key US–China flashpoint."}
   };
-  const E=[
-    ['ir','gz','iran'],['ir','lb','iran'],['ir','ye','iran'],['ir','sy','iran'],
-    ['ru','ua','russia'],['ru','sy','russia'],['ru','ml','russia'],['ru','cn','russia'],
-    ['us','il','us'],['us','ma','us'],['us','ua','us'],['us','uk','us'],
-    ['cn','cd','china'],['cn','tw','china'],['cn','eg','china'],['dz','ma','rivalry']
+  const EDGES=[
+    {a:'ir',b:'gz',type:'fund',why:"Iran funds and arms Hamas in Gaza, a member of its Axis of Resistance."},
+    {a:'ir',b:'lb',type:'fund',why:"Iran's closest proxy, Hezbollah, is based in Lebanon and is stronger than the national army."},
+    {a:'ir',b:'ye',type:'fund',why:"Iran backs the Houthis in Yemen, who attack Red Sea shipping in solidarity with Gaza."},
+    {a:'ir',b:'sy',type:'fund',why:"Iran propped up Syria's government and used it as a land bridge to arm Hezbollah."},
+    {a:'ru',b:'ua',type:'military',why:"Russia invaded Ukraine in 2022 — the defining great-power war of the moment."},
+    {a:'ru',b:'sy',type:'military',why:"Russian air power saved Syria's Assad government (until its fall in 2024)."},
+    {a:'ru',b:'ml',type:'military',why:"Russia's Wagner / Africa Corps replaced French troops in Mali after the coup."},
+    {a:'ru',b:'cn',type:'ally',why:"Russia and China have drawn together into a strategic partnership against the West."},
+    {a:'us',b:'il',type:'ally',why:"Israel is the closest US ally in the region; Washington funds and arms it."},
+    {a:'us',b:'ma',type:'ally',why:"The US recognised Moroccan sovereignty over Western Sahara in 2020."},
+    {a:'us',b:'ua',type:'ally',why:"The US and Europe arm and fund Ukraine against Russia's invasion."},
+    {a:'us',b:'uk',type:'ally',why:"The US and UK are founding NATO allies with the deepest security ties."},
+    {a:'cn',b:'cd',type:'trade',why:"China sources cobalt and coltan from DR Congo for the world's batteries and chips."},
+    {a:'cn',b:'tw',type:'rival',why:"China claims Taiwan and threatens to seize it — the key US–China flashpoint."},
+    {a:'cn',b:'eg',type:'trade',why:"China invests heavily in Egypt (the Suez zone, infrastructure) via Belt & Road."},
+    {a:'dz',b:'ma',type:'rival',why:"Algeria and Morocco are regional rivals, chiefly over Western Sahara."}
   ];
-  const el=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e;};
+  const el=(t,a)=>{const e=document.createElementNS(NS,t);if(a)for(const k in a)e.setAttribute(k,a[k]);return e;};
+  const vec=(lat,lon)=>{const p=lat*DEG,l=lon*DEG;return{x:Math.cos(p)*Math.sin(l),y:Math.sin(p),z:Math.cos(p)*Math.cos(l)};};
+  for(const id in NODES) NODES[id].v=vec(NODES[id].lat,NODES[id].lon);
+  let rot=40, tilt=-12, focused=null, dragMoved=false;
+  function proj(v,lift){lift=lift||1;const r=rot*DEG,t=tilt*DEG;
+    let X=v.x*Math.cos(r)+v.z*Math.sin(r), Z=-v.x*Math.sin(r)+v.z*Math.cos(r), Y=v.y;
+    let Y2=Y*Math.cos(t)-Z*Math.sin(t), Z2=Y*Math.sin(t)+Z*Math.cos(t);
+    return {sx:cx+R*X*lift, sy:cy-R*Y2*lift, z:Z2};}
+  function slerp(a,b,u){let d=a.x*b.x+a.y*b.y+a.z*b.z;d=Math.max(-1,Math.min(1,d));const o=Math.acos(d);if(o<1e-4)return a;const s0=Math.sin((1-u)*o)/Math.sin(o),s1=Math.sin(u*o)/Math.sin(o);return{x:a.x*s0+b.x*s1,y:a.y*s0+b.y*s1,z:a.z*s0+b.z*s1};}
 
-  svg.appendChild(el('rect',{x:0,y:0,width:W,height:H,fill:'#060e15'}));
-  const land=el('g',{filter:'url(#smLand)'});
-  [[200,120,150,95],[410,340,65,110],[560,95,80,52],[600,250,118,138],[830,120,185,100],[945,320,62,44]]
-    .forEach(([cx,cy,rx,ry])=>land.appendChild(el('ellipse',{cx,cy,rx,ry,class:'land'})));
-  svg.appendChild(land);
-  const grat=el('g',{class:'graticule'});
-  for(let x=0;x<=W;x+=W/8) grat.appendChild(el('line',{x1:x,y1:0,x2:x,y2:H}));
-  for(let y=0;y<=H;y+=H/5) grat.appendChild(el('line',{x1:0,y1:y,x2:W,y2:y}));
-  svg.appendChild(grat);
-
-  const edgeEls=[]; const edgeG=el('g');
-  E.forEach(([a,b,g])=>{
-    const A=N[a],B=N[b], mx=(A.x+B.x)/2, d=Math.hypot(B.x-A.x,B.y-A.y);
-    const cy=Math.min(A.y,B.y)-d*0.28;
-    const p=el('path',{d:`M${A.x} ${A.y} Q ${mx} ${cy} ${B.x} ${B.y}`,class:'edge',stroke:GC[g]});
-    p.dataset.a=a; p.dataset.b=b; p.dataset.g=g; edgeG.appendChild(p); edgeEls.push(p);
-  });
-  svg.appendChild(edgeG);
-
-  const nodeEls={}; const nodeG=el('g');
-  for(const id in N){
-    const nd=N[id], r=nd.hub?5:3.2, g=el('g',{class:'node'+(nd.hub?' hub':'')}); g.dataset.id=id;
-    g.appendChild(el('circle',{cx:nd.x,cy:nd.y,r:r+3,fill:nd.hub?'#3ad0ff':'#9fe8ff',opacity:.16,filter:'url(#smGlow)'}));
-    g.appendChild(el('circle',{cx:nd.x,cy:nd.y,r:r,fill:nd.hub?'#eaf6fb':'#7fdcff','class':'core',filter:'url(#smGlow)'}));
-    const lx=nd.la==='r'?nd.x+8:nd.x-8;
-    const lab=el('text',{x:lx,y:nd.y+3,class:'nlabel'+(nd.hub?' hub':''),'text-anchor':nd.la==='r'?'start':'end'});
-    lab.textContent=nd.n; g.appendChild(lab);
-    nodeG.appendChild(g); nodeEls[id]=g;
-  }
+  svg.appendChild(el('circle',{cx,cy,r:R,fill:'url(#smOcean)',stroke:'#2b6b86','stroke-width':1}));
+  const dotG=el('g',{class:'dot'}); const dots=[];
+  for(let la=-75;la<=75;la+=15) for(let lo=0;lo<360;lo+=15){const c=el('circle',{r:1.1,fill:'#2f7288'});dotG.appendChild(c);dots.push({v:vec(la,lo),c});}
+  svg.appendChild(dotG);
+  const gratG=el('g',{fill:'none',stroke:'#1c4b60','stroke-width':.6}); const glines=[];
+  for(let lo=0;lo<360;lo+=30){const pts=[];for(let la=-90;la<=90;la+=6)pts.push(vec(la,lo));const p=el('path');gratG.appendChild(p);glines.push({pts,p});}
+  for(let la=-60;la<=60;la+=30){const pts=[];for(let lo=0;lo<=360;lo+=6)pts.push(vec(la,lo));const p=el('path');gratG.appendChild(p);glines.push({pts,p});}
+  svg.appendChild(gratG);
+  const arcG=el('g'); const arcs=[];
+  EDGES.forEach(e=>{const A=NODES[e.a].v,B=NODES[e.b].v,pts=[];for(let u=0;u<=1.0001;u+=1/26)pts.push(slerp(A,B,u));
+    const p=el('path',{class:'edge',stroke:TC[e.type],'stroke-width':1.7});arcG.appendChild(p);arcs.push({e,pts,p});
+    p.addEventListener('click',ev=>{ev.stopPropagation();if(!dragMoved)showEdge(e);});});
+  svg.appendChild(arcG);
+  const nodeG=el('g'); const nodes={};
+  for(const id in NODES){const n=NODES[id],g=el('g',{class:'node'+(n.hub?' hub':'')});g.dataset.id=id;
+    const glow=el('circle',{r:(n.hub?6:4),fill:(n.hub?'#3ad0ff':'#9fe8ff'),opacity:.18,filter:'url(#smGlow)'});
+    const core=el('circle',{r:(n.hub?3.8:2.6),fill:(n.hub?'#eaf6fb':'#8fe3ff'),filter:'url(#smGlow)'});
+    const lab=el('text',{class:'nlabel'+(n.hub?' hub':''),'text-anchor':'middle'});lab.textContent=n.name;
+    g.appendChild(glow);g.appendChild(core);g.appendChild(lab);nodeG.appendChild(g);
+    nodes[id]={g,glow,core,lab};
+    g.addEventListener('click',ev=>{ev.stopPropagation();if(dragMoved)return;focused===id?resetInfo():showNode(id);});}
   svg.appendChild(nodeG);
 
-  let active=null;
-  const reset=()=>{active=null; edgeEls.forEach(e=>e.classList.remove('dim','hot')); Object.values(nodeEls).forEach(n=>n.classList.remove('dim'));};
-  const focus=id=>{active=id; const on=new Set([id]);
-    edgeEls.forEach(e=>{const h=e.dataset.a===id||e.dataset.b===id; e.classList.toggle('hot',h); e.classList.toggle('dim',!h); if(h){on.add(e.dataset.a);on.add(e.dataset.b);}});
-    Object.keys(nodeEls).forEach(k=>nodeEls[k].classList.toggle('dim',!on.has(k)));};
-  Object.keys(nodeEls).forEach(id=>nodeEls[id].addEventListener('click',ev=>{ev.stopPropagation(); active===id?reset():focus(id);}));
-  svg.addEventListener('click',reset);
+  function pathFrom(pts,lift){let d='',pen=false;for(const v of pts){const q=proj(v,lift);if(q.z>0){d+=(pen?'L':'M')+q.sx.toFixed(1)+' '+q.sy.toFixed(1)+' ';pen=true;}else pen=false;}return d;}
+  function render(){
+    for(const dt of dots){const q=proj(dt.v);if(q.z>0.03){dt.c.setAttribute('cx',q.sx.toFixed(1));dt.c.setAttribute('cy',q.sy.toFixed(1));dt.c.setAttribute('opacity',(0.12+0.5*q.z).toFixed(2));dt.c.style.display='';}else dt.c.style.display='none';}
+    for(const gl of glines) gl.p.setAttribute('d',pathFrom(gl.pts,1.001));
+    for(const ar of arcs) ar.p.setAttribute('d',pathFrom(ar.pts,1.09));
+    for(const id in nodes){const n=NODES[id],o=nodes[id],q=proj(n.v);
+      if(q.z>0){o.g.style.display='';o.glow.setAttribute('cx',q.sx.toFixed(1));o.glow.setAttribute('cy',q.sy.toFixed(1));o.core.setAttribute('cx',q.sx.toFixed(1));o.core.setAttribute('cy',q.sy.toFixed(1));o.lab.setAttribute('x',q.sx.toFixed(1));o.lab.setAttribute('y',(q.sy-(n.hub?9:7)).toFixed(1));o.lab.setAttribute('opacity',(q.z>0.28?1:Math.max(0,q.z*3.5)).toFixed(2));}
+      else o.g.style.display='none';}
+  }
+  function tick(){if(focused===null && !dragging) rot+=0.10; render(); requestAnimationFrame(tick);}
+  render(); requestAnimationFrame(tick);
+
+  function setHi(id){arcs.forEach(a=>{const h=a.e.a===id||a.e.b===id;a.p.classList.toggle('hot',h);a.p.classList.toggle('dim',!h);});
+    Object.keys(nodes).forEach(k=>{const on=k===id||EDGES.some(e=>(e.a===id&&e.b===k)||(e.b===id&&e.a===k));nodes[k].g.classList.toggle('dim',!on);});}
+  function clearHi(){arcs.forEach(a=>a.p.classList.remove('hot','dim'));Object.values(nodes).forEach(n=>n.g.classList.remove('dim'));}
+  const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  function showNode(id){focused=id;setHi(id);const n=NODES[id];
+    let h=`<div class="si-kicker">Hotspot</div><div class="si-title">${esc(n.name)}</div><div class="si-role">${esc(n.role)}</div>`;
+    const ls=EDGES.filter(e=>e.a===id||e.b===id);
+    if(ls.length){h+=`<div class="si-kicker">Why it's connected</div>`;ls.forEach(e=>{const o=e.a===id?e.b:e.a;h+=`<div class="si-link"><div class="si-link-head"><i style="background:${TC[e.type]}"></i>${esc(NODES[o].name)}</div><div class="si-why">${esc(e.why)}</div></div>`;});}
+    info.innerHTML=h;}
+  function showEdge(e){focused=e.a;setHi(e.a);
+    info.innerHTML=`<div class="si-kicker">Connection</div><div class="si-title">${esc(NODES[e.a].name)} → ${esc(NODES[e.b].name)}</div><div class="si-link"><div class="si-link-head"><i style="background:${TC[e.type]}"></i>${e.type}</div><div class="si-why">${esc(e.why)}</div></div>`;}
+  const defaultInfo=info.innerHTML;
+  function resetInfo(){focused=null;clearHi();info.innerHTML=defaultInfo;document.querySelectorAll('.sitmap-legend .lg').forEach(x=>x.classList.remove('on'));}
+  svg.addEventListener('click',()=>{if(!dragMoved)resetInfo();});
   document.querySelectorAll('.sitmap-legend .lg').forEach(l=>l.addEventListener('click',()=>{
-    reset(); edgeEls.forEach(e=>{const h=e.dataset.g===l.dataset.g; e.classList.toggle('hot',h); e.classList.toggle('dim',!h);});
+    document.querySelectorAll('.sitmap-legend .lg').forEach(x=>x.classList.remove('on'));l.classList.add('on');
+    focused='filter';clearHi();arcs.forEach(a=>{const h=a.e.type===l.dataset.g;a.p.classList.toggle('hot',h);a.p.classList.toggle('dim',!h);});
+    info.innerHTML=`<div class="si-kicker">Dimension</div><div class="si-title">${esc(l.textContent.trim())}</div><div class="si-body">Showing every <b>${esc(l.textContent.trim().toLowerCase())}</b> link on the globe. Click a hotspot for the specific reasons.</div>`;
   }));
+
+  // drag to spin
+  let dragging=false,lastX=0,lastY=0;
+  svg.addEventListener('pointerdown',e=>{dragging=true;dragMoved=false;lastX=e.clientX;lastY=e.clientY;svg.classList.add('grabbing');try{svg.setPointerCapture(e.pointerId);}catch(_){}} );
+  svg.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-lastX,dy=e.clientY-lastY;lastX=e.clientX;lastY=e.clientY;if(Math.abs(dx)+Math.abs(dy)>3)dragMoved=true;rot+=dx*0.35;tilt=Math.max(-78,Math.min(78,tilt-dy*0.3));render();});
+  const endDrag=()=>{dragging=false;svg.classList.remove('grabbing');};
+  svg.addEventListener('pointerup',endDrag);svg.addEventListener('pointercancel',endDrag);
 })();
 
 // --- light / dark toggle ---

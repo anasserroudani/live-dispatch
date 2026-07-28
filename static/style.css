@@ -313,23 +313,41 @@ main{ max-width:1000px; margin:0 auto; padding:28px 20px calc(60px + env(safe-ar
 .sitmap-live{ font-family:var(--mono); font-size:10px; letter-spacing:1px; color:#6f93a3; display:flex; align-items:center; gap:6px; }
 .lv-dot{ width:7px; height:7px; border-radius:50%; background:#3ad0ff; box-shadow:0 0 8px #3ad0ff; animation:blink 1.6s infinite; }
 @keyframes blink{ 0%,100%{opacity:1} 50%{opacity:.25} }
-.sitmap-scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
-#sitmap{ width:100%; min-width:560px; height:auto; display:block; }
-.sitmap-legend{ display:flex; flex-wrap:wrap; gap:14px; margin-top:10px; padding-top:10px; border-top:1px solid #14303c; }
+.sitmap-body{ display:flex; gap:14px; align-items:stretch; }
+.sitmap-globe{ flex:0 0 auto; width:min(58%,420px); }
+#sitmap{ width:100%; height:auto; display:block; cursor:grab; touch-action:none; }
+#sitmap.grabbing{ cursor:grabbing; }
+.sitmap-info{
+  flex:1 1 auto; min-width:0; background:#0a1922; border:1px solid #16323f;
+  border-radius:12px; padding:14px 16px; align-self:stretch; overflow-y:auto; max-height:440px;
+}
+.si-kicker{ font-family:var(--mono); font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:#5fd6ff; margin-bottom:8px; }
+.si-title{ font-family:var(--serif); font-size:19px; color:#eaf6fb; margin:0 0 4px; }
+.si-role{ font-size:13px; color:#a9c6d2; line-height:1.55; margin-bottom:12px; }
+.si-body{ font-size:13px; color:#9fbdca; line-height:1.6; }
+.si-link{ padding:9px 0; border-top:1px solid #16323f; }
+.si-link-head{ font-family:var(--mono); font-size:11px; color:#cfe9f2; display:flex; align-items:center; gap:7px; margin-bottom:3px; }
+.si-link-head i{ width:16px; height:3px; border-radius:2px; display:inline-block; flex:none; }
+.si-why{ font-size:12.5px; color:#8fb0bd; line-height:1.5; }
+.sitmap-legend{ display:flex; flex-wrap:wrap; gap:14px; margin-top:12px; padding-top:11px; border-top:1px solid #14303c; }
 .sitmap-legend .lg{ font-family:var(--mono); font-size:10.5px; color:#8fb0bd; display:flex; align-items:center; gap:6px; cursor:pointer; }
 .sitmap-legend .lg i{ width:14px; height:3px; border-radius:2px; display:inline-block; }
 .sitmap-legend .lg:hover{ color:#cfe9f2; }
+.sitmap-legend .lg.on{ color:#eaf6fb; }
 /* SVG element states (set from JS) */
-#sitmap .edge{ fill:none; stroke-width:1.4; opacity:.55; }
-#sitmap .edge.dim{ opacity:.06; }
-#sitmap .edge.hot{ opacity:1; stroke-width:2.4; }
+#sitmap .edge{ fill:none; stroke-linecap:round; opacity:.6; }
+#sitmap .edge.dim{ opacity:.05; }
+#sitmap .edge.hot{ opacity:1; }
+#sitmap .dot{ pointer-events:none; }
 #sitmap .node{ cursor:pointer; }
-#sitmap .node .core{ transition:.15s; }
-#sitmap .node.dim{ opacity:.28; }
-#sitmap .nlabel{ font-family:var(--mono); font-size:8.5px; fill:#8fc4d6; pointer-events:none; }
-#sitmap .nlabel.hub{ fill:#eaf6fb; font-size:9.5px; }
-#sitmap .graticule{ stroke:#123644; stroke-width:.6; fill:none; }
-#sitmap .land{ fill:#0e2733; opacity:.55; }
+#sitmap .node.dim{ opacity:.2; }
+#sitmap .nlabel{ font-family:var(--mono); font-size:8px; fill:#bfe4f0; pointer-events:none; paint-order:stroke; stroke:#04141d; stroke-width:2px; }
+#sitmap .nlabel.hub{ fill:#ffffff; font-size:9px; }
+@media (max-width:640px){
+  .sitmap-body{ flex-direction:column; }
+  .sitmap-globe{ width:100%; max-width:360px; margin:0 auto; }
+  .sitmap-info{ max-height:none; }
+}
 
 /* the "board" — great-power hubs */
 .board{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin:4px 0 18px; }
