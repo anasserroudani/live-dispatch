@@ -207,12 +207,12 @@ def search():
     )
 
 
-@app.route("/for-you")
-@app.route("/for-you/")
-def for_you():
-    """A birthday ceremony page (neutral URL to keep it a surprise). 🌸"""
+@app.route("/read")
+@app.route("/read/")
+def read():
+    """A birthday surprise page — plain URL so nothing gives it away. 🌸"""
     return send_from_directory(
-        os.path.join(os.path.dirname(__file__), "docs", "for-you"), "index.html")
+        os.path.join(os.path.dirname(__file__), "docs", "read"), "index.html")
 
 
 @app.route("/refresh", methods=["POST"])
