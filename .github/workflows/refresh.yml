@@ -16,6 +16,8 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    env:
+      TZ: Africa/Casablanca      # so the snapshot date matches Morocco, not UTC
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
