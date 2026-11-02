@@ -1,13 +1,12 @@
 name: Refresh news snapshot
 
-# Runs on GitHub's servers (not your Mac), so it works even when your Mac is off.
 on:
   schedule:
-    - cron: "0 7,19 * * *"   # ~08:00 and 20:00 Morocco time (UTC+1)
-  workflow_dispatch: {}        # lets you also run it by hand from the Actions tab
+    - cron: "17 */3 * * *"   # every 3 hours, at minute 17 (avoids the busy top of the hour)
+  workflow_dispatch: {}
 
 permissions:
-  contents: write              # allow the workflow to commit the fresh snapshot
+  contents: write
 
 concurrency:
   group: refresh-news
@@ -16,8 +15,9 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     env:
-      TZ: Africa/Casablanca      # so the snapshot date matches Morocco, not UTC
+      TZ: Africa/Casablanca
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
@@ -30,8 +30,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Fetch fresh news and rebuild the snapshot
-        run: python build_static.py
+      - name: Fetch fresh news and rebuild the snapshot (retry once)
+        run: python build_static.py || (sleep 30 && python build_static.py)
 
       - name: Commit & push if anything changed
         run: |
@@ -42,5 +42,6 @@ jobs:
             echo "No changes to publish."
           else
             git commit -m "Auto refresh news $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git pull --rebase -X theirs
             git push
           fi
